@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -50,9 +50,10 @@ public class FileTreeBuilderTest {
 		assertEquals("directory", root.getChildren().get(0).getNodeInfo()
 				.getName());
 		assertTrue(root.getChildren().get(0).getNodeInfo() instanceof DirectoryInfo);
-		assertEquals(1, root.getChildren().get(0).getChildren().size());
-		assertEquals("hello.properties", root.getChildren().get(2)
+		// cannot commit an empty directory to Git
+		// assertEquals(1, root.getChildren().get(0).getChildren().size());
+		assertEquals("hello.properties", root.getChildren().get(1)
 				.getNodeInfo().getName());
-		assertTrue(root.getChildren().get(2).getNodeInfo() instanceof FileInfo);
+		assertTrue(root.getChildren().get(1).getNodeInfo() instanceof FileInfo);
 	}
 }
