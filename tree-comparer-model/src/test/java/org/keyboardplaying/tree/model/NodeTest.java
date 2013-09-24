@@ -64,4 +64,17 @@ public class NodeTest {
 		assertEquals("cow", children.get(2).getNodeInfo());
 		assertEquals("dog", children.get(3).getNodeInfo());
 	}
+
+	@Test
+	public void testParent() {
+		Node<String> node = new Node<String>("Parent");
+		Node<String> node1 = new Node<String>("Child 1");
+		Node<String> node2 = new Node<String>("Child 2");
+
+		node.addChild(node1);
+		node.addChild(node2);
+
+		assertTrue(node1.getParent() == node2.getParent());
+		assertTrue(node1.getParent() == node);
+	}
 }

@@ -27,6 +27,7 @@ import java.util.List;
 public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
 
 	private T nodeInfo;
+	private Node<T> parent;
 	private List<Node<T>> children = new ArrayList<Node<T>>();
 
 	public Node(T nodeInfo) {
@@ -35,6 +36,10 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
 
 	public T getNodeInfo() {
 		return nodeInfo;
+	}
+
+	public Node<T> getParent() {
+		return parent;
 	}
 
 	public void addChild(Node<T> child) {
@@ -48,6 +53,7 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
 			i++;
 		}
 		children.add(i, child);
+		child.parent = this;
 	}
 
 	public boolean hasChildren() {

@@ -26,32 +26,29 @@ import org.keyboardplaying.tree.file.model.FileSystemElementInfo;
 import org.keyboardplaying.tree.file.model.FileTree;
 import org.keyboardplaying.tree.model.Tree;
 
-// XXX JAVADOC
 /**
  * @author cyChop (http://keyboardplaying.org/)
  */
-public class ReportGenerator {
+public class Main {
 
-	private FileTreeBuilder builder = new FileTreeBuilder();
-	private Comparer comparer = new Comparer();
-
-	public void generateReport(String[] paths) throws FileNotFoundException,
+	public static void main(String[] args) throws FileNotFoundException,
 			IOException {
-		File[] files = new File[paths.length];
-		for (int i = 0; i < paths.length; i++) {
-			files[i] = new File(paths[i]);
-		}
-		generateReport(files);
-	}
+		File[] files = new File[2];
+		files[0] = new File("src/test/resources/version1");
+		files[1] = new File("src/test/resources/version2");
 
-	public void generateReport(File[] files) throws FileNotFoundException,
-			IOException {
+		// Build trees
 		FileTree[] trees = new FileTree[files.length];
 		for (int i = 0; i < files.length; i++) {
-			trees[i] = builder.buildTree(files[i]);
+			trees[i] = new FileTreeBuilder().buildTree(files[i]);
 		}
-		Tree<Versions<String>, Versions<FileSystemElementInfo>> result = comparer
+
+		// Compare
+		Tree<Versions<String>, Versions<FileSystemElementInfo>> result = new Comparer()
 				.compare(trees);
-		// FIXME generate the report
+
+		// Generate the report
+		new Report(result).generate();
 	}
+
 }
