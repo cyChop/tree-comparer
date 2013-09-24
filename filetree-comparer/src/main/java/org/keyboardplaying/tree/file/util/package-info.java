@@ -14,27 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.keyboardplaying.tree.model;
-
 // XXX JAVADOC
 /**
  * @author cyChop (http://keyboardplaying.org/)
  */
-public class Tree<R extends Comparable<R>, T extends Comparable<T>> {
-
-	private R id;
-	private Node<T> root;
-
-	public Tree(R id, Node<T> root) {
-		this.id = id;
-		this.root = root;
-	}
-
-	public R getId() {
-		return id;
-	}
-
-	public Node<T> getRoot() {
-		return root;
-	}
-}
+package org.keyboardplaying.tree.file.util;

@@ -17,7 +17,6 @@
 package org.keyboardplaying.tree.model;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -38,10 +37,6 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
 		return nodeInfo;
 	}
 
-	public void addChild(T child) {
-		this.addChild(new Node<T>(child));
-	}
-
 	public void addChild(Node<T> child) {
 		/*
 		 * Keeping children sorted is a condition for the comparison algorithm
@@ -55,12 +50,6 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
 		children.add(i, child);
 	}
 
-	public void addChildren(Collection<Node<T>> children) {
-		for (Node<T> child : children) {
-			addChild(child);
-		}
-	}
-
 	public boolean hasChildren() {
 		return !children.isEmpty();
 	}
@@ -69,15 +58,31 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
 		return Collections.unmodifiableList(children);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	@Override
 	public int compareTo(Node<T> o) {
 		return getNodeInfo().compareTo(o.getNodeInfo());
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		return getNodeInfo().hashCode();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		return obj instanceof Node
@@ -85,6 +90,11 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
 				|| getNodeInfo().equals(obj);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return nodeInfo.toString();

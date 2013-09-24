@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.keyboardplaying.tree.model;
+package org.keyboardplaying.tree.diff.model;
 
 import java.util.Arrays;
 
@@ -30,12 +30,12 @@ public class Versions<T extends Comparable<T>> implements
 		versions = new Object[nbVersions];
 	}
 
-	public void setVersion(int idx, T version) {
+	public void set(int idx, T version) {
 		versions[idx] = version;
 	}
 
 	@SuppressWarnings("unchecked")
-	public T getVersion(int idx) {
+	public T get(int idx) {
 		return (T) versions[idx];
 	}
 
@@ -53,6 +53,7 @@ public class Versions<T extends Comparable<T>> implements
 		return versions.length;
 	}
 
+	@Override
 	public int compareTo(Versions<T> o) {
 		return getFirstNonNullVersion().compareTo(o.getFirstNonNullVersion());
 	}
@@ -65,6 +66,6 @@ public class Versions<T extends Comparable<T>> implements
 	@Override
 	public boolean equals(Object o) {
 		return o instanceof Versions
-			&& Arrays.equals(versions, ((Versions) o).versions);
+				&& Arrays.equals(versions, ((Versions<?>) o).versions);
 	}
 }

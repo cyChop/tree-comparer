@@ -14,27 +14,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.keyboardplaying.tree.model;
+package org.keyboardplaying.tree.file.model;
 
 // XXX JAVADOC
 /**
  * @author cyChop (http://keyboardplaying.org/)
  */
-public class Tree<R extends Comparable<R>, T extends Comparable<T>> {
+public class DirectoryInfo extends FileSystemElementInfo {
 
-	private R id;
-	private Node<T> root;
-
-	public Tree(R id, Node<T> root) {
-		this.id = id;
-		this.root = root;
+	public DirectoryInfo(String name) {
+		super(name);
 	}
 
-	public R getId() {
-		return id;
+	@Override
+	public int hashCode() {
+		return getName().hashCode();
 	}
 
-	public Node<T> getRoot() {
-		return root;
+	@Override
+	public boolean equals(Object o) {
+		return o instanceof DirectoryInfo
+				&& getName().equals(((DirectoryInfo) o).getName());
+	}
+
+	@Override
+	public String toString() {
+		return String.format("d|%s", getName());
 	}
 }

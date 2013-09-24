@@ -14,6 +14,7 @@
 	<modules>
 		<module>comparison-algorithm</module>
 		<module>tree-model</module>
+		<module>filetree-comparer</module>
 	</modules>
 
 	<properties>

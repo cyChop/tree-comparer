@@ -14,14 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.keyboardplaying.tree.comparer;
+package org.keyboardplaying.tree.diff;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.keyboardplaying.tree.diff.model.Versions;
 import org.keyboardplaying.tree.model.Node;
 import org.keyboardplaying.tree.model.Tree;
-import org.keyboardplaying.tree.model.Versions;
 
 // XXX JAVADOC
 /**
@@ -44,8 +44,8 @@ public class Comparer {
 		List<Node<T>>[] children = new List[nbVersions];
 
 		for (int i = 0; i < nbVersions; i++) {
-			roots.setVersion(i, trees[i].getRootInfo());
-			rootVersions.setVersion(i, trees[i].getRoot().getNodeInfo());
+			roots.set(i, trees[i].getId());
+			rootVersions.set(i, trees[i].getRoot().getNodeInfo());
 			children[i] = trees[i].getRoot().getChildren();
 		}
 
@@ -75,48 +75,8 @@ public class Comparer {
 		// loop over all children
 		while (iterate) {
 			// compute this line
-			T min = null;
-			Versions<T> versions = new Versions<T>(nbVersions);
-			List<Node<T>>[] nextChildren = new List[nbVersions];
-			for (int i = 0; i < nbVersions; i++) {
-				// build list
-				if (indices[i] < maxIdcs[i]) {
-					Node<T> currentChildNode = children[i].get(indices[i]);
-					T currentChild = currentChildNode.getNodeInfo();
-					if (min == null) {
-						// first non null version found for this item
-						min = currentChild;
-						versions.setVersion(i, currentChild);
-						indices[i]++;
-					} else {
-						int comparison = min.compareTo(currentChild);
-						if (comparison == 0) {
-							// save version
-							versions.setVersion(i, currentChild);
-							indices[i]++;
-						} else if (comparison > 0) {
-							// save version
-							min = currentChild;
-							versions.setVersion(i, currentChild);
-							indices[i]++;
-							// previous were not the real minimum, revert them.
-							for (int j = 0; j < i; j++) {
-								versions.setVersion(j, null);
-								indices[j]--;
-								nextChildren[j] = new ArrayList<Node<T>>();
-							}
-						}
-						// case comparison < 0: just skip that one for now
-					}
-					nextChildren[i] = currentChildNode.getChildren();
-				} else {
-					nextChildren[i] = new ArrayList<Node<T>>();
-				}
-			}
-			// Build and add node
-			Node<Versions<T>> versionsNode = new Node<Versions<T>>(versions);
-			addChildrenVersions(versionsNode, nextChildren);
-			rootNode.addChild(versionsNode);
+			addChildrenAtCurrentIndices(rootNode, children, nbVersions,
+					indices, maxIdcs);
 			// Was this the last iteration?
 			iterate = false;
 			for (int i = 0; i < nbVersions; i++) {
@@ -124,5 +84,53 @@ public class Comparer {
 				iterate |= maxIdcs[i] > indices[i];
 			}
 		}
+	}
+
+	private <T extends Comparable<T>> void addChildrenAtCurrentIndices(
+			Node<Versions<T>> rootNode, List<Node<T>>[] children,
+			int nbVersions, int[] indices, int[] maxIdcs) {
+		T min = null;
+		Versions<T> versions = new Versions<T>(nbVersions);
+		@SuppressWarnings("unchecked")
+		List<Node<T>>[] nextChildren = new List[nbVersions];
+		for (int i = 0; i < nbVersions; i++) {
+			// build list
+			if (indices[i] < maxIdcs[i]) {
+				Node<T> currentChildNode = children[i].get(indices[i]);
+				T currentChild = currentChildNode.getNodeInfo();
+				if (min == null) {
+					// first non null version found for this item
+					min = currentChild;
+					versions.set(i, currentChild);
+					indices[i]++;
+				} else {
+					int comparison = min.compareTo(currentChild);
+					if (comparison == 0) {
+						// save version
+						versions.set(i, currentChild);
+						indices[i]++;
+					} else if (comparison > 0) {
+						// save version
+						min = currentChild;
+						versions.set(i, currentChild);
+						indices[i]++;
+						// previous were not the real minimum, revert them.
+						for (int j = 0; j < i; j++) {
+							versions.set(j, null);
+							indices[j]--;
+							nextChildren[j] = new ArrayList<Node<T>>();
+						}
+					}
+					// case comparison < 0: just skip that one for now
+				}
+				nextChildren[i] = currentChildNode.getChildren();
+			} else {
+				nextChildren[i] = new ArrayList<Node<T>>();
+			}
+		}
+		// Build and add node
+		Node<Versions<T>> versionsNode = new Node<Versions<T>>(versions);
+		addChildrenVersions(versionsNode, nextChildren);
+		rootNode.addChild(versionsNode);
 	}
 }

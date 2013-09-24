@@ -14,27 +14,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.keyboardplaying.tree.model;
+package org.keyboardplaying.tree.file.util;
 
-// XXX JAVADOC
+//XXX JAVADOC
 /**
  * @author cyChop (http://keyboardplaying.org/)
  */
-public class Tree<R extends Comparable<R>, T extends Comparable<T>> {
+public final class FileSizeUtils {
 
-	private R id;
-	private Node<T> root;
-
-	public Tree(R id, Node<T> root) {
-		this.id = id;
-		this.root = root;
+	/** Private constructor to avoid instantiation. */
+	private FileSizeUtils() {
 	}
 
-	public R getId() {
-		return id;
-	}
-
-	public Node<T> getRoot() {
-		return root;
+	public static String humanReadableFileSize(long size, boolean si) {
+		/*
+		 * Provided by aioobe
+		 * 
+		 * http://stackoverflow.com/questions/3758606/how-to-convert-byte-size-into
+		 * -human-readable-format-in-java
+		 */
+		int unit = si ? 1000 : 1024;
+		if (size < unit) {
+			return size + " B";
+		}
+		int exp = (int) (Math.log(size) / Math.log(unit));
+		String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp - 1)
+				+ (si ? "" : "i");
+		return String.format("%.1f %sB", size / Math.pow(unit, exp), pre);
 	}
 }

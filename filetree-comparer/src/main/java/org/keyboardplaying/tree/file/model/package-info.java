@@ -16,5 +16,6 @@
  */
 // XXX JAVADOC
 /**
+ * @author cyChop (http://keyboardplaying.org/)
  */
-package org.keyboardplaying.tree.comparer;
+package org.keyboardplaying.tree.file.model;
