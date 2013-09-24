@@ -12,9 +12,9 @@
 	<url>http://cychop.github.io/tree-comparer</url>
 
 	<modules>
-		<module>comparison-algorithm</module>
-		<module>tree-model</module>
-		<module>filetree-comparer</module>
+		<module>tree-comparer-model</module>
+		<module>tree-comparer-algorithm</module>
+		<module>tree-comparer-file</module>
 	</modules>
 
 	<properties>
