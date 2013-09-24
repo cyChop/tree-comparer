@@ -70,16 +70,14 @@ public class FileTreeBuilder {
 
 	private Node<FileSystemElementInfo> createDirectoryNode(File file) {
 		assert file.isDirectory();
-		return new Node<FileSystemElementInfo>(
-				new DirectoryInfo(file.getName()));
+		return new Node<FileSystemElementInfo>(new DirectoryInfo(file));
 	}
 
 	private Node<FileSystemElementInfo> createFileNode(File file)
 			throws FileNotFoundException, IOException {
 		assert file.isFile();
 		String checksum = DigestUtils.md5Hex(new FileInputStream(file));
-		FileSystemElementInfo fileInfo = new FileInfo(file.getName(),
-				file.length(), file.lastModified(), checksum);
+		FileSystemElementInfo fileInfo = new FileInfo(file, checksum);
 		return new Node<FileSystemElementInfo>(fileInfo);
 	}
 }

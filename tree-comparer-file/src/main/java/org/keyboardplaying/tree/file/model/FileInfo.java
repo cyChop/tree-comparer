@@ -16,7 +16,7 @@
  */
 package org.keyboardplaying.tree.file.model;
 
-import org.keyboardplaying.tree.file.util.FileSizeUtils;
+import java.io.File;
 
 // XXX JAVADOC
 /**
@@ -24,23 +24,19 @@ import org.keyboardplaying.tree.file.util.FileSizeUtils;
  */
 public class FileInfo extends FileSystemElementInfo {
 
-	private long size;
-	private long lastModified;
 	private String checksum;
 
-	public FileInfo(String name, long size, long lastModified, String checksum) {
-		super(name);
-		this.size = size;
-		this.lastModified = lastModified;
+	public FileInfo(File file, String checksum) {
+		super(file);
 		this.checksum = checksum;
 	}
 
 	public long getFileSize() {
-		return size;
+		return getFile().length();
 	}
 
 	public long getLastModified() {
-		return lastModified;
+		return getFile().lastModified();
 	}
 
 	public String getChecksum() {
@@ -62,13 +58,5 @@ public class FileInfo extends FileSystemElementInfo {
 					&& getChecksum().equals(fi.getChecksum());
 		}
 		return equal;
-	}
-
-	@Override
-	public String toString() {
-		return String.format(
-				"%s (%s, %3$tY-%3$tm-%3$te %3$tH:%3$tM:%3$tS, %s)", getName(),
-				FileSizeUtils.humanReadableFileSize(getFileSize(), false),
-				getLastModified(), getChecksum());
 	}
 }

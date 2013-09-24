@@ -16,14 +16,16 @@
  */
 package org.keyboardplaying.tree.file.model;
 
+import java.io.File;
+
 // XXX JAVADOC
 /**
  * @author cyChop (http://keyboardplaying.org/)
  */
 public class DirectoryInfo extends FileSystemElementInfo {
 
-	public DirectoryInfo(String name) {
-		super(name);
+	public DirectoryInfo(File file) {
+		super(file);
 	}
 
 	@Override
@@ -35,10 +37,5 @@ public class DirectoryInfo extends FileSystemElementInfo {
 	public boolean equals(Object o) {
 		return o instanceof DirectoryInfo
 				&& getName().equals(((DirectoryInfo) o).getName());
-	}
-
-	@Override
-	public String toString() {
-		return String.format("d|%s", getName());
 	}
 }

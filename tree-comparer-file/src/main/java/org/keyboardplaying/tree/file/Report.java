@@ -17,17 +17,23 @@
 package org.keyboardplaying.tree.file;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Writer;
+import java.util.LinkedList;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.keyboardplaying.tree.diff.model.Versions;
 import org.keyboardplaying.tree.file.model.DirectoryInfo;
 import org.keyboardplaying.tree.file.model.FileInfo;
 import org.keyboardplaying.tree.file.model.FileSystemElementInfo;
+import org.keyboardplaying.tree.file.util.DiffMatchPatch;
+import org.keyboardplaying.tree.file.util.DiffMatchPatch.Diff;
 import org.keyboardplaying.tree.file.util.FileSizeUtils;
 import org.keyboardplaying.tree.model.Node;
 import org.keyboardplaying.tree.model.Tree;
@@ -52,20 +58,12 @@ public class Report {
 
 		writer.write("<html>");
 		// write header with bootstrap style
-		writer.write("<head>");
-		writer.write("<meta charset=\"UTF-8\">");
-		writer.write("<title>Comparison report</title>");
-		writer.write("<style>");
-		InputStream style = this.getClass().getClassLoader()
-				.getResourceAsStream("bootstrap.min.css");
-		IOUtils.copy(style, writer);
-		writer.write("</style>");
-		writer.write("</head>");
+		printHtmlHeaders(writer);
 
 		// write the body
 		writer.write("<body style=\"padding: 10px\">");
-		printHeader(diff, writer, colWidth);
-		print(diff.getRoot(), writer, colWidth);
+		printHeader(diff, writer);
+		print(diff.getRoot(), writer);
 		writer.write("</body>");
 
 		// end HTML
@@ -74,36 +72,51 @@ public class Report {
 		IOUtils.closeQuietly(writer);
 	}
 
+	private void printHtmlHeaders(BufferedWriter writer) throws IOException {
+		writer.write("<head>");
+		writer.write("<meta charset=\"UTF-8\">");
+		writer.write("<title>Comparison report</title>");
+		writer.write("<style>");
+		InputStream style = this.getClass().getClassLoader()
+				.getResourceAsStream("bootstrap.min.css");
+		IOUtils.copy(style, writer);
+		IOUtils.closeQuietly(style);
+		// enhance diff style a bit
+		writer.write(".text-success{background-color:#ccffcc}"
+				+ ".text-danger{background-color:#ffcccc}"
+				+ "pre{white-space:nowrap;overflow-x:auto}");
+		writer.write("</style>");
+		writer.write("</head>");
+	}
+
 	private void printHeader(
 			Tree<Versions<String>, Versions<FileSystemElementInfo>> result,
-			BufferedWriter writer, int colWidth) throws IOException {
+			BufferedWriter writer) throws IOException {
 		writer.write("<div class=\"row\">");
 		for (String path : result.getId()) {
-			writer.write("<div class=\"col-md-" + colWidth + "\"><h4>" + path
-					+ "</h4></div>");
+			openCellDiv(writer);
+			writer.write("<h4>" + path + "</h4></div>");
 		}
 		writer.write("</div>");
 	}
 
-	private void print(Node<Versions<FileSystemElementInfo>> node,
-			Writer writer, int colWidth) throws IOException {
+	private void print(Node<Versions<FileSystemElementInfo>> node, Writer writer)
+			throws IOException {
 		boolean constant = node.getNodeInfo().isConstant();
+		boolean diff = false;
 		writer.write("<div class=\"row\">");
 		if (constant) {
 			writer.write("<span class=\"text-muted\">");
 		}
 		for (int i = 0; i < node.getNodeInfo().getNbVersions(); i++) {
-			writer.write("<div class=\"col-md-" + colWidth + "\">");
-			if (node.getNodeInfo().get(i) instanceof DirectoryInfo) {
-				writer.write("<b>" + getPath(node, i) + "</b>");
-			} else {
-				FileInfo info = (FileInfo) node.getNodeInfo().get(i);
-				writer.write(String
-						.format("%s <small>(%s, %3$tY-%3$tm-%3$te %3$tH:%3$tM:%3$tS, %s)</small>",
-								getPath(node, i),
-								FileSizeUtils.humanReadableFileSize(
-										info.getFileSize(), false),
-								info.getLastModified(), info.getChecksum()));
+			openCellDiv(writer);
+			if (node.getNodeInfo().get(i) != null) {
+				if (node.getNodeInfo().get(i) instanceof DirectoryInfo) {
+					printDirLine(node, writer, i);
+				} else {
+					diff = !constant;
+					printFileLine(node, writer, i);
+				}
 			}
 			if (constant) {
 				writer.write("</span>");
@@ -111,9 +124,28 @@ public class Report {
 			writer.write("</div>");
 		}
 		writer.write("</div>");
-		for (Node<Versions<FileSystemElementInfo>> child : node.getChildren()) {
-			print(child, writer, colWidth);
+		if (diff) {
+			printDiff(writer, node.getNodeInfo());
 		}
+		for (Node<Versions<FileSystemElementInfo>> child : node.getChildren()) {
+			print(child, writer);
+		}
+	}
+
+	private void printDirLine(Node<Versions<FileSystemElementInfo>> node,
+			Writer writer, int version) throws IOException {
+		writer.write("<b>+ " + getPath(node, version) + "</b>");
+	}
+
+	private void printFileLine(Node<Versions<FileSystemElementInfo>> node,
+			Writer writer, int version) throws IOException {
+		FileInfo info = (FileInfo) node.getNodeInfo().get(version);
+		writer.write(String
+				.format("&nbsp;&nbsp; %s <small>(%s, %3$tY-%3$tm-%3$te %3$tH:%3$tM:%3$tS, %s)</small>",
+						getPath(node, version), FileSizeUtils
+								.humanReadableFileSize(info.getFileSize(),
+										false), info.getLastModified(), info
+								.getChecksum()));
 	}
 
 	private String getPath(Node<Versions<FileSystemElementInfo>> node,
@@ -121,5 +153,57 @@ public class Report {
 		return node.getParent() == null ? node.getNodeInfo().get(version)
 				.getName() : getPath(node.getParent(), version) + '/'
 				+ node.getNodeInfo().get(version).getName();
+	}
+
+	private void printDiff(Writer writer,
+			Versions<FileSystemElementInfo> versions) throws IOException {
+		String ref = null;
+		writer.write("<div class=\"row\">");
+		for (int i = 0; i < versions.getNbVersions(); i++) {
+			openCellDiv(writer);
+			FileSystemElementInfo version = versions.get(i);
+			if (version != null) {
+				writer.write("<pre>");
+				if (ref == null) {
+					ref = prepFileForHtml(version.getPath());
+					writer.write(ref);
+				} else {
+					String file = prepFileForHtml(version.getPath());
+					DiffMatchPatch diff = new DiffMatchPatch();
+					LinkedList<Diff> delta = diff.diff_main(ref, file);
+					diff.diff_cleanupSemantic(delta);
+					for (Diff deltum : delta) {
+						switch (deltum.operation) {
+						case INSERT:
+							writer.write("<span class=\"text-success\">");
+							writer.write(deltum.text);
+							writer.write("</span>");
+							break;
+						case DELETE:
+							writer.write("<strike class=\"text-danger\">");
+							writer.write(deltum.text);
+							writer.write("</strike>");
+							break;
+						case EQUAL:
+						default:
+							writer.write(deltum.text);
+							break;
+						}
+					}
+				}
+				writer.write("</pre>");
+			}
+			writer.write("</div>");
+		}
+		writer.write("</div>");
+	}
+
+	private String prepFileForHtml(String path) throws IOException {
+		return StringEscapeUtils.escapeHtml(FileUtils
+				.readFileToString(new File(path)));
+	}
+
+	private void openCellDiv(Writer writer) throws IOException {
+		writer.write("<div class=\"col-xs-" + colWidth + "\">");
 	}
 }

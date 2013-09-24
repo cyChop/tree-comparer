@@ -15,8 +15,9 @@
 
 	<properties>
 		<!-- Dependencies and plugin versions -->
-		<v.commons.codec>1.8</v.commons.codec>
+		<v.commons.lang>2.6</v.commons.lang>
 		<v.commons.io>2.4</v.commons.io>
+		<v.commons.codec>1.8</v.commons.codec>
 	</properties>
 
 	<dependencies>
@@ -32,14 +33,19 @@
 		</dependency>
 
 		<dependency>
-			<groupId>commons-codec</groupId>
-			<artifactId>commons-codec</artifactId>
-			<version>${v.commons.codec}</version>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>${v.commons.lang}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>${v.commons.io}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>${v.commons.codec}</version>
 		</dependency>
 
 		<!-- Test dependencies -->

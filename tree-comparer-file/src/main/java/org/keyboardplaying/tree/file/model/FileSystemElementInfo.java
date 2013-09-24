@@ -16,6 +16,8 @@
  */
 package org.keyboardplaying.tree.file.model;
 
+import java.io.File;
+
 //XXX JAVADOC
 /**
  * @author cyChop (http://keyboardplaying.org/)
@@ -23,16 +25,25 @@ package org.keyboardplaying.tree.file.model;
 public abstract class FileSystemElementInfo implements
 		Comparable<FileSystemElementInfo> {
 
-	private String name;
+	private File file;
 
-	protected FileSystemElementInfo(String name) {
-		this.name = name;
+	protected FileSystemElementInfo(File file) {
+		this.file = file;
+	}
+
+	protected File getFile() {
+		return this.file;
 	}
 
 	public String getName() {
-		return name;
+		return file.getName();
 	}
 
+	public String getPath() {
+		return file.getAbsolutePath();
+	}
+
+	@Override
 	public int compareTo(FileSystemElementInfo o) {
 		int result = this.getClass().getSimpleName()
 				.compareTo(o.getClass().getSimpleName());
@@ -40,5 +51,10 @@ public abstract class FileSystemElementInfo implements
 			result = this.getName().compareTo(o.getName());
 		}
 		return result;
+	}
+
+	@Override
+	public String toString() {
+		return file.toString();
 	}
 }
