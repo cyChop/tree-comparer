@@ -1,0 +1,5 @@
+language: java
+# Test compilation with JDK6 since it seems to cause problems with fonts
+jdk:
+  - oraclejdk7
+  - openjdk6
