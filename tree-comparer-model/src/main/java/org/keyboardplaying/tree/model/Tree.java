@@ -37,4 +37,23 @@ public class Tree<R extends Comparable<R>, T extends Comparable<T>> {
 	public Node<T> getRoot() {
 		return root;
 	}
+
+	@Override
+	public String toString() {
+		// useful when debugging
+		StringBuilder sb = new StringBuilder();
+		sb.append(String.valueOf(id)).append('\n');
+		appendNode(root, sb, 0);
+		return sb.toString();
+	}
+
+	private void appendNode(Node<T> node, StringBuilder sb, int level) {
+		for (int i = 0; i < level; i++) {
+			sb.append("  ");
+		}
+		sb.append(String.valueOf(node)).append('\n');
+		for (Node<T> child : node.getChildren()) {
+			appendNode(child, sb, level + 1);
+		}
+	}
 }

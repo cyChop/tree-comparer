@@ -55,6 +55,6 @@ public abstract class FileSystemElementInfo implements
 
 	@Override
 	public String toString() {
-		return file.toString();
+		return file.getName();
 	}
 }

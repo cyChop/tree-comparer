@@ -84,7 +84,7 @@ public class Report {
 		// enhance diff style a bit
 		writer.write(".text-success{background-color:#ccffcc}"
 				+ ".text-danger{background-color:#ffcccc}"
-				+ "pre{white-space:nowrap;overflow-x:auto}");
+				+ "pre{white-space:pre;max-height: 500px;overflow-x:auto;overflow-y:auto}");
 		writer.write("</style>");
 		writer.write("</head>");
 	}
@@ -108,14 +108,14 @@ public class Report {
 		if (constant) {
 			writer.write("<span class=\"text-muted\">");
 		}
-		for (int i = 0; i < node.getNodeInfo().getNbVersions(); i++) {
+		for (int v = 0; v < node.getNodeInfo().getNbVersions(); v++) {
 			openCellDiv(writer);
-			if (node.getNodeInfo().get(i) != null) {
-				if (node.getNodeInfo().get(i) instanceof DirectoryInfo) {
-					printDirLine(node, writer, i);
+			if (node.getNodeInfo().get(v) != null) {
+				if (node.getNodeInfo().get(v) instanceof DirectoryInfo) {
+					printDirLine(node, writer, v);
 				} else {
 					diff = !constant;
-					printFileLine(node, writer, i);
+					printFileLine(node, writer, v);
 				}
 			}
 			if (constant) {
@@ -150,9 +150,11 @@ public class Report {
 
 	private String getPath(Node<Versions<FileSystemElementInfo>> node,
 			int version) {
-		return node.getParent() == null ? node.getNodeInfo().get(version)
-				.getName() : getPath(node.getParent(), version) + '/'
-				+ node.getNodeInfo().get(version).getName();
+		int rootLength = this.diff.getId().get(version).length();
+		String path = node.getNodeInfo().get(version).getPath();
+		return path.length() > rootLength + 3 ? path.substring(rootLength + 3)
+				: path.length() > rootLength + 1 ? path
+						.substring(rootLength + 1) : path;
 	}
 
 	private void printDiff(Writer writer,
@@ -172,22 +174,27 @@ public class Report {
 					DiffMatchPatch diff = new DiffMatchPatch();
 					LinkedList<Diff> delta = diff.diff_main(ref, file);
 					diff.diff_cleanupSemantic(delta);
-					for (Diff deltum : delta) {
-						switch (deltum.operation) {
-						case INSERT:
-							writer.write("<span class=\"text-success\">");
-							writer.write(deltum.text);
-							writer.write("</span>");
-							break;
-						case DELETE:
-							writer.write("<strike class=\"text-danger\">");
-							writer.write(deltum.text);
-							writer.write("</strike>");
-							break;
-						case EQUAL:
-						default:
-							writer.write(deltum.text);
-							break;
+					if (delta.size() == 1
+							&& delta.get(0).operation == DiffMatchPatch.Operation.EQUAL) {
+						writer.write("No difference");
+					} else {
+						for (Diff deltum : delta) {
+							switch (deltum.operation) {
+							case INSERT:
+								writer.write("<span class=\"text-success\">");
+								writer.write(deltum.text);
+								writer.write("</span>");
+								break;
+							case DELETE:
+								writer.write("<strike class=\"text-danger\">");
+								writer.write(deltum.text);
+								writer.write("</strike>");
+								break;
+							case EQUAL:
+							default:
+								writer.write(deltum.text);
+								break;
+							}
 						}
 					}
 				}

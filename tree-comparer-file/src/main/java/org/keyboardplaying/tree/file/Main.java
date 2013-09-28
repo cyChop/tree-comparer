@@ -19,9 +19,11 @@ package org.keyboardplaying.tree.file;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Date;
 
 import org.keyboardplaying.tree.diff.Comparer;
 import org.keyboardplaying.tree.diff.model.Versions;
+import org.keyboardplaying.tree.file.filter.FilenameMaskFilter;
 import org.keyboardplaying.tree.file.model.FileSystemElementInfo;
 import org.keyboardplaying.tree.file.model.FileTree;
 import org.keyboardplaying.tree.model.Tree;
@@ -33,22 +35,37 @@ public class Main {
 
 	public static void main(String[] args) throws FileNotFoundException,
 			IOException {
+		System.out.println(String.format(
+				"[%1$tY-%1$tm-%1$te %1$tH:%1$tM:%1$tS] Starting", new Date()));
+
 		File[] files = new File[2];
 		files[0] = new File("src/test/resources/version1");
 		files[1] = new File("src/test/resources/version2");
 
 		// Build trees
+		System.out.println(String.format(
+				"[%1$tY-%1$tm-%1$te %1$tH:%1$tM:%1$tS] Building file trees",
+				new Date()));
 		FileTree[] trees = new FileTree[files.length];
 		for (int i = 0; i < files.length; i++) {
-			trees[i] = new FileTreeBuilder().buildTree(files[i]);
+			trees[i] = new FileTreeBuilder().buildTree(files[i],
+					new FilenameMaskFilter("[^.].+"));
 		}
 
 		// Compare
+		System.out.println(String.format(
+				"[%1$tY-%1$tm-%1$te %1$tH:%1$tM:%1$tS] Calculating diff",
+				new Date()));
 		Tree<Versions<String>, Versions<FileSystemElementInfo>> result = new Comparer()
 				.compare(trees);
 
 		// Generate the report
+		System.out.println(String.format(
+				"[%1$tY-%1$tm-%1$te %1$tH:%1$tM:%1$tS] Generating report",
+				new Date()));
 		new Report(result).generate();
-	}
 
+		System.out.println(String.format(
+				"[%1$tY-%1$tm-%1$te %1$tH:%1$tM:%1$tS] Done", new Date()));
+	}
 }

@@ -117,7 +117,7 @@ public class Comparer {
 						// previous were not the real minimum, revert them.
 						for (int j = 0; j < i; j++) {
 							versions.set(j, null);
-							indices[j]--;
+							indices[j] = Math.max(indices[j] - 1, 0);
 							nextChildren[j] = new ArrayList<Node<T>>();
 						}
 					}
