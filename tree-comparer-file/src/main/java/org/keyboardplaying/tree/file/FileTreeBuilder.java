@@ -22,6 +22,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.keyboardplaying.tree.file.filter.Filter;
 import org.keyboardplaying.tree.file.model.DirectoryInfo;
 import org.keyboardplaying.tree.file.model.FileInfo;
 import org.keyboardplaying.tree.file.model.FileSystemElementInfo;
@@ -34,8 +35,8 @@ import org.keyboardplaying.tree.model.Node;
  */
 public class FileTreeBuilder {
 
-	public FileTree buildTree(File file) throws FileNotFoundException,
-			IOException {
+	public FileTree buildTree(File file, Filter... filters)
+			throws FileNotFoundException, IOException {
 		// ensure file exists
 		if (!file.exists()) {
 			throw new FileNotFoundException("File " + file.getPath()
@@ -47,25 +48,43 @@ public class FileTreeBuilder {
 		if (file.isDirectory() && !".".equals(file.getName())) {
 			// The directories to be compared may have different names.
 			// Use '.' as name for the root directory.
-			tree = new FileTree(path, buildNode(new File(file, ".")));
+			tree = new FileTree(path, buildNode(new File(file, "."), filters));
 		} else {
-			tree = new FileTree(path, buildNode(file));
+			tree = new FileTree(path, buildNode(file, filters));
 		}
 		return tree;
 	}
 
-	private Node<FileSystemElementInfo> buildNode(File file)
+	private Node<FileSystemElementInfo> buildNode(File file, Filter... filters)
 			throws FileNotFoundException, IOException {
 		Node<FileSystemElementInfo> root;
 		if (file.isDirectory()) {
 			root = createDirectoryNode(file);
 			for (File subFile : file.listFiles()) {
-				root.addChild(buildNode(subFile));
+				if (matchFilters(subFile, filters)) {
+					root.addChild(buildNode(subFile, filters));
+				}
 			}
 		} else {
 			root = createFileNode(file);
 		}
 		return root;
+	}
+
+	/**
+	 * @param file
+	 * @param filters
+	 * @return
+	 */
+	private boolean matchFilters(File file, Filter... filters) {
+		boolean include = true;
+		for (Filter filter : filters) {
+			if (!filter.include(file)) {
+				include = false;
+				break;
+			}
+		}
+		return include;
 	}
 
 	private Node<FileSystemElementInfo> createDirectoryNode(File file) {

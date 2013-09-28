@@ -20,10 +20,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.junit.Test;
+import org.keyboardplaying.tree.file.filter.FilenameAntiMaskFilter;
+import org.keyboardplaying.tree.file.filter.FilenameMaskFilter;
 import org.keyboardplaying.tree.file.model.DirectoryInfo;
 import org.keyboardplaying.tree.file.model.FileInfo;
 import org.keyboardplaying.tree.file.model.FileSystemElementInfo;
@@ -37,7 +38,7 @@ import org.keyboardplaying.tree.model.Node;
 public class FileTreeBuilderTest {
 
 	@Test
-	public void testTreeBuilding() throws FileNotFoundException, IOException {
+	public void testTreeBuilding() throws IOException {
 		File file = new File("src/test/resources/version1");
 		FileTreeBuilder builder = new FileTreeBuilder();
 		FileTree tree = builder.buildTree(file);
@@ -52,8 +53,40 @@ public class FileTreeBuilderTest {
 		assertTrue(root.getChildren().get(0).getNodeInfo() instanceof DirectoryInfo);
 		// cannot commit an empty directory to Git
 		// assertEquals(1, root.getChildren().get(0).getChildren().size());
-		assertEquals("hello.properties", root.getChildren().get(1)
+		assertEquals(".htaccess", root.getChildren().get(1).getNodeInfo()
+				.getName());
+		assertEquals("hello.properties", root.getChildren().get(2)
 				.getNodeInfo().getName());
 		assertTrue(root.getChildren().get(1).getNodeInfo() instanceof FileInfo);
+	}
+
+	@Test
+	public void testTreeBuildingWithFilter() throws IOException {
+		File file = new File("src/test/resources/version1");
+		FileTreeBuilder builder = new FileTreeBuilder();
+		FileTree tree = builder.buildTree(file,
+				new FilenameMaskFilter("[^.].+"));
+
+		Node<FileSystemElementInfo> root = tree.getRoot();
+		assertTrue(root.getNodeInfo() instanceof DirectoryInfo);
+		assertEquals("directory", root.getChildren().get(0).getNodeInfo()
+				.getName());
+		assertEquals("hello.properties", root.getChildren().get(1)
+				.getNodeInfo().getName());
+	}
+
+	@Test
+	public void testTreeBuildingWithAntiMaskFilter() throws IOException {
+		File file = new File("src/test/resources/version1");
+		FileTreeBuilder builder = new FileTreeBuilder();
+		FileTree tree = builder.buildTree(file, new FilenameAntiMaskFilter(
+				"\\..+"));
+
+		Node<FileSystemElementInfo> root = tree.getRoot();
+		assertTrue(root.getNodeInfo() instanceof DirectoryInfo);
+		assertEquals("directory", root.getChildren().get(0).getNodeInfo()
+				.getName());
+		assertEquals("hello.properties", root.getChildren().get(1)
+				.getNodeInfo().getName());
 	}
 }
