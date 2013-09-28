@@ -14,8 +14,5 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// XXX JAVADOC
-/**
- * @author cyChop (http://keyboardplaying.org/)
- */
+/** The main classes for generic tree structures. */
 package org.keyboardplaying.tree.model;

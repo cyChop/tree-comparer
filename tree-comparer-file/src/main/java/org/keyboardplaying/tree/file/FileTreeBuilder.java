@@ -29,14 +29,26 @@ import org.keyboardplaying.tree.file.model.FileSystemElementInfo;
 import org.keyboardplaying.tree.file.model.FileTree;
 import org.keyboardplaying.tree.model.Node;
 
-// XXX JAVADOC
 /**
+ * A facility to build a {@link FileTree} to represent a file system hierarchy.
+ * 
  * @author cyChop (http://keyboardplaying.org/)
  */
 public class FileTreeBuilder {
 
-	public FileTree buildTree(File file, Filter... filters)
-			throws FileNotFoundException, IOException {
+	/**
+	 * Recursively builds a {@link FileTree} from a root {@link File}
+	 * (preferably a directory).
+	 * 
+	 * @param file
+	 *            the root file or directory
+	 * @param filters
+	 *            the filters to apply when building the tree
+	 * @return the generated {@link FileTree}
+	 * @throws IOException
+	 *             when a file could not be found or read
+	 */
+	public FileTree buildTree(File file, Filter... filters) throws IOException {
 		// ensure file exists
 		if (!file.exists()) {
 			throw new FileNotFoundException("File " + file.getPath()
@@ -55,8 +67,19 @@ public class FileTreeBuilder {
 		return tree;
 	}
 
+	/**
+	 * Recursively builds a node with its children.
+	 * 
+	 * @param file
+	 *            the file to build a node for
+	 * @param filters
+	 *            the filters to exclude files if need be
+	 * @return the root node, containing all its children
+	 * @throws IOException
+	 *             when the file cannot be read
+	 */
 	private Node<FileSystemElementInfo> buildNode(File file, Filter... filters)
-			throws FileNotFoundException, IOException {
+			throws IOException {
 		Node<FileSystemElementInfo> root;
 		if (file.isDirectory()) {
 			root = createDirectoryNode(file);
@@ -72,9 +95,17 @@ public class FileTreeBuilder {
 	}
 
 	/**
+	 * Ensures a file matches all supplied filters.
+	 * <p/>
+	 * If no filter is supplied, this method will return {@code true}.
+	 * 
 	 * @param file
+	 *            the {@link File} to test
 	 * @param filters
-	 * @return
+	 *            the filters to test the file against
+	 * @return {@code true} if no filter was supplied or if
+	 *         {@link Filter#include(File)} returned {@code true} for all
+	 *         filters, {@code false} otherwise
 	 */
 	private boolean matchFilters(File file, Filter... filters) {
 		boolean include = true;
@@ -87,15 +118,35 @@ public class FileTreeBuilder {
 		return include;
 	}
 
-	private Node<FileSystemElementInfo> createDirectoryNode(File file) {
-		assert file.isDirectory();
-		return new Node<FileSystemElementInfo>(new DirectoryInfo(file));
+	/**
+	 * Creates a node with {@link DirectoryInfo} characteristics.
+	 * 
+	 * @param directory
+	 *            the directory to create a node for
+	 * @return the node
+	 */
+	private Node<FileSystemElementInfo> createDirectoryNode(File directory) {
+		assert directory.isDirectory();
+		return new Node<FileSystemElementInfo>(new DirectoryInfo(directory));
 	}
 
+	/**
+	 * Creates a node with {@link FileInfo} characteristics.
+	 * 
+	 * @param file
+	 *            the file to create a node for
+	 * @return the node
+	 * @throws IOException
+	 *             if the file was not found or could not be read
+	 */
 	private Node<FileSystemElementInfo> createFileNode(File file)
-			throws FileNotFoundException, IOException {
+			throws IOException {
 		assert file.isFile();
+
+		// calculate the MD5 checksum for this file
 		String checksum = DigestUtils.md5Hex(new FileInputStream(file));
+
+		// create and return node
 		FileSystemElementInfo fileInfo = new FileInfo(file, checksum);
 		return new Node<FileSystemElementInfo>(fileInfo);
 	}

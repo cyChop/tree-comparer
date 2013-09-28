@@ -18,21 +18,43 @@ package org.keyboardplaying.tree.file.model;
 
 import java.io.File;
 
-// XXX JAVADOC
 /**
+ * Describes a directory on the file system.
+ * <p/>
+ * This {@link FileSystemElementInfo} describes a directory on the file system.
+ * Two directories are deemed equal if they have the same name (case-sensitive).
+ * 
  * @author cyChop (http://keyboardplaying.org/)
  */
 public class DirectoryInfo extends FileSystemElementInfo {
 
+	/**
+	 * Creates a new instance.
+	 * 
+	 * @param file
+	 *            a {@link File} representation of the directory this node
+	 *            describes
+	 */
 	public DirectoryInfo(File file) {
 		super(file);
+		assert file.isDirectory();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		return getName().hashCode();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object o) {
 		return o instanceof DirectoryInfo

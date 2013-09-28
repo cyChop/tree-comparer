@@ -24,12 +24,14 @@ import org.keyboardplaying.tree.diff.model.Versions;
 import org.keyboardplaying.tree.model.Node;
 import org.keyboardplaying.tree.model.Tree;
 
-// XXX JAVADOC
 /**
+ * Tests the {@link Comparer}.
+ * 
  * @author cyChop (http://keyboardplaying.org/)
  */
 public class ComparerTest {
 
+	/** Tests the comparison algorithm. */
 	@Test
 	public void testComparison() {
 		/* Build test trees; */

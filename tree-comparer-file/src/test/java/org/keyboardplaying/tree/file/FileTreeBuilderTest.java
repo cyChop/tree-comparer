@@ -31,12 +31,14 @@ import org.keyboardplaying.tree.file.model.FileSystemElementInfo;
 import org.keyboardplaying.tree.file.model.FileTree;
 import org.keyboardplaying.tree.model.Node;
 
-// XXX JAVADOC
 /**
+ * Tests the {@link FileTreeBuilder} class.
+ * 
  * @author cyChop (http://keyboardplaying.org/)
  */
 public class FileTreeBuilderTest {
 
+	/** Tests the standard tree building. */
 	@Test
 	public void testTreeBuilding() throws IOException {
 		File file = new File("src/test/resources/version1");
@@ -60,6 +62,7 @@ public class FileTreeBuilderTest {
 		assertTrue(root.getChildren().get(1).getNodeInfo() instanceof FileInfo);
 	}
 
+	/** Tests the tree building with a positive mask filter. */
 	@Test
 	public void testTreeBuildingWithFilter() throws IOException {
 		File file = new File("src/test/resources/version1");
@@ -75,6 +78,7 @@ public class FileTreeBuilderTest {
 				.getNodeInfo().getName());
 	}
 
+	/** Tests the tree building with a negative mask filter. */
 	@Test
 	public void testTreeBuildingWithAntiMaskFilter() throws IOException {
 		File file = new File("src/test/resources/version1");

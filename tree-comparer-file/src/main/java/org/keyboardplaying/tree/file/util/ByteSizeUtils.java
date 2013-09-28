@@ -16,17 +16,28 @@
  */
 package org.keyboardplaying.tree.file.util;
 
-//XXX JAVADOC
 /**
+ * Utility class for byte sizes.
+ * 
  * @author cyChop (http://keyboardplaying.org/)
  */
-public final class FileSizeUtils {
+public final class ByteSizeUtils {
 
 	/** Private constructor to avoid instantiation. */
-	private FileSizeUtils() {
+	private ByteSizeUtils() {
 	}
 
-	public static String humanReadableFileSize(long size, boolean si) {
+	/**
+	 * Turns a {@code long} byte size into a human-readable {@link String}.
+	 * 
+	 * @param size
+	 *            the byte size to display
+	 * @param si
+	 *            {@code true} to use the units of the international system
+	 *            (kb), {@code false} to use the IEC units (KiB, MiB, ...)
+	 * @return a human-readable byte size
+	 */
+	public static String getHumanReadable(long size, boolean si) {
 		/*
 		 * Provided by aioobe
 		 * 

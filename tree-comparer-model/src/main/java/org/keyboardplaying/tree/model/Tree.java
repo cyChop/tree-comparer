@@ -16,28 +16,62 @@
  */
 package org.keyboardplaying.tree.model;
 
-// XXX JAVADOC
 /**
+ * Simple class for a tree structure.
+ * <p/>
+ * A tree is an ID and a root node. Each node will reference its parent and
+ * children.
+ * 
  * @author cyChop (http://keyboardplaying.org/)
+ * @param <R>
+ *            the type of the tree's ID
+ * @param <T>
+ *            the type of the tree's nodes' characteristics
+ * @see Node
  */
 public class Tree<R extends Comparable<R>, T extends Comparable<T>> {
 
+	/** This tree's ID. */
 	private R id;
+	/** This tree's root. */
 	private Node<T> root;
 
+	/**
+	 * Creates a new instance.
+	 * 
+	 * @param id
+	 *            this tree's ID
+	 * @param root
+	 *            this tree's root
+	 */
 	public Tree(R id, Node<T> root) {
 		this.id = id;
 		this.root = root;
 	}
 
+	/**
+	 * Returns this tree's ID
+	 * 
+	 * @return this tree's ID
+	 */
 	public R getId() {
 		return id;
 	}
 
+	/**
+	 * Returns this tree's root.
+	 * 
+	 * @return this tree's root
+	 */
 	public Node<T> getRoot() {
 		return root;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		// useful when debugging
@@ -47,13 +81,23 @@ public class Tree<R extends Comparable<R>, T extends Comparable<T>> {
 		return sb.toString();
 	}
 
-	private void appendNode(Node<T> node, StringBuilder sb, int level) {
-		for (int i = 0; i < level; i++) {
+	/**
+	 * Appends a node to the supplied {@link StringBuilder}.
+	 * 
+	 * @param node
+	 *            the node to append
+	 * @param sb
+	 *            the {@link StringBuilder}
+	 * @param indent
+	 *            the indent level of this node (or the number of parent level)
+	 */
+	private void appendNode(Node<T> node, StringBuilder sb, int indent) {
+		for (int i = 0; i < indent; i++) {
 			sb.append("  ");
 		}
 		sb.append(String.valueOf(node)).append('\n');
 		for (Node<T> child : node.getChildren()) {
-			appendNode(child, sb, level + 1);
+			appendNode(child, sb, indent + 1);
 		}
 	}
 }

@@ -23,12 +23,29 @@ import org.keyboardplaying.tree.diff.model.Versions;
 import org.keyboardplaying.tree.model.Node;
 import org.keyboardplaying.tree.model.Tree;
 
-// XXX JAVADOC
 /**
+ * Compares a variable number of trees and compiles the results in a single tree
+ * containing each diff as a node.
+ * <p/>
+ * The diff tree respects the hierarchical structure of the compared trees and
+ * stores the various versions of each node in a {@link Versions} object. If a
+ * node is missing from a tree, it will be stored as {@code null} at that
+ * position in the corresponding {@link Versions} instance.
+ * 
  * @author cyChop (http://keyboardplaying.org/)
  */
 public class Comparer {
 
+	/**
+	 * Compares a variable number of trees.
+	 * <p/>
+	 * See the class description for more information.
+	 * 
+	 * @param trees
+	 *            the trees to compare; at least two should be provided
+	 * @return a {@link Tree} containing all the versions of each node in each
+	 *         original {@link Tree}
+	 */
 	public <R extends Comparable<R>, T extends Comparable<T>> Tree<Versions<R>, Versions<T>> compare(
 			Tree<R, T>... trees) {
 		int nbVersions = trees.length;
@@ -55,6 +72,21 @@ public class Comparer {
 		return new Tree<Versions<R>, Versions<T>>(roots, rootNode);
 	}
 
+	/**
+	 * Compares several lists of children and appends the diff result to the
+	 * supplied root node.
+	 * <p/>
+	 * This method adds the children one at a time. An array is used to save the
+	 * position in each children list.
+	 * 
+	 * @param rootNode
+	 *            the diff root node which should be parent to the newly
+	 *            generated diff children
+	 * @param children
+	 *            the various versions of children lists to compare
+	 * 
+	 * @see #addChildrenAtCurrentIndices(Node, List[], int, int[], int[])
+	 */
 	private <T extends Comparable<T>> void addChildrenVersions(
 			Node<Versions<T>> rootNode, List<Node<T>>[] children) {
 		int nbVersions = children.length;
@@ -86,6 +118,22 @@ public class Comparer {
 		}
 	}
 
+	/**
+	 * Adds the children at the current indices.
+	 * 
+	 * @param rootNode
+	 *            the diff root node which should be parent to the newly
+	 *            generated diff children
+	 * @param children
+	 *            the various versions of children lists to compare
+	 * @param nbVersions
+	 *            the number of versions being compared
+	 * @param indices
+	 *            the current position of iteration in each children list
+	 * @param maxIdcs
+	 *            the size of each children list; passing them as a parameter
+	 *            avoids counting the elements in the list on each iteration
+	 */
 	private <T extends Comparable<T>> void addChildrenAtCurrentIndices(
 			Node<Versions<T>> rootNode, List<Node<T>>[] children,
 			int nbVersions, int[] indices, int[] maxIdcs) {

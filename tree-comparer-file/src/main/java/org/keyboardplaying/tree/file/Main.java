@@ -29,6 +29,9 @@ import org.keyboardplaying.tree.file.model.FileTree;
 import org.keyboardplaying.tree.model.Tree;
 
 /**
+ * A sample implementation to show a use example of the file tree comparison
+ * mechanism.
+ * 
  * @author cyChop (http://keyboardplaying.org/)
  */
 public class Main {

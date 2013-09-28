@@ -20,28 +20,65 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-// XXX JAVADOC
 /**
+ * Simple implementation for a tree node.
+ * <p/>
+ * A node references its parent and children.
+ * <p/>
+ * There is no difference of implementation between nodes and leaves. A leaf
+ * will simply be a childless node.
+ * 
  * @author cyChop (http://keyboardplaying.org/)
  */
 public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
 
+	/** This node's characteristics. */
 	private T nodeInfo;
+	/** A reference to this node's parent. */
 	private Node<T> parent;
+	/**
+	 * This node's children.
+	 * <p/>
+	 * This list should be kept sorted at all times.
+	 */
 	private List<Node<T>> children = new ArrayList<Node<T>>();
 
+	/**
+	 * Creates a new instance.
+	 * 
+	 * @param nodeInfo
+	 *            this node's characteristics
+	 */
 	public Node(T nodeInfo) {
 		this.nodeInfo = nodeInfo;
 	}
 
+	/**
+	 * Returns this node's characteristics.
+	 * 
+	 * @return this node's characteristics
+	 */
 	public T getNodeInfo() {
 		return nodeInfo;
 	}
 
+	/**
+	 * Returns this node's parent, or {@code null} if this node is root.
+	 * 
+	 * @return this node's parent
+	 */
 	public Node<T> getParent() {
 		return parent;
 	}
 
+	/**
+	 * Adds a child to this node.
+	 * <p>
+	 * The children are kept sorted at all times.
+	 * 
+	 * @param child
+	 *            the child to add to this node
+	 */
 	public void addChild(Node<T> child) {
 		/*
 		 * Keeping children sorted is a condition for the comparison algorithm
@@ -56,10 +93,13 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
 		child.parent = this;
 	}
 
-	public boolean hasChildren() {
-		return !children.isEmpty();
-	}
-
+	/**
+	 * Returns this node's children.
+	 * <p/>
+	 * The list is sorted and unmodifiable.
+	 * 
+	 * @return this node's children
+	 */
 	public List<Node<T>> getChildren() {
 		return Collections.unmodifiableList(children);
 	}

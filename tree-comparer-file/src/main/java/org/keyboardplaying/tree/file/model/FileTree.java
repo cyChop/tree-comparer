@@ -19,13 +19,22 @@ package org.keyboardplaying.tree.file.model;
 import org.keyboardplaying.tree.model.Node;
 import org.keyboardplaying.tree.model.Tree;
 
-// XXX JAVADOC
 /**
+ * A specific use of {@link Tree} to represent a file system structure.
+ * 
  * @author cyChop (http://keyboardplaying.org/)
  */
 public class FileTree extends Tree<String, FileSystemElementInfo> {
 
-	public FileTree(String rootInfo, Node<FileSystemElementInfo> root) {
-		super(rootInfo, root);
+	/**
+	 * Creates a new instance.
+	 * 
+	 * @param rootPath
+	 *            the path to the root element of this tree
+	 * @param root
+	 *            the root element of this tree
+	 */
+	public FileTree(String rootPath, Node<FileSystemElementInfo> root) {
+		super(rootPath, root);
 	}
 }

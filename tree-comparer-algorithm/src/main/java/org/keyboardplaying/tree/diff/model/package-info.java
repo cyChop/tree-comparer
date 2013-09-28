@@ -14,8 +14,5 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// XXX JAVADOC
-/**
- * @author cyChop (http://keyboardplaying.org/)
- */
+/** Model classes related to the diff generation. */
 package org.keyboardplaying.tree.diff.model;
