@@ -33,7 +33,7 @@ import org.keyboardplaying.tree.model.Node;
 
 /**
  * Tests the {@link FileTreeBuilder} class.
- * 
+ *
  * @author cyChop (http://keyboardplaying.org/)
  */
 public class FileTreeBuilderTest {
@@ -50,16 +50,24 @@ public class FileTreeBuilderTest {
 		Node<FileSystemElementInfo> root = tree.getRoot();
 		assertEquals(".", root.getNodeInfo().getName());
 		assertTrue(root.getNodeInfo() instanceof DirectoryInfo);
-		assertEquals("directory", root.getChildren().get(0).getNodeInfo()
+
+		int i = 0;
+		if (!"directory".equals(root.getChildren().get(i).getNodeInfo())) {
+            i++;
+        }
+
+		assertEquals("directory", root.getChildren().get(i).getNodeInfo()
 				.getName());
-		assertTrue(root.getChildren().get(0).getNodeInfo() instanceof DirectoryInfo);
-		// cannot commit an empty directory to Git
-		// assertEquals(1, root.getChildren().get(0).getChildren().size());
-		assertEquals(".htaccess", root.getChildren().get(1).getNodeInfo()
+		assertTrue(root.getChildren().get(i).getNodeInfo() instanceof DirectoryInfo);
+
+		i++;
+		assertEquals(".htaccess", root.getChildren().get(i).getNodeInfo()
 				.getName());
-		assertEquals("hello.properties", root.getChildren().get(2)
+
+		i++;
+		assertEquals("hello.properties", root.getChildren().get(i)
 				.getNodeInfo().getName());
-		assertTrue(root.getChildren().get(1).getNodeInfo() instanceof FileInfo);
+		assertTrue(root.getChildren().get(i).getNodeInfo() instanceof FileInfo);
 	}
 
 	/** Tests the tree building with a positive mask filter. */
