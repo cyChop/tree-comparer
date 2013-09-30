@@ -52,7 +52,7 @@ public class FileTreeBuilderTest {
 		assertTrue(root.getNodeInfo() instanceof DirectoryInfo);
 
 		int i = 0;
-		if (!"directory".equals(root.getChildren().get(i).getNodeInfo())) {
+		if (!"directory".equals(root.getChildren().get(i).getNodeInfo().getName())) {
             i++;
         }
 
