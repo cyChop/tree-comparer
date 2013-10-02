@@ -40,7 +40,7 @@ import org.keyboardplaying.tree.model.Tree;
 /**
  * Prints the result of the comparison of up to twelve
  * {@link org.keyboardplaying.tree.file.model.FileTree} to an HTML page.
- * 
+ *
  * @author cyChop (http://keyboardplaying.org/)
  */
 public class Report {
@@ -59,7 +59,7 @@ public class Report {
 
 	/**
 	 * Creates a new instance.
-	 * 
+	 *
 	 * @param diff
 	 *            the result of a
 	 *            {@link org.keyboardplaying.tree.file.model.FileTree}
@@ -73,7 +73,7 @@ public class Report {
 
 	/**
 	 * Generates the report as an HTML page.
-	 * 
+	 *
 	 * @throws IOException
 	 *             if an I/0 exception occurs
 	 */
@@ -81,7 +81,7 @@ public class Report {
 		BufferedWriter writer = new BufferedWriter(
 				new FileWriter("report.html"));
 
-		writer.write("<html>");
+		writer.write("<!DOCTYPE html><html>");
 		// write header with bootstrap style
 		printHtmlHeaders(writer);
 
@@ -99,7 +99,7 @@ public class Report {
 
 	/**
 	 * Prints the {@code &lt;head/&gt;} section of the HTML page.
-	 * 
+	 *
 	 * @param writer
 	 *            the {@link Writer} used to generate the report
 	 * @throws IOException
@@ -124,7 +124,7 @@ public class Report {
 
 	/**
 	 * Prints the versions of the tree IDs as a header line in the report.
-	 * 
+	 *
 	 * @param ids
 	 *            the versions of the tree IDs to print
 	 * @param writer
@@ -144,7 +144,7 @@ public class Report {
 
 	/**
 	 * Prints all the versions of a node on a line.
-	 * 
+	 *
 	 * @param node
 	 *            the node containing the various versions to print
 	 * @param writer
@@ -156,9 +156,10 @@ public class Report {
 			throws IOException {
 		boolean constant = node.getNodeInfo().isConstant();
 		boolean diff = false;
-		writer.write("<div class=\"row\">");
 		if (constant) {
-			writer.write("<span class=\"text-muted\">");
+		    writer.write("<div class=\"row text-muted\">");
+		} else {
+		    writer.write("<div class=\"row\">");
 		}
 		for (int v = 0; v < node.getNodeInfo().getNbVersions(); v++) {
 			openCellDiv(writer);
@@ -169,9 +170,6 @@ public class Report {
 					diff = !constant;
 					printFileLine(node, writer, v);
 				}
-			}
-			if (constant) {
-				writer.write("</span>");
 			}
 			writer.write("</div>");
 		}
@@ -188,7 +186,7 @@ public class Report {
 	 * Prints information about a directory.
 	 * <p/>
 	 * Printed line is the relative path in bold.
-	 * 
+	 *
 	 * @param node
 	 *            the node containing the version which should be printed
 	 * @param writer
@@ -213,7 +211,7 @@ public class Report {
 	 * <li>the last modification time;</li>
 	 * <li>the checksum.</li>
 	 * </ul>
-	 * 
+	 *
 	 * @param node
 	 *            the node containing the version which should be printed
 	 * @param writer
@@ -238,7 +236,7 @@ public class Report {
 	 * <p/>
 	 * The path is relative to the corresponding
 	 * {@link org.keyboardplaying.tree.file.model.FileTree}'s root.
-	 * 
+	 *
 	 * @param node
 	 *            the node containing the version whose path should be returned
 	 * @param version
@@ -261,7 +259,7 @@ public class Report {
 	 * The first non-null version will be displayed as is for reference. Next
 	 * versions will be displayed and differences with reference file will be
 	 * highlighted.
-	 * 
+	 *
 	 * @param writer
 	 *            the {@link Writer} used to generate the report
 	 * @param versions
@@ -298,9 +296,9 @@ public class Report {
 								writer.write("</span>");
 								break;
 							case DELETE:
-								writer.write("<strike class=\"text-danger\">");
+								writer.write("<s class=\"text-danger\">");
 								writer.write(deltum.text);
-								writer.write("</strike>");
+								writer.write("</s>");
 								break;
 							case EQUAL:
 							default:
@@ -320,7 +318,7 @@ public class Report {
 	/**
 	 * Returns the content of a file as a {@link String}. Special characters
 	 * will be escaped to display in an HTML page.
-	 * 
+	 *
 	 * @param path
 	 *            the path of the file to render
 	 * @return an HTML-escaped representation of the file
@@ -336,7 +334,7 @@ public class Report {
 	/**
 	 * Opens a div to display the result comparison for a determined file or
 	 * directory.
-	 * 
+	 *
 	 * @param writer
 	 *            the {@link Writer} used to generate the report
 	 * @throws IOException
