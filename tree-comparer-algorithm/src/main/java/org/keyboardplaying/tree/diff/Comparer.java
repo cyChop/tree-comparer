@@ -151,27 +151,32 @@ public class Comparer {
 					min = currentChild;
 					versions.set(i, currentChild);
 					indices[i]++;
+					nextChildren[i] = currentChildNode.getChildren();
 				} else {
 					int comparison = min.compareTo(currentChild);
 					if (comparison == 0) {
 						// save version
 						versions.set(i, currentChild);
 						indices[i]++;
+						nextChildren[i] = currentChildNode.getChildren();
 					} else if (comparison > 0) {
 						// save version
 						min = currentChild;
 						versions.set(i, currentChild);
 						indices[i]++;
+						nextChildren[i] = currentChildNode.getChildren();
 						// previous were not the real minimum, revert them.
 						for (int j = 0; j < i; j++) {
 							versions.set(j, null);
 							indices[j] = Math.max(indices[j] - 1, 0);
 							nextChildren[j] = new ArrayList<Node<T>>();
 						}
+					} else {
+						// higher than minimal
+						// do not save version
+						nextChildren[i] = new ArrayList<Node<T>>();
 					}
-					// case comparison < 0: just skip that one for now
 				}
-				nextChildren[i] = currentChildNode.getChildren();
 			} else {
 				nextChildren[i] = new ArrayList<Node<T>>();
 			}
