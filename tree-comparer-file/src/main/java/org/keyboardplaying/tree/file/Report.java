@@ -27,13 +27,14 @@ import java.util.LinkedList;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringEscapeUtils;
+import org.keyboardplaying.diff.plaintext.Diff;
+import org.keyboardplaying.diff.plaintext.Operation;
+import org.keyboardplaying.diff.plaintext.PlaintextDiff;
 import org.keyboardplaying.tree.diff.model.Versions;
 import org.keyboardplaying.tree.file.model.DirectoryInfo;
 import org.keyboardplaying.tree.file.model.FileInfo;
 import org.keyboardplaying.tree.file.model.FileSystemElementInfo;
 import org.keyboardplaying.tree.file.util.ByteSizeUtils;
-import org.keyboardplaying.tree.file.util.DiffMatchPatch;
-import org.keyboardplaying.tree.file.util.DiffMatchPatch.Diff;
 import org.keyboardplaying.tree.model.Node;
 import org.keyboardplaying.tree.model.Tree;
 
@@ -274,11 +275,10 @@ public class Report {
                     writer.write(ref);
                 } else {
                     String file = prepFileForHtml(version.getPath());
-                    DiffMatchPatch diff = new DiffMatchPatch();
-                    LinkedList<Diff> delta = diff.diff_main(ref, file);
-                    diff.diff_cleanupSemantic(delta);
-                    if (delta.size() == 1
-                            && delta.get(0).operation == DiffMatchPatch.Operation.EQUAL) {
+                    PlaintextDiff diff = new PlaintextDiff();
+                    LinkedList<Diff> delta = diff.diff(ref, file);
+                    diff.cleanupSemantic(delta);
+                    if (delta.size() == 1 && delta.get(0).operation == Operation.EQUAL) {
                         writer.write("No difference");
                     } else {
                         for (Diff deltum : delta) {

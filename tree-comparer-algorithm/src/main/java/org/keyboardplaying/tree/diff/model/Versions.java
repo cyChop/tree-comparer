@@ -21,7 +21,12 @@ import java.util.Iterator;
 
 // XXX JAVADOC
 /**
+ *
+ *
  * @author Cyrille Chopelet (http://keyboardplaying.org)
+ *
+ * @param <T>
+ *            the type of node
  */
 public class Versions<T extends Comparable<T>> implements Comparable<Versions<T>>, Iterable<T> {
     private Object[] versions;
@@ -55,7 +60,8 @@ public class Versions<T extends Comparable<T>> implements Comparable<Versions<T>
 
     public boolean isConstant() {
         boolean constant = true;
-        @SuppressWarnings("unchecked") T ref = (T) versions[0];
+        @SuppressWarnings("unchecked")
+        T ref = (T) versions[0];
         for (int i = 1; i < versions.length; i++) {
             if (ref == null ? versions[i] != null : !ref.equals(versions[i])) {
                 constant = false;
@@ -72,7 +78,7 @@ public class Versions<T extends Comparable<T>> implements Comparable<Versions<T>
 
     @Override
     public int hashCode() {
-        return versions.hashCode();
+        return Arrays.hashCode(versions);
     }
 
     @Override

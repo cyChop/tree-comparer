@@ -14,10 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.keyboardplaying.tree.comparer;
+package org.keyboardplaying.tree.diff;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.keyboardplaying.tree.diff.Comparer;
 import org.keyboardplaying.tree.diff.model.Versions;
@@ -30,6 +31,27 @@ import org.keyboardplaying.tree.model.Tree;
  * @author Cyrille Chopelet (http://keyboardplaying.org)
  */
 public class ComparerTest {
+
+    private Comparer comparer;
+
+    @Before
+    public void initComparer() {
+        this.comparer = new Comparer();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    @SuppressWarnings("unchecked")
+    public void testNoArgComparer() {
+        comparer.compare();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    @SuppressWarnings("unchecked")
+    public void testSingleArgComparer() {
+        Node<String> root = new Node<String>("A");
+        Tree<String, String> tree = new Tree<String, String>("Tree1", root);
+        comparer.compare(tree);
+    }
 
     /** Tests the comparison algorithm. */
     @Test
@@ -72,9 +94,9 @@ public class ComparerTest {
         Tree<String, String> tree3 = new Tree<String, String>("Tree3", root);
 
         // Now compare
-        Comparer comparer = new Comparer();
-        @SuppressWarnings("unchecked") Tree<Versions<String>, Versions<String>> result = comparer
-                .compare(new Tree[] { tree1, tree2, tree3 });
+        @SuppressWarnings("unchecked")
+        Tree<Versions<String>, Versions<String>> result = comparer.compare(new Tree[] { tree1,
+                tree2, tree3 });
 
         // Ensure the result is as expected
         Versions<String> versions = result.getId();

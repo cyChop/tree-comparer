@@ -33,6 +33,7 @@ import org.keyboardplaying.tree.model.Tree;
  *
  * @author Cyrille Chopelet (http://keyboardplaying.org)
  */
+// FIXME convert into a unit test and remove class
 public class Main {
 
     public static void main(String[] args) throws FileNotFoundException, IOException {

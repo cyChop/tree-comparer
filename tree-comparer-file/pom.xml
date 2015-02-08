@@ -31,6 +31,11 @@
       <artifactId>tree-comparer-algorithm</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.keyboardplaying</groupId>
+      <artifactId>plaintext-diff</artifactId>
+      <version>${project.version}</version>
+    </dependency>
 
     <dependency>
       <groupId>commons-lang</groupId>

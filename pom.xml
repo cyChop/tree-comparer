@@ -28,6 +28,7 @@
     <module>tree-comparer-model</module>
     <module>tree-comparer-algorithm</module>
     <module>tree-comparer-file</module>
+    <module>plaintext-diff</module>
   </modules>
 
   <properties>
