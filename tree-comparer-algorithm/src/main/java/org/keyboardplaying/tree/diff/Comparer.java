@@ -45,7 +45,7 @@ public class Comparer {
      * @return a {@link Tree} containing all the versions of each node in each original {@link Tree}
      */
     public <R extends Comparable<R>, T extends Comparable<T>> Tree<Versions<R>, Versions<T>> compare(
-            Tree<R, T>... trees) {
+            @SuppressWarnings("unchecked") Tree<R, T>... trees) {
         int nbVersions = trees.length;
 
         if (nbVersions < 2) {
@@ -55,7 +55,8 @@ public class Comparer {
 
         Versions<R> roots = new Versions<R>(nbVersions);
         Versions<T> rootVersions = new Versions<T>(nbVersions);
-        @SuppressWarnings("unchecked") List<Node<T>>[] children = new List[nbVersions];
+        @SuppressWarnings("unchecked")
+        List<Node<T>>[] children = new List[nbVersions];
 
         for (int i = 0; i < nbVersions; i++) {
             roots.set(i, trees[i].getId());
@@ -131,7 +132,8 @@ public class Comparer {
             List<Node<T>>[] children, int nbVersions, int[] indices, int[] maxIdcs) {
         T min = null;
         Versions<T> versions = new Versions<T>(nbVersions);
-        @SuppressWarnings("unchecked") List<Node<T>>[] nextChildren = new List[nbVersions];
+        @SuppressWarnings("unchecked")
+        List<Node<T>>[] nextChildren = new List[nbVersions];
         for (int i = 0; i < nbVersions; i++) {
             // build list
             if (indices[i] < maxIdcs[i]) {
