@@ -1,2 +1,9 @@
-/.settings
+# Ignore generated files
+/*/target/
+
+# Ignore Eclipse file settings
+/.settings/
 /.project
+/*/.settings/
+/*/.classpath
+/*/.project

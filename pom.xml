@@ -1,76 +1,41 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.keyboardplaying</groupId>
-	<artifactId>tree-comparer</artifactId>
-	<version>0.1.0-SNAPSHOT</version>
-	<packaging>pom</packaging>
+  <parent>
+    <!-- See https://github.com/cyChop/github-kp-maven-project -->
+    <groupId>org.keyboardplaying</groupId>
+    <artifactId>github-hosted-maven-kp-project</artifactId>
+    <version>1.0.0</version>
+  </parent>
 
-	<name>Tree comparer</name>
-	<description>A project aiming at comparing any number of trees</description>
-	<url>http://cychop.github.io/tree-comparer</url>
+  <artifactId>tree-comparer</artifactId>
+  <version>0.1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
 
-	<modules>
-		<module>tree-comparer-model</module>
-		<module>tree-comparer-algorithm</module>
-		<module>tree-comparer-file</module>
-	</modules>
+  <name>Tree comparer</name>
+  <description>A project aiming at comparing any number of trees</description>
+  <url>http://cychop.github.io/tree-comparer</url>
 
-	<properties>
-		<!-- Specify Java version and encoding for the compiler plugin -->
-		<maven.compiler.source>1.6</maven.compiler.source>
-		<maven.compiler.target>1.6</maven.compiler.target>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  <modules>
+    <module>tree-comparer-model</module>
+    <module>tree-comparer-algorithm</module>
+    <module>tree-comparer-file</module>
+  </modules>
 
-		<!-- Sonar configuration (using Clinker VA: http://clinkerhq.com/products#va) -->
-		<sonar.java.source>${maven.compiler.source}</sonar.java.source>
-		<sonar.java.target>${maven.compiler.target}</sonar.java.target>
-		<sonar.jdbc.url>jdbc:mysql://localhost:3306/sonar</sonar.jdbc.url>
-		<sonar.jdbc.driver>com.mysql.jdbc.Driver</sonar.jdbc.driver>
-		<sonar.jdbc.username>sonar</sonar.jdbc.username>
-		<sonar.jdbc.password>clinker</sonar.jdbc.password>
-		<sonar.host.url>http://clinker/sonar/</sonar.host.url>
-	</properties>
-
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-report-plugin</artifactId>
-				<version>2.16</version>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.9.1</version>
-			</plugin>
-		</plugins>
-	</reporting>
-
-	<!-- Project additional information -->
-	<scm>
-		<connection>scm:git:git@github.com:cyChop/tree-comparer.git</connection>
-		<url>scm:git:git@github.com:cyChop/tree-comparer.git</url>
-		<developerConnection>scm:git:git@github.com:cyChop/tree-comparer.git</developerConnection>
-	</scm>
-
-	<issueManagement>
-		<system>GitHub</system>
-		<url>https://github.com/cyChop/filetree-comparer/issues</url>
-	</issueManagement>
-	<developers>
-		<developer>
-			<id>cyChop</id>
-			<name>Cyrille Chopelet</name>
-			<email>cyrille[dot]chopelet@gmail[dot]com</email>
-			<roles>
-				<role>architect</role>
-				<role>developer</role>
-			</roles>
-			<timezone>+1</timezone>
-			<url>http://keyboardplaying.org</url>
-		</developer>
-	</developers>
+  <properties>
+    <!-- Github properties -->
+    <github.user>cyChop</github.user>
+    <github.repo>java-implementation-comparer</github.repo>
+  </properties>
+  
+  <!--     _   _              _    -->
+  <!--    /_\ | |__  ___ _  _| |_  -->
+  <!--   / _ \| '_ \/ _ \ || |  _| -->
+  <!--  /_/ \_\_.__/\___/\_,_|\__| -->
+  <scm>
+    <url>https://github.com/${github.user}/${github.repo}</url>
+    <connection>scm:git:https://github.com/${github.user}/${github.repo}.git</connection>
+    <developerConnection>scm:git:git@github.com:${github.user}/${github.repo}.git</developerConnection>
+  </scm>
 </project>

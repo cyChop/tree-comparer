@@ -1,5 +1,16 @@
 language: java
-# Test compilation with JDK6 since it seems to cause problems with fonts
+
 jdk:
+#  - oraclejdk8
   - oraclejdk7
-  - openjdk6
+#  - openjdk6
+
+before_install:
+  - git clone https://github.com/cyChop/github-hosted-maven-kp-project.git parent-pom
+  - cd parent-pom
+  - git checkout tags/v1.0.0
+  - mvn install
+  - cd ..
+
+after_success:
+  - mvn cobertura:cobertura coveralls:report
