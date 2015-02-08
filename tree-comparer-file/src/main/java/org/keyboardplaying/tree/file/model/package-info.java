@@ -16,6 +16,6 @@
  */
 // XXX JAVADOC
 /**
- * @author cyChop (http://keyboardplaying.org/)
+ * @author Cyrille Chopelet (http://keyboardplaying.org)
  */
 package org.keyboardplaying.tree.file.model;

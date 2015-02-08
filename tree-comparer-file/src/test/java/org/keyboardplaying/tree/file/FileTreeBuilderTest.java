@@ -34,71 +34,62 @@ import org.keyboardplaying.tree.model.Node;
 /**
  * Tests the {@link FileTreeBuilder} class.
  *
- * @author cyChop (http://keyboardplaying.org/)
+ * @author Cyrille Chopelet (http://keyboardplaying.org)
  */
 public class FileTreeBuilderTest {
 
-	/** Tests the standard tree building. */
-	@Test
-	public void testTreeBuilding() throws IOException {
-		File file = new File("src/test/resources/version1");
-		FileTreeBuilder builder = new FileTreeBuilder();
-		FileTree tree = builder.buildTree(file);
+    /** Tests the standard tree building. */
+    @Test
+    public void testTreeBuilding() throws IOException {
+        File file = new File("src/test/resources/version1");
+        FileTreeBuilder builder = new FileTreeBuilder();
+        FileTree tree = builder.buildTree(file);
 
-		assertEquals(file.getAbsolutePath(), tree.getId());
+        assertEquals(file.getAbsolutePath(), tree.getId());
 
-		Node<FileSystemElementInfo> root = tree.getRoot();
-		assertEquals(".", root.getNodeInfo().getName());
-		assertTrue(root.getNodeInfo() instanceof DirectoryInfo);
+        Node<FileSystemElementInfo> root = tree.getRoot();
+        assertEquals(".", root.getNodeInfo().getName());
+        assertTrue(root.getNodeInfo() instanceof DirectoryInfo);
 
-		int i = 0;
-		if (!"directory".equals(root.getChildren().get(i).getNodeInfo().getName())) {
+        int i = 0;
+        if (!"directory".equals(root.getChildren().get(i).getNodeInfo().getName())) {
             i++;
         }
 
-		assertEquals("directory", root.getChildren().get(i).getNodeInfo()
-				.getName());
-		assertTrue(root.getChildren().get(i).getNodeInfo() instanceof DirectoryInfo);
+        assertEquals("directory", root.getChildren().get(i).getNodeInfo().getName());
+        assertTrue(root.getChildren().get(i).getNodeInfo() instanceof DirectoryInfo);
 
-		i++;
-		assertEquals(".htaccess", root.getChildren().get(i).getNodeInfo()
-				.getName());
+        i++;
+        assertEquals(".htaccess", root.getChildren().get(i).getNodeInfo().getName());
 
-		i++;
-		assertEquals("hello.properties", root.getChildren().get(i)
-				.getNodeInfo().getName());
-		assertTrue(root.getChildren().get(i).getNodeInfo() instanceof FileInfo);
-	}
+        i++;
+        assertEquals("hello.properties", root.getChildren().get(i).getNodeInfo().getName());
+        assertTrue(root.getChildren().get(i).getNodeInfo() instanceof FileInfo);
+    }
 
-	/** Tests the tree building with a positive mask filter. */
-	@Test
-	public void testTreeBuildingWithFilter() throws IOException {
-		File file = new File("src/test/resources/version1");
-		FileTreeBuilder builder = new FileTreeBuilder();
-		FileTree tree = builder.buildTree(file,
-				new FilenameMaskFilter("[^.].+"));
+    /** Tests the tree building with a positive mask filter. */
+    @Test
+    public void testTreeBuildingWithFilter() throws IOException {
+        File file = new File("src/test/resources/version1");
+        FileTreeBuilder builder = new FileTreeBuilder();
+        FileTree tree = builder.buildTree(file, new FilenameMaskFilter("[^.].+"));
 
-		Node<FileSystemElementInfo> root = tree.getRoot();
-		assertTrue(root.getNodeInfo() instanceof DirectoryInfo);
-		assertEquals("directory", root.getChildren().get(0).getNodeInfo()
-				.getName());
-		assertEquals("hello.properties", root.getChildren().get(1)
-				.getNodeInfo().getName());
-	}
+        Node<FileSystemElementInfo> root = tree.getRoot();
+        assertTrue(root.getNodeInfo() instanceof DirectoryInfo);
+        assertEquals("directory", root.getChildren().get(0).getNodeInfo().getName());
+        assertEquals("hello.properties", root.getChildren().get(1).getNodeInfo().getName());
+    }
 
-	/** Tests the tree building with a negative mask filter. */
-	@Test
-	public void testTreeBuildingWithAntiMaskFilter() throws IOException {
-		File file = new File("src/test/resources/version1");
-		FileTreeBuilder builder = new FileTreeBuilder();
-		FileTree tree = builder.buildTree(file, new FilenameAntiMaskFilter(
-				"\\..+"));
+    /** Tests the tree building with a negative mask filter. */
+    @Test
+    public void testTreeBuildingWithAntiMaskFilter() throws IOException {
+        File file = new File("src/test/resources/version1");
+        FileTreeBuilder builder = new FileTreeBuilder();
+        FileTree tree = builder.buildTree(file, new FilenameAntiMaskFilter("\\..+"));
 
-		Node<FileSystemElementInfo> root = tree.getRoot();
-		assertTrue(root.getNodeInfo() instanceof DirectoryInfo);
-		assertEquals("directory", root.getChildren().get(0).getNodeInfo()
-				.getName());
-		assertEquals("hello.properties", root.getChildren().get(1)
-				.getNodeInfo().getName());
-	}
+        Node<FileSystemElementInfo> root = tree.getRoot();
+        assertTrue(root.getNodeInfo() instanceof DirectoryInfo);
+        assertEquals("directory", root.getChildren().get(0).getNodeInfo().getName());
+        assertEquals("hello.properties", root.getChildren().get(1).getNodeInfo().getName());
+    }
 }

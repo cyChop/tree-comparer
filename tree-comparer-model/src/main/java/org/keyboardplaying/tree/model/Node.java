@@ -25,124 +25,122 @@ import java.util.List;
  * <p/>
  * A node references its parent and children.
  * <p/>
- * There is no difference of implementation between nodes and leaves. A leaf
- * will simply be a childless node.
- * 
- * @author cyChop (http://keyboardplaying.org/)
+ * There is no difference of implementation between nodes and leaves. A leaf will simply be a
+ * childless node.
+ *
+ * @author Cyrille Chopelet (http://keyboardplaying.org)
  */
 public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
 
-	/** This node's characteristics. */
-	private T nodeInfo;
-	/** A reference to this node's parent. */
-	private Node<T> parent;
-	/**
-	 * This node's children.
-	 * <p/>
-	 * This list should be kept sorted at all times.
-	 */
-	private List<Node<T>> children = new ArrayList<Node<T>>();
+    /** This node's characteristics. */
+    private T nodeInfo;
+    /** A reference to this node's parent. */
+    private Node<T> parent;
+    /**
+     * This node's children.
+     * <p/>
+     * This list should be kept sorted at all times.
+     */
+    private List<Node<T>> children = new ArrayList<Node<T>>();
 
-	/**
-	 * Creates a new instance.
-	 * 
-	 * @param nodeInfo
-	 *            this node's characteristics
-	 */
-	public Node(T nodeInfo) {
-		this.nodeInfo = nodeInfo;
-	}
+    /**
+     * Creates a new instance.
+     *
+     * @param nodeInfo
+     *            this node's characteristics
+     */
+    public Node(T nodeInfo) {
+        this.nodeInfo = nodeInfo;
+    }
 
-	/**
-	 * Returns this node's characteristics.
-	 * 
-	 * @return this node's characteristics
-	 */
-	public T getNodeInfo() {
-		return nodeInfo;
-	}
+    /**
+     * Returns this node's characteristics.
+     *
+     * @return this node's characteristics
+     */
+    public T getNodeInfo() {
+        return nodeInfo;
+    }
 
-	/**
-	 * Returns this node's parent, or {@code null} if this node is root.
-	 * 
-	 * @return this node's parent
-	 */
-	public Node<T> getParent() {
-		return parent;
-	}
+    /**
+     * Returns this node's parent, or {@code null} if this node is root.
+     *
+     * @return this node's parent
+     */
+    public Node<T> getParent() {
+        return parent;
+    }
 
-	/**
-	 * Adds a child to this node.
-	 * <p>
-	 * The children are kept sorted at all times.
-	 * 
-	 * @param child
-	 *            the child to add to this node
-	 */
-	public void addChild(Node<T> child) {
-		/*
-		 * Keeping children sorted is a condition for the comparison algorithm
-		 * to work as expected.
-		 */
-		int i = 0;
-		int size = children.size();
-		while (i < size && child.compareTo(children.get(i)) > 0) {
-			i++;
-		}
-		children.add(i, child);
-		child.parent = this;
-	}
+    /**
+     * Adds a child to this node.
+     * <p>
+     * The children are kept sorted at all times.
+     *
+     * @param child
+     *            the child to add to this node
+     */
+    public void addChild(Node<T> child) {
+        /*
+         * Keeping children sorted is a condition for the comparison algorithm to work as expected.
+         */
+        int i = 0;
+        int size = children.size();
+        while (i < size && child.compareTo(children.get(i)) > 0) {
+            i++;
+        }
+        children.add(i, child);
+        child.parent = this;
+    }
 
-	/**
-	 * Returns this node's children.
-	 * <p/>
-	 * The list is sorted and unmodifiable.
-	 * 
-	 * @return this node's children
-	 */
-	public List<Node<T>> getChildren() {
-		return Collections.unmodifiableList(children);
-	}
+    /**
+     * Returns this node's children.
+     * <p/>
+     * The list is sorted and unmodifiable.
+     *
+     * @return this node's children
+     */
+    public List<Node<T>> getChildren() {
+        return Collections.unmodifiableList(children);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Comparable#compareTo(java.lang.Object)
-	 */
-	@Override
-	public int compareTo(Node<T> o) {
-		return getNodeInfo().compareTo(o.getNodeInfo());
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
+    @Override
+    public int compareTo(Node<T> o) {
+        return getNodeInfo().compareTo(o.getNodeInfo());
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		return getNodeInfo().hashCode();
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        return getNodeInfo().hashCode();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		return obj instanceof Node
-				&& getNodeInfo().equals(((Node<?>) obj).getNodeInfo())
-				|| getNodeInfo().equals(obj);
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Node && getNodeInfo().equals(((Node<?>) obj).getNodeInfo())
+                || getNodeInfo().equals(obj);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return nodeInfo.toString();
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return nodeInfo.toString();
+    }
 }

@@ -21,96 +21,93 @@ import java.util.Iterator;
 
 // XXX JAVADOC
 /**
- * @author cyChop (http://keyboardplaying.org/)
+ * @author Cyrille Chopelet (http://keyboardplaying.org)
  */
-public class Versions<T extends Comparable<T>> implements
-		Comparable<Versions<T>>, Iterable<T> {
-	private Object[] versions;
+public class Versions<T extends Comparable<T>> implements Comparable<Versions<T>>, Iterable<T> {
+    private Object[] versions;
 
-	public Versions(int nbVersions) {
-		versions = new Object[nbVersions];
-	}
+    public Versions(int nbVersions) {
+        versions = new Object[nbVersions];
+    }
 
-	public void set(int idx, T version) {
-		versions[idx] = version;
-	}
+    public void set(int idx, T version) {
+        versions[idx] = version;
+    }
 
-	@SuppressWarnings("unchecked")
-	public T get(int idx) {
-		return (T) versions[idx];
-	}
+    @SuppressWarnings("unchecked")
+    public T get(int idx) {
+        return (T) versions[idx];
+    }
 
-	@SuppressWarnings("unchecked")
-	protected T getFirstNonNullVersion() {
-		for (Object e : versions) {
-			if (e != null) {
-				return (T) e;
-			}
-		}
-		return null;
-	}
+    @SuppressWarnings("unchecked")
+    protected T getFirstNonNullVersion() {
+        for (Object e : versions) {
+            if (e != null) {
+                return (T) e;
+            }
+        }
+        return null;
+    }
 
-	public int getNbVersions() {
-		return versions.length;
-	}
+    public int getNbVersions() {
+        return versions.length;
+    }
 
-	public boolean isConstant() {
-		boolean constant = true;
-		@SuppressWarnings("unchecked")
-		T ref = (T) versions[0];
-		for (int i = 1; i < versions.length; i++) {
-			if (ref == null ? versions[i] != null : !ref.equals(versions[i])) {
-				constant = false;
-				break;
-			}
-		}
-		return constant;
-	}
+    public boolean isConstant() {
+        boolean constant = true;
+        @SuppressWarnings("unchecked") T ref = (T) versions[0];
+        for (int i = 1; i < versions.length; i++) {
+            if (ref == null ? versions[i] != null : !ref.equals(versions[i])) {
+                constant = false;
+                break;
+            }
+        }
+        return constant;
+    }
 
-	@Override
-	public int compareTo(Versions<T> o) {
-		return getFirstNonNullVersion().compareTo(o.getFirstNonNullVersion());
-	}
+    @Override
+    public int compareTo(Versions<T> o) {
+        return getFirstNonNullVersion().compareTo(o.getFirstNonNullVersion());
+    }
 
-	@Override
-	public int hashCode() {
-		return versions.hashCode();
-	}
+    @Override
+    public int hashCode() {
+        return versions.hashCode();
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		return o instanceof Versions
-				&& Arrays.equals(versions, ((Versions<?>) o).versions);
-	}
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof Versions && Arrays.equals(versions, ((Versions<?>) o).versions);
+    }
 
-	@Override
-	public Iterator<T> iterator() {
-		return new VersionIterator<T>(versions);
-	}
+    @Override
+    public Iterator<T> iterator() {
+        return new VersionIterator<T>(versions);
+    }
 
-	public static class VersionIterator<T> implements Iterator<T> {
+    public static class VersionIterator<T> implements Iterator<T> {
 
-		private int i = 0;
-		private Object[] array;
+        private int i = 0;
+        private Object[] array;
 
-		public VersionIterator(Object[] array) {
-			this.array = array;
-		}
+        public VersionIterator(Object[] array) {
+            this.array = array;
+        }
 
-		@Override
-		public boolean hasNext() {
-			return i < array.length;
-		}
+        @Override
+        public boolean hasNext() {
+            return i < array.length;
+        }
 
-		@Override
-		@SuppressWarnings("unchecked")
-		public T next() {
-			return (T) array[i++];
-		}
+        @Override
+        @SuppressWarnings("unchecked")
+        public T next() {
+            return (T) array[i++];
+        }
 
-		@Override
-		public void remove() {
-			throw new UnsupportedOperationException();
-		}
-	}
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
+    }
 }
