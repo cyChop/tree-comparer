@@ -15,7 +15,14 @@
 
   <name>Tree comparer</name>
   <description>A project aiming at comparing any number of trees</description>
-  <url>http://cychop.github.io/tree-comparer</url>
+
+  <licenses>
+    <license>
+      <name>ASF 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
 
   <modules>
     <module>tree-comparer-model</module>
@@ -27,7 +34,43 @@
     <!-- Github properties -->
     <github.user>cyChop</github.user>
     <github.repo>java-implementation-comparer</github.repo>
+
+    <!-- Version management -->
+    <junit.version>4.12</junit.version>
+    <jdepend.version>2.9.1</jdepend.version>
+    <commons.logging.version>1.2</commons.logging.version>
   </properties>
+  
+  <dependencyManagement>
+    <dependencies>
+      <!--  _               -->
+      <!-- | |   ___  __ _  -->
+      <!-- | |__/ _ \/ _` | -->
+      <!-- |____\___/\__, | -->
+      <!--           |___/  -->
+      <!-- Used only for testing; using this instead of SLF4J allows for ASF instead of GPL. -->
+      <dependency>
+        <groupId>commons-logging</groupId>
+        <artifactId>commons-logging</artifactId>
+        <version>${commons.logging.version}</version>
+      </dependency>
+      <!--  _____       _    -->
+      <!-- |_   _|__ __| |_  -->
+      <!--   | |/ -_|_-<  _| -->
+      <!--   |_|\___/__/\__| -->
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>jdepend</groupId>
+        <artifactId>jdepend</artifactId>
+        <version>${jdepend.version}</version>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
   
   <!--     _   _              _    -->
   <!--    /_\ | |__  ___ _  _| |_  -->
