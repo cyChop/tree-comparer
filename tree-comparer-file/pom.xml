@@ -15,9 +15,9 @@
 
   <properties>
     <!-- Dependencies and plugin versions -->
-    <v.commons.lang>2.6</v.commons.lang>
-    <v.commons.io>2.4</v.commons.io>
-    <v.commons.codec>1.10</v.commons.codec>
+    <commons.lang.version>3.3.2</commons.lang.version>
+    <commons.io.version>2.4</commons.io.version>
+    <commons.codec.version>1.10</commons.codec.version>
   </properties>
 
   <dependencies>
@@ -38,30 +38,25 @@
     </dependency>
 
     <dependency>
-      <groupId>commons-lang</groupId>
-      <artifactId>commons-lang</artifactId>
-      <version>${v.commons.lang}</version>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>${commons.lang.version}</version>
     </dependency>
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
-      <version>${v.commons.io}</version>
+      <version>${commons.io.version}</version>
     </dependency>
     <dependency>
       <groupId>commons-codec</groupId>
       <artifactId>commons-codec</artifactId>
-      <version>${v.commons.codec}</version>
+      <version>${commons.codec.version}</version>
     </dependency>
 
     <!--  _____       _    -->
     <!-- |_   _|__ __| |_  -->
     <!--   | |/ -_|_-<  _| -->
     <!--   |_|\___/__/\__| -->
-    <dependency>
-      <groupId>commons-logging</groupId>
-      <artifactId>commons-logging</artifactId>
-      <scope>test</scope>
-    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>

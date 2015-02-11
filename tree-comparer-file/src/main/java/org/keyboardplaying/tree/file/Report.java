@@ -26,7 +26,7 @@ import java.util.LinkedList;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.keyboardplaying.diff.plaintext.Diff;
 import org.keyboardplaying.diff.plaintext.Operation;
 import org.keyboardplaying.diff.plaintext.PlaintextDiff;
@@ -320,7 +320,7 @@ public class Report {
      */
     private String prepFileForHtml(String path) throws IOException {
         // XXX if the file is binary, should display "Binary" instead of content
-        return StringEscapeUtils.escapeHtml(FileUtils.readFileToString(new File(path)));
+        return StringEscapeUtils.escapeHtml4(FileUtils.readFileToString(new File(path)));
     }
 
     /**

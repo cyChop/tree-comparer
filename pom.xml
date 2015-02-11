@@ -39,7 +39,6 @@
     <!-- Version management - test -->
     <junit.version>4.12</junit.version>
     <jdepend.version>2.9.1</jdepend.version>
-    <commons.logging.version>1.2</commons.logging.version>
     <!-- Version management - coverage -->
     <cobertura.plugin.version>2.6</cobertura.plugin.version>
     <coveralls.plugin.version>3.0.1</coveralls.plugin.version>
@@ -83,17 +82,6 @@
 
   <dependencyManagement>
     <dependencies>
-      <!--  _               -->
-      <!-- | |   ___  __ _  -->
-      <!-- | |__/ _ \/ _` | -->
-      <!-- |____\___/\__, | -->
-      <!--           |___/  -->
-      <!-- Used only for testing; using this instead of SLF4J allows for ASF instead of GPL. -->
-      <dependency>
-        <groupId>commons-logging</groupId>
-        <artifactId>commons-logging</artifactId>
-        <version>${commons.logging.version}</version>
-      </dependency>
       <!--  _____       _    -->
       <!-- |_   _|__ __| |_  -->
       <!--   | |/ -_|_-<  _| -->
