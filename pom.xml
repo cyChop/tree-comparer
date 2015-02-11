@@ -107,7 +107,6 @@
         <groupId>jdepend</groupId>
         <artifactId>jdepend</artifactId>
         <version>${jdepend.version}</version>
-        <scope>test</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>

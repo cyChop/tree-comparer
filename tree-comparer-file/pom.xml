@@ -17,7 +17,7 @@
     <!-- Dependencies and plugin versions -->
     <v.commons.lang>2.6</v.commons.lang>
     <v.commons.io>2.4</v.commons.io>
-    <v.commons.codec>1.8</v.commons.codec>
+    <v.commons.codec>1.10</v.commons.codec>
   </properties>
 
   <dependencies>
