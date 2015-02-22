@@ -19,9 +19,9 @@ package org.keyboardplaying.tree.diff;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.keyboardplaying.tree.diff.model.Versions;
 import org.keyboardplaying.tree.model.Node;
 import org.keyboardplaying.tree.model.Tree;
+import org.keyboardplaying.tree.model.Versions;
 
 /**
  * Compares a variable number of trees and compiles the results in a single tree containing each

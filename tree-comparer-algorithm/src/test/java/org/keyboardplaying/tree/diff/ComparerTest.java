@@ -21,9 +21,9 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 import org.keyboardplaying.tree.diff.Comparer;
-import org.keyboardplaying.tree.diff.model.Versions;
 import org.keyboardplaying.tree.model.Node;
 import org.keyboardplaying.tree.model.Tree;
+import org.keyboardplaying.tree.model.Versions;
 
 /**
  * Tests the {@link Comparer}.

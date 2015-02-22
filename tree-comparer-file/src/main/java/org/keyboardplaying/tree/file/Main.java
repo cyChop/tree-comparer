@@ -22,11 +22,13 @@ import java.io.IOException;
 import java.util.Date;
 
 import org.keyboardplaying.tree.diff.Comparer;
-import org.keyboardplaying.tree.diff.model.Versions;
+import org.keyboardplaying.tree.exception.PrintException;
 import org.keyboardplaying.tree.file.filter.FilenameMaskFilter;
 import org.keyboardplaying.tree.file.model.FileSystemElementInfo;
 import org.keyboardplaying.tree.file.model.FileTree;
 import org.keyboardplaying.tree.model.Tree;
+import org.keyboardplaying.tree.model.Versions;
+import org.keyboardplaying.tree.reporter.HtmlReport;
 
 /**
  * A sample implementation to show a use example of the file tree comparison mechanism.
@@ -36,7 +38,8 @@ import org.keyboardplaying.tree.model.Tree;
 // FIXME convert into a unit test and remove class
 public class Main {
 
-    public static void main(String[] args) throws FileNotFoundException, IOException {
+    public static void main(String[] args) throws FileNotFoundException, IOException,
+            PrintException {
         System.out.println(String.format("[%1$tY-%1$tm-%1$te %1$tH:%1$tM:%1$tS] Starting",
                 new Date()));
 
@@ -61,7 +64,7 @@ public class Main {
         // Generate the report
         System.out.println(String.format("[%1$tY-%1$tm-%1$te %1$tH:%1$tM:%1$tS] Generating report",
                 new Date()));
-        new Report(result).generate();
+        new HtmlReport<String, FileSystemElementInfo>(result, new FileNodePrinter()).generate();
 
         System.out.println(String.format("[%1$tY-%1$tm-%1$te %1$tH:%1$tM:%1$tS] Done", new Date()));
     }

@@ -1,9 +1,17 @@
-# Ignore generated files
+# Maven
 /*/target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
 
-# Ignore Eclipse file settings
-/.settings/
-/.project
+# Cloud9
+/.c9/
+
+# Eclipse
 /*/.settings/
 /*/.classpath
 /*/.project
+/.settings/
+/.project

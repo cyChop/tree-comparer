@@ -14,15 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.keyboardplaying.tree.diff.model;
+package org.keyboardplaying.tree.model;
 
 import java.util.Arrays;
 import java.util.Iterator;
 
 // XXX JAVADOC
 /**
- *
- *
  * @author Cyrille Chopelet (http://keyboardplaying.org)
  *
  * @param <T>
