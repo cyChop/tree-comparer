@@ -15,6 +15,7 @@
 
   <properties>
     <!-- Dependencies and plugin versions -->
+    <commons.io.version>2.4</commons.io.version>
     <commons.codec.version>1.10</commons.codec.version>
   </properties>
 
@@ -44,6 +45,11 @@
     <!--  _ | |__ _| |____ _ _ _| |_ __ _  -->
     <!-- | || / _` | / / _` | '_|  _/ _` | -->
     <!--  \__/\__,_|_\_\__,_|_|  \__\__,_| -->
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>${commons.io.version}</version>
+    </dependency>
     <dependency>
       <groupId>commons-codec</groupId>
       <artifactId>commons-codec</artifactId>
