@@ -103,13 +103,11 @@ public class HtmlReport<T extends Comparable<T>, U extends Comparable<U>> {
         IOUtils.write("<meta charset=\"UTF-8\">", writer);
         IOUtils.write("<title>Comparison report</title>", writer);
         IOUtils.write("<style>", writer);
-        InputStream style = this.getClass().getClassLoader()
-                .getResourceAsStream("bootstrap.min.css");
+        InputStream style = this.getClass().getClassLoader().getResourceAsStream("bootstrap.min.css");
         IOUtils.copy(style, writer);
         IOUtils.closeQuietly(style);
         // enhance diff style a bit
-        writer.write(".text-success{background-color:#ccffcc}"
-                + ".text-danger{background-color:#ffcccc}"
+        writer.write(".text-success{background-color:#ccffcc}" + ".text-danger{background-color:#ffcccc}"
                 + "pre{white-space:pre;max-height: 500px;overflow-x:auto;overflow-y:auto}");
         IOUtils.write("</style>", writer);
         IOUtils.write("</head>", writer);
@@ -127,8 +125,7 @@ public class HtmlReport<T extends Comparable<T>, U extends Comparable<U>> {
      * @throws PrintException
      *             if printing fails
      */
-    private void printHeader(Versions<T> ids, BufferedWriter writer) throws IOException,
-            PrintException {
+    private void printHeader(Versions<T> ids, BufferedWriter writer) throws IOException, PrintException {
         IOUtils.write("<div class=\"row\">", writer);
         for (T id : ids) {
             openCellDiv(writer);
@@ -175,8 +172,8 @@ public class HtmlReport<T extends Comparable<T>, U extends Comparable<U>> {
     /**
      * Prints the content of the files of this {@link Versions} instance.
      * <p/>
-     * The first non-null version will be displayed as is for reference. Next versions will be
-     * displayed and differences with reference file will be highlighted.
+     * The first non-null version will be displayed as is for reference. Next versions will be displayed and differences
+     * with reference file will be highlighted.
      *
      * @param writer
      *            the {@link Writer} used to generate the report

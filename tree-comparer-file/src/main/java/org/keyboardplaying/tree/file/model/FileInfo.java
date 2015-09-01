@@ -21,9 +21,8 @@ import java.io.File;
 /**
  * Describes a file on the file system.
  * <p/>
- * This {@link FileSystemElementInfo} describes a file (as opposed to a directory) on the file
- * system. Two files are deemed equal if they have the same name (case-sensitive), same weight and
- * same MD5 checksum.
+ * This {@link FileSystemElementInfo} describes a file (as opposed to a directory) on the file system. Two files are
+ * deemed equal if they have the same name (case-sensitive), same weight and same MD5 checksum.
  *
  * @author Cyrille Chopelet (http://keyboardplaying.org)
  */
@@ -42,16 +41,16 @@ public class FileInfo extends FileSystemElementInfo {
      */
     public FileInfo(File file, String checksum) {
         super(file);
-        assert !file.isDirectory();
+        assert!file.isDirectory();
         this.checksum = checksum;
     }
 
     /**
      * Returns the length of the file denoted by this abstract pathname.
      *
-     * @return the length, in bytes, of the file denoted by this abstract pathname, or {@code 0L} if
-     *         the file does not exist. Some operating systems may return {@code 0L} for pathnames
-     *         denoting system-dependent entities such as devices or pipes.
+     * @return the length, in bytes, of the file denoted by this abstract pathname, or {@code 0L} if the file does not
+     *         exist. Some operating systems may return {@code 0L} for pathnames denoting system-dependent entities such
+     *         as devices or pipes.
      */
     public long getFileSize() {
         return getFile().length();
@@ -60,9 +59,8 @@ public class FileInfo extends FileSystemElementInfo {
     /**
      * Returns the time that the file denoted by this abstract pathname was last modified.
      *
-     * @return a {@code long} value representing the time the file was last modified, measured in
-     *         milliseconds since the epoch (00:00:00 GMT, January 1, 1970), or {@code 0L} if the
-     *         file does not exist or if an I/O error occurs
+     * @return a {@code long} value representing the time the file was last modified, measured in milliseconds since the
+     *         epoch (00:00:00 GMT, January 1, 1970), or {@code 0L} if the file does not exist or if an I/O error occurs
      */
     public long getLastModified() {
         return getFile().lastModified();

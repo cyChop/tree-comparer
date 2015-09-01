@@ -25,8 +25,7 @@ import java.util.List;
  * <p/>
  * A node references its parent and children.
  * <p/>
- * There is no difference of implementation between nodes and leaves. A leaf will simply be a
- * childless node.
+ * There is no difference of implementation between nodes and leaves. A leaf will simply be a childless node.
  *
  * @author Cyrille Chopelet (http://keyboardplaying.org)
  */
@@ -130,8 +129,7 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
      */
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof Node && getNodeInfo().equals(((Node<?>) obj).getNodeInfo())
-                || getNodeInfo().equals(obj);
+        return obj instanceof Node && getNodeInfo().equals(((Node<?>) obj).getNodeInfo()) || getNodeInfo().equals(obj);
     }
 
     /*

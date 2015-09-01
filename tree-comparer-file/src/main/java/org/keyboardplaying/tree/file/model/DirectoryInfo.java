@@ -21,8 +21,8 @@ import java.io.File;
 /**
  * Describes a directory on the file system.
  * <p/>
- * This {@link FileSystemElementInfo} describes a directory on the file system. Two directories are
- * deemed equal if they have the same name (case-sensitive).
+ * This {@link FileSystemElementInfo} describes a directory on the file system. Two directories are deemed equal if they
+ * have the same name (case-sensitive).
  *
  * @author Cyrille Chopelet (http://keyboardplaying.org)
  */

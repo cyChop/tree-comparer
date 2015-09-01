@@ -1,38 +1,39 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.keyboardplaying</groupId>
-    <artifactId>tree-comparer</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
-  </parent>
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.keyboardplaying</groupId>
+        <artifactId>tree-comparer</artifactId>
+        <version>0.1.0-SNAPSHOT</version>
+    </parent>
 
-  <artifactId>tree-comparer-algorithm</artifactId>
-  <packaging>jar</packaging>
+    <artifactId>tree-comparer-algorithm</artifactId>
+    <packaging>jar</packaging>
 
-  <name>Tree comparison algorithm</name>
-  <description>The module responsible for generating a diff tree from several trees.</description>
+    <name>Tree comparison algorithm</name>
+    <description>The module responsible for generating a diff tree from several trees.</description>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.keyboardplaying</groupId>
-      <artifactId>tree-comparer-model</artifactId>
-      <version>${project.version}</version>
-    </dependency>
+    <dependencies>
+        <dependency>
+            <groupId>org.keyboardplaying</groupId>
+            <artifactId>tree-comparer-model</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
-    <!--  _____       _    -->
-    <!-- |_   _|__ __| |_  -->
-    <!--   | |/ -_|_-<  _| -->
-    <!--   |_|\___/__/\__| -->
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>jdepend</groupId>
-      <artifactId>jdepend</artifactId>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+        <!--<![CDATA[
+             _____       _
+            |_   _|__ __| |_
+              | |/ -_|_-<  _|
+              |_|\___/__/\__| ]]>-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>jdepend</groupId>
+            <artifactId>jdepend</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>

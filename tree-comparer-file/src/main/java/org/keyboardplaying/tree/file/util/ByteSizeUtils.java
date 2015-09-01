@@ -33,16 +33,15 @@ public final class ByteSizeUtils {
      * @param size
      *            the byte size to display
      * @param si
-     *            {@code true} to use the units of the international system (kb), {@code false} to
-     *            use the IEC units (KiB, MiB, ...)
+     *            {@code true} to use the units of the international system (kb), {@code false} to use the IEC units
+     *            (KiB, MiB, ...)
      * @return a human-readable byte size
      */
     public static String getHumanReadable(long size, boolean si) {
         /*
          * Provided by aioobe
          *
-         * http://stackoverflow.com/questions/3758606/how-to-convert-byte-size-into
-         * -human-readable-format-in-java
+         * http://stackoverflow.com/questions/3758606/how-to-convert-byte-size-into -human-readable-format-in-java
          */
         int unit = si ? 1000 : 1024;
         if (size < unit) {

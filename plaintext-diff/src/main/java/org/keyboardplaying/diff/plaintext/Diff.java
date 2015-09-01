@@ -18,7 +18,6 @@
  */
 package org.keyboardplaying.diff.plaintext;
 
-
 /**
  * Class representing one diff operation.
  *

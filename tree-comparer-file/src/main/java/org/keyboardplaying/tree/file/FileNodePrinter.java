@@ -35,7 +35,7 @@ public class FileNodePrinter implements NodePrinter<String, FileSystemElementInf
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.keyboardplaying.tree.reporter.NodePrinter#printId(java.lang.Comparable)
      */
     @Override
@@ -55,9 +55,8 @@ public class FileNodePrinter implements NodePrinter<String, FileSystemElementInf
 
     /*
      * (non-Javadoc)
-     * 
-     * @see org.keyboardplaying.tree.reporter.NodePrinter#printHeader(java.lang.Comparable,
-     * java.lang.Comparable)
+     *
+     * @see org.keyboardplaying.tree.reporter.NodePrinter#printHeader(java.lang.Comparable, java.lang.Comparable)
      */
     @Override
     public String printHeader(String id, FileSystemElementInfo content) throws PrintException {
@@ -67,10 +66,8 @@ public class FileNodePrinter implements NodePrinter<String, FileSystemElementInf
             return "<b>+ " + getPath(id, content.getPath()) + "</b>";
         } else {
             FileInfo info = (FileInfo) content;
-            return String.format(
-                    "&nbsp;&nbsp; %s <small>(%s, %3$tY-%3$tm-%3$te %3$tH:%3$tM:%3$tS, %s)</small>",
-                    getPath(id, info.getPath()),
-                    ByteSizeUtils.getHumanReadable(info.getFileSize(), false),
+            return String.format("&nbsp;&nbsp; %s <small>(%s, %3$tY-%3$tm-%3$te %3$tH:%3$tM:%3$tS, %s)</small>",
+                    getPath(id, info.getPath()), ByteSizeUtils.getHumanReadable(info.getFileSize(), false),
                     info.getLastModified(), info.getChecksum());
         }
     }
@@ -84,14 +81,13 @@ public class FileNodePrinter implements NodePrinter<String, FileSystemElementInf
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.keyboardplaying.tree.reporter.NodePrinter#printContent(java.lang.Comparable)
      */
     @Override
     public String printContent(FileSystemElementInfo content) throws PrintException {
         try {
-            return content instanceof FileInfo ? FileUtils.readFileToString(new File(content
-                    .getPath())) : null;
+            return content instanceof FileInfo ? FileUtils.readFileToString(new File(content.getPath())) : null;
         } catch (IOException e) {
             throw new PrintException(e);
         }

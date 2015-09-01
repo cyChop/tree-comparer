@@ -100,8 +100,8 @@ public class FileTreeBuilder {
      *            the {@link File} to test
      * @param filters
      *            the filters to test the file against
-     * @return {@code true} if no filter was supplied or if {@link Filter#include(File)} returned
-     *         {@code true} for all filters, {@code false} otherwise
+     * @return {@code true} if no filter was supplied or if {@link Filter#include(File)} returned {@code true} for all
+     *         filters, {@code false} otherwise
      */
     private boolean matchFilters(File file, Filter... filters) {
         boolean include = true;

@@ -20,7 +20,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.keyboardplaying.tree.diff.Comparer;
 import org.keyboardplaying.tree.model.Node;
 import org.keyboardplaying.tree.model.Tree;
 import org.keyboardplaying.tree.model.Versions;
@@ -95,8 +94,7 @@ public class ComparerTest {
 
         // Now compare
         @SuppressWarnings("unchecked")
-        Tree<Versions<String>, Versions<String>> result = comparer.compare(new Tree[] { tree1,
-                tree2, tree3 });
+        Tree<Versions<String>, Versions<String>> result = comparer.compare(new Tree[] { tree1, tree2, tree3 });
 
         // Ensure the result is as expected
         Versions<String> versions = result.getId();

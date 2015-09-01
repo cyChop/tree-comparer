@@ -52,12 +52,11 @@ public abstract class FileSystemElementInfo implements Comparable<FileSystemElem
     }
 
     /**
-     * Returns the name of the file or directory denoted by this abstract pathname. This is just the
-     * last name in the pathname's name sequence. If the pathname's name sequence is empty, then the
-     * empty string is returned.
+     * Returns the name of the file or directory denoted by this abstract pathname. This is just the last name in the
+     * pathname's name sequence. If the pathname's name sequence is empty, then the empty string is returned.
      *
-     * @return the name of the file or directory denoted by this abstract pathname, or the empty
-     *         string if this pathname's name sequence is empty
+     * @return the name of the file or directory denoted by this abstract pathname, or the empty string if this
+     *         pathname's name sequence is empty
      */
     public String getName() {
         return file.getName();
@@ -66,8 +65,7 @@ public abstract class FileSystemElementInfo implements Comparable<FileSystemElem
     /**
      * Returns the absolute pathname string of this abstract pathname.
      *
-     * @return the absolute pathname string denoting the same file or directory as this abstract
-     *         pathname
+     * @return the absolute pathname string denoting the same file or directory as this abstract pathname
      */
     public String getPath() {
         return file.getAbsolutePath();
