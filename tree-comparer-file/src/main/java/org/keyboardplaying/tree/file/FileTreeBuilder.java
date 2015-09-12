@@ -80,9 +80,13 @@ public class FileTreeBuilder {
         Node<FileSystemElementInfo> root;
         if (file.isDirectory()) {
             root = createDirectoryNode(file);
-            for (File subFile : file.listFiles()) {
-                if (matchFilters(subFile, filters)) {
-                    root.addChild(buildNode(subFile, filters));
+
+            File[] list = file.listFiles();
+            if (list != null) {
+                for (File subFile : list) {
+                    if (matchFilters(subFile, filters)) {
+                        root.addChild(buildNode(subFile, filters));
+                    }
                 }
             }
         } else {
@@ -138,11 +142,13 @@ public class FileTreeBuilder {
     private Node<FileSystemElementInfo> createFileNode(File file) throws IOException {
         assert file.isFile();
 
-        // calculate the MD5 checksum for this file
-        String checksum = DigestUtils.md5Hex(new FileInputStream(file));
+        try (FileInputStream fileIS = new FileInputStream(file)) {
+            // calculate the MD5 checksum for this file
+            String checksum = DigestUtils.md5Hex(fileIS);
 
-        // create and return node
-        FileSystemElementInfo fileInfo = new FileInfo(file, checksum);
-        return new Node<FileSystemElementInfo>(fileInfo);
+            // create and return node
+            FileSystemElementInfo fileInfo = new FileInfo(file, checksum);
+            return new Node<>(fileInfo);
+        }
     }
 }

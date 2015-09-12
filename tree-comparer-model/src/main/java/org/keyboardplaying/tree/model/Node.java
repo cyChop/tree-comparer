@@ -40,7 +40,7 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
      * <p/>
      * This list should be kept sorted at all times.
      */
-    private List<Node<T>> children = new ArrayList<Node<T>>();
+    private List<Node<T>> children = new ArrayList<>();
 
     /**
      * Creates a new instance.

@@ -35,15 +35,15 @@ public class NodeTest {
     public void testEqualityAndSortingMethods() {
         String value1 = UUID.randomUUID().toString();
         String value2 = UUID.randomUUID().toString();
-        Node<String> node1 = new Node<String>(value1);
-        Node<String> node2 = new Node<String>(value2);
+        Node<String> node1 = new Node<>(value1);
+        Node<String> node2 = new Node<>(value2);
 
         assertEquals(value1.hashCode(), node1.hashCode());
         assertEquals(value2.hashCode(), node2.hashCode());
 
-        assertFalse(node1.equals(new Node<String>(value1.toUpperCase())));
+        assertFalse(node1.equals(new Node<>(value1.toUpperCase())));
         assertFalse(node1.equals(value2));
-        assertTrue(node1.equals(new Node<String>(value1)));
+        assertTrue(node1.equals(new Node<>(value1)));
         assertTrue(node1.equals(value1));
 
         assertEquals(value1.compareTo(value2), node1.compareTo(node2));
@@ -51,11 +51,11 @@ public class NodeTest {
 
     @Test
     public void testChildOrdering() {
-        Node<String> node = new Node<String>("Animals");
-        node.addChild(new Node<String>("cat"));
-        node.addChild(new Node<String>("dog"));
-        node.addChild(new Node<String>("cow"));
-        node.addChild(new Node<String>("bird"));
+        Node<String> node = new Node<>("Animals");
+        node.addChild(new Node<>("cat"));
+        node.addChild(new Node<>("dog"));
+        node.addChild(new Node<>("cow"));
+        node.addChild(new Node<>("bird"));
 
         List<Node<String>> children = node.getChildren();
         assertEquals(4, children.size());
@@ -67,9 +67,9 @@ public class NodeTest {
 
     @Test
     public void testParent() {
-        Node<String> node = new Node<String>("Parent");
-        Node<String> node1 = new Node<String>("Child 1");
-        Node<String> node2 = new Node<String>("Child 2");
+        Node<String> node = new Node<>("Parent");
+        Node<String> node1 = new Node<>("Child 1");
+        Node<String> node2 = new Node<>("Child 2");
 
         node.addChild(node1);
         node.addChild(node2);

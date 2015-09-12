@@ -51,8 +51,8 @@ public class Comparer {
             throw new IllegalArgumentException("The comparator works if there are at least two trees to compare.");
         }
 
-        Versions<R> roots = new Versions<R>(nbVersions);
-        Versions<T> rootVersions = new Versions<T>(nbVersions);
+        Versions<R> roots = new Versions<>(nbVersions);
+        Versions<T> rootVersions = new Versions<>(nbVersions);
         @SuppressWarnings("unchecked")
         List<Node<T>>[] children = new List[nbVersions];
 
@@ -62,10 +62,10 @@ public class Comparer {
             children[i] = trees[i].getRoot().getChildren();
         }
 
-        Node<Versions<T>> rootNode = new Node<Versions<T>>(rootVersions);
+        Node<Versions<T>> rootNode = new Node<>(rootVersions);
         addChildrenVersions(rootNode, children);
 
-        return new Tree<Versions<R>, Versions<T>>(roots, rootNode);
+        return new Tree<>(roots, rootNode);
     }
 
     /**
@@ -127,7 +127,7 @@ public class Comparer {
     private <T extends Comparable<T>> void addChildrenAtCurrentIndices(Node<Versions<T>> rootNode,
             List<Node<T>>[] children, int nbVersions, int[] indices, int[] maxIdcs) {
         T min = null;
-        Versions<T> versions = new Versions<T>(nbVersions);
+        Versions<T> versions = new Versions<>(nbVersions);
         @SuppressWarnings("unchecked")
         List<Node<T>>[] nextChildren = new List[nbVersions];
         for (int i = 0; i < nbVersions; i++) {
@@ -158,20 +158,20 @@ public class Comparer {
                         for (int j = 0; j < i; j++) {
                             versions.set(j, null);
                             indices[j] = Math.max(indices[j] - 1, 0);
-                            nextChildren[j] = new ArrayList<Node<T>>();
+                            nextChildren[j] = new ArrayList<>();
                         }
                     } else {
                         // higher than minimal
                         // do not save version
-                        nextChildren[i] = new ArrayList<Node<T>>();
+                        nextChildren[i] = new ArrayList<>();
                     }
                 }
             } else {
-                nextChildren[i] = new ArrayList<Node<T>>();
+                nextChildren[i] = new ArrayList<>();
             }
         }
         // Build and add node
-        Node<Versions<T>> versionsNode = new Node<Versions<T>>(versions);
+        Node<Versions<T>> versionsNode = new Node<>(versions);
         addChildrenVersions(versionsNode, nextChildren);
         rootNode.addChild(versionsNode);
     }

@@ -34,13 +34,19 @@ import org.keyboardplaying.tree.model.Tree;
 import org.keyboardplaying.tree.model.Versions;
 
 /**
+ * A tool to report a diffTree tree as an HTML page, based on Bootstrap style.
+ *
  * @author Cyrille Chopelet (http://keyboardplaying.org)
+ *
+ * @param <T>
+ *            the type of the tree's ID
+ * @param <U>
+ *            the type of the tree's nodes' characteristics
  */
-// TODO Javadoc
 public class HtmlReport<T extends Comparable<T>, U extends Comparable<U>> {
 
     /** The result of a comparison to display as a report. */
-    private Tree<Versions<T>, Versions<U>> diff;
+    private Tree<Versions<T>, Versions<U>> diffTree;
     private NodePrinter<T, U> printer;
     /**
      * The width of each column in the report.
@@ -54,10 +60,12 @@ public class HtmlReport<T extends Comparable<T>, U extends Comparable<U>> {
      *
      * @param diff
      *            the result of a comparison to print as a report
+     * @param printer
+     *            the printer for this report
      *
      */
     public HtmlReport(Tree<Versions<T>, Versions<U>> diff, NodePrinter<T, U> printer) {
-        this.diff = diff;
+        this.diffTree = diff;
         this.printer = printer;
         /* We use Bootstrap, which is a 12-column based grid system. */
         this.colWidth = 12 / diff.getId().getNbVersions();
@@ -72,22 +80,21 @@ public class HtmlReport<T extends Comparable<T>, U extends Comparable<U>> {
      *             if printing fails
      */
     public void generate() throws IOException, PrintException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter("report.html"));
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("report.html"))) {
 
-        IOUtils.write("<!DOCTYPE html><html>", writer);
-        // write header with bootstrap style
-        printHtmlHeaders(writer);
+            IOUtils.write("<!DOCTYPE html><html>", writer);
+            // write header with bootstrap style
+            printHtmlHeaders(writer);
 
-        // write the body
-        IOUtils.write("<body style=\"padding: 10px\">", writer);
-        printHeader(diff.getId(), writer);
-        print(diff.getRoot(), writer);
-        IOUtils.write("</body>", writer);
+            // write the body
+            IOUtils.write("<body style=\"padding: 10px\">", writer);
+            printHeader(diffTree.getId(), writer);
+            print(diffTree.getRoot(), writer);
+            IOUtils.write("</body>", writer);
 
-        // end HTML
-        IOUtils.write("</html>", writer);
-
-        IOUtils.closeQuietly(writer);
+            // end HTML
+            IOUtils.write("</html>", writer);
+        }
     }
 
     /**
@@ -103,10 +110,13 @@ public class HtmlReport<T extends Comparable<T>, U extends Comparable<U>> {
         IOUtils.write("<meta charset=\"UTF-8\">", writer);
         IOUtils.write("<title>Comparison report</title>", writer);
         IOUtils.write("<style>", writer);
-        InputStream style = this.getClass().getClassLoader().getResourceAsStream("bootstrap.min.css");
-        IOUtils.copy(style, writer);
-        IOUtils.closeQuietly(style);
-        // enhance diff style a bit
+
+        // Copy stylesheet
+        try (InputStream style = this.getClass().getClassLoader().getResourceAsStream("bootstrap.min.css")) {
+            IOUtils.copy(style, writer);
+        }
+
+        // enhance diffTree style a bit
         writer.write(".text-success{background-color:#ccffcc}" + ".text-danger{background-color:#ffcccc}"
                 + "pre{white-space:pre;max-height: 500px;overflow-x:auto;overflow-y:auto}");
         IOUtils.write("</style>", writer);
@@ -155,7 +165,7 @@ public class HtmlReport<T extends Comparable<T>, U extends Comparable<U>> {
         }
         for (int v = 0; v < node.getNodeInfo().getNbVersions(); v++) {
             U version = node.getNodeInfo().get(v);
-            T id = this.diff.getId().get(v);
+            T id = this.diffTree.getId().get(v);
             openCellDiv(writer);
             IOUtils.write(printer.printHeader(id, version), writer);
             IOUtils.write("</div>", writer);

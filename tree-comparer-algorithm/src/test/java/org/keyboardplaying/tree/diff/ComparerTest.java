@@ -47,8 +47,8 @@ public class ComparerTest {
     @Test(expected = IllegalArgumentException.class)
     @SuppressWarnings("unchecked")
     public void testSingleArgComparer() {
-        Node<String> root = new Node<String>("A");
-        Tree<String, String> tree = new Tree<String, String>("Tree1", root);
+        Node<String> root = new Node<>("A");
+        Tree<String, String> tree = new Tree<>("Tree1", root);
         comparer.compare(tree);
     }
 
@@ -59,38 +59,38 @@ public class ComparerTest {
         Node<String> root, node;
 
         // Tree 1
-        root = new Node<String>("A");
-        node = new Node<String>("A1");
-        node.addChild(new Node<String>("A11"));
-        node.addChild(new Node<String>("A12"));
-        node.addChild(new Node<String>("A14"));
+        root = new Node<>("A");
+        node = new Node<>("A1");
+        node.addChild(new Node<>("A11"));
+        node.addChild(new Node<>("A12"));
+        node.addChild(new Node<>("A14"));
         root.addChild(node);
-        node = new Node<String>("A2");
-        node.addChild(new Node<String>("A21"));
+        node = new Node<>("A2");
+        node.addChild(new Node<>("A21"));
         root.addChild(node);
-        root.addChild(new Node<String>("A4"));
-        Tree<String, String> tree1 = new Tree<String, String>("Tree1", root);
+        root.addChild(new Node<>("A4"));
+        Tree<String, String> tree1 = new Tree<>("Tree1", root);
 
         // Tree 2
-        root = new Node<String>("A");
-        node = new Node<String>("A1");
-        node.addChild(new Node<String>("A12"));
-        node.addChild(new Node<String>("A13"));
+        root = new Node<>("A");
+        node = new Node<>("A1");
+        node.addChild(new Node<>("A12"));
+        node.addChild(new Node<>("A13"));
         root.addChild(node);
-        root.addChild(new Node<String>("A3"));
-        root.addChild(new Node<String>("A4"));
-        Tree<String, String> tree2 = new Tree<String, String>("Tree2", root);
+        root.addChild(new Node<>("A3"));
+        root.addChild(new Node<>("A4"));
+        Tree<String, String> tree2 = new Tree<>("Tree2", root);
 
         // Tree 3
-        root = new Node<String>("A");
-        node = new Node<String>("A1");
-        node.addChild(new Node<String>("A11"));
-        node.addChild(new Node<String>("A12"));
-        node.addChild(new Node<String>("A14"));
+        root = new Node<>("A");
+        node = new Node<>("A1");
+        node.addChild(new Node<>("A11"));
+        node.addChild(new Node<>("A12"));
+        node.addChild(new Node<>("A14"));
         root.addChild(node);
-        root.addChild(new Node<String>("A3"));
-        root.addChild(new Node<String>("A4"));
-        Tree<String, String> tree3 = new Tree<String, String>("Tree3", root);
+        root.addChild(new Node<>("A3"));
+        root.addChild(new Node<>("A4"));
+        Tree<String, String> tree3 = new Tree<>("Tree3", root);
 
         // Now compare
         @SuppressWarnings("unchecked")
@@ -101,7 +101,7 @@ public class ComparerTest {
         assertEquals("Tree1", versions.get(0));
         assertEquals("Tree2", versions.get(1));
         Node<Versions<String>> nod = result.getRoot();
-        versions = new Versions<String>(3);
+        versions = new Versions<>(3);
         versions.set(0, "A1");
         versions.set(1, "A1");
         versions.set(2, "A1");

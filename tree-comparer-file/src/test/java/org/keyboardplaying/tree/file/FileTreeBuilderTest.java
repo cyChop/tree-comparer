@@ -36,6 +36,7 @@ import org.keyboardplaying.tree.model.Node;
  *
  * @author Cyrille Chopelet (http://keyboardplaying.org)
  */
+@SuppressWarnings("javadoc")
 public class FileTreeBuilderTest {
 
     /** Tests the standard tree building. */

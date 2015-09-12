@@ -58,7 +58,7 @@ public class Main {
 
         // Generate the report
         System.out.println(String.format("[%1$tY-%1$tm-%1$te %1$tH:%1$tM:%1$tS] Generating report", new Date()));
-        new HtmlReport<String, FileSystemElementInfo>(result, new FileNodePrinter()).generate();
+        new HtmlReport<>(result, new FileNodePrinter()).generate();
 
         System.out.println(String.format("[%1$tY-%1$tm-%1$te %1$tH:%1$tM:%1$tS] Done", new Date()));
     }

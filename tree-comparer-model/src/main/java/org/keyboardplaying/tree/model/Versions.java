@@ -69,24 +69,56 @@ public class Versions<T extends Comparable<T>> implements Comparable<Versions<T>
         return constant;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
     @Override
     public int compareTo(Versions<T> o) {
-        return getFirstNonNullVersion().compareTo(o.getFirstNonNullVersion());
+        T tnnv = getFirstNonNullVersion();
+        T onnv = o.getFirstNonNullVersion();
+
+        int result;
+        if (tnnv == null) {
+            result = onnv == null ? 0 : -1;
+        } else if (onnv == null) {
+            result = 1;
+        } else {
+            result = tnnv.compareTo(onnv);
+        }
+
+        return result;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         return Arrays.hashCode(versions);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object o) {
         return o instanceof Versions && Arrays.equals(versions, ((Versions<?>) o).versions);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Iterable#iterator()
+     */
     @Override
     public Iterator<T> iterator() {
-        return new VersionIterator<T>(versions);
+        return new VersionIterator<>(versions);
     }
 
     public static class VersionIterator<T> implements Iterator<T> {
