@@ -18,18 +18,26 @@ package org.keyboardplaying.tree.file.filter;
 
 import java.io.File;
 
-// XXX JAVADOC
 /**
+ * A {@link Filter} that will include only files and directories whose name matches the supplied mask (regex).
+ *
  * @author Cyrille Chopelet (http://keyboardplaying.org)
  */
 public class FilenameMaskFilter implements Filter {
 
     private String mask;
 
+    /**
+     * Creates a new instance.
+     *
+     * @param mask
+     *            the regex to test files against
+     */
     public FilenameMaskFilter(String mask) {
         this.mask = mask;
     }
 
+    /** return {@code true} if the directory or file's name matches the filter's mask */
     @Override
     public boolean include(File file) {
         return file.getName().matches(mask);

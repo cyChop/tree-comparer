@@ -18,11 +18,19 @@ package org.keyboardplaying.tree.file.filter;
 
 import java.io.File;
 
-// XXX JAVADOC
 /**
+ * An interface to filter the files included in the comparison.
+ *
  * @author Cyrille Chopelet (http://keyboardplaying.org)
  */
 public interface Filter {
 
+    /**
+     * Determines whether a file should be included in the comparison.
+     *
+     * @param file
+     *            the file to test
+     * @return {@code true} if the file should be included in the comparison, {@code false} otherwise
+     */
     boolean include(File file);
 }

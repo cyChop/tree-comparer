@@ -42,7 +42,8 @@ public class FileTreeBuilder {
      * @param file
      *            the root file or directory
      * @param filters
-     *            the filters to apply when building the tree
+     *            the filters to apply when building the tree; a file should match <em>all</em> filters to be included
+     *            in the comparison
      * @return the generated {@link FileTree}
      * @throws IOException
      *             when a file could not be found or read
