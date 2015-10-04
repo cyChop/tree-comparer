@@ -2,27 +2,18 @@ language: java
 
 sudo: false
 
+env:
+  global:
+    - JACOCO_VERSION=0.7.4.201502262128
+
 jdk:
   - oraclejdk7
 
-# Coverage report on Coveralls
+before_script:
+  - "mvn clean install -Dmaven.test.skip=true"
+
+script
+  - "mvn org.jacoco:jacoco-maven-plugin:$JACOCO_VERSION:prepare-agent install"
+
 after_success:
-  - mvn cobertura:cobertura coveralls:report
-
-# Coverity scan
-# Execute only for builds on branch coverity_scan
-env:
-  global:
-   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
-   #   via the "travis encrypt" command using the project repo's public key
-   - secure: "NF27kOtFR19KEZXS1SONiwjVvaHQJmXtwHEtREawm+elhtqz5dj2JNTTk2Uc+okP9TVmJq7UY6LsRsPUK1fjwQfjzbeJjcJciXIawwhzqd3wOsGd5RvO76UEs/0oDvuBSAynmg8xEaeLfw8nOfFFcGdH7sa/x+ZTrV/fBv3tS4s="
-
-addons:
-  coverity_scan:
-    project:
-      name: "cyChop/tree-comparer"
-      description: "Build submitted via Travis CI"
-    notification_email: cyrille.chopelet@mines-nancy.org
-    build_command_prepend: "mvn clean"
-    build_command:   "mvn -DskipTests=true compile"
-    branch_pattern: coverity_scan
+  - "[[ $TRAVIS_PULL_REQUEST == false ]] && [[ $TRAVIS_BRANCH == quality ]] && mvn sonar:sonar"
