@@ -45,11 +45,6 @@
         <!-- Version management - test -->
         <junit.version>4.12</junit.version>
         <jdepend.version>2.9.1</jdepend.version>
-
-        <!-- Sonar -->
-        <!-- plaintext-diff is external code -->
-        <!-- We don't analyze libraries' quality, so ignore it just the same. -->
-        <sonar.exclusions>plaintext-diff/**/*</sonar.exclusions>
     </properties>
 
     <dependencyManagement>
