@@ -10,6 +10,11 @@
     <artifactId>plaintext-diff</artifactId>
     <description>Plaintext comparison algorithm extracted from the google-diff-match-patch project</description>
 
+    <properties>
+        <!-- This module's code is to be considered as an external library and, therefore, not analyzed as own code. -->
+        <sonar.skip>true</sonar.skip>
+    </properties>
+
     <dependencies>
         <!--<![CDATA[
              _____       _
@@ -22,19 +27,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <build>
-        <pluginManagement>
-            <plugins>
-                <!-- This code is to be considered as an external library and, therefore, not analyzed as own code. -->
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>sonar-maven-plugin</artifactId>
-                    <configuration>
-                        <skip>true</skip>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
 </project>
