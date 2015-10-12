@@ -25,12 +25,14 @@ import java.util.UUID;
 
 import org.junit.Test;
 
-// XXX JAVADOC
 /**
+ * Test class for {@link Node}.
+ *
  * @author Cyrille Chopelet (http://keyboardplaying.org)
  */
 public class NodeTest {
 
+    /** Tests the equality and sorting of nodes. */
     @Test
     public void testEqualityAndSortingMethods() {
         String value1 = UUID.randomUUID().toString();
@@ -49,6 +51,7 @@ public class NodeTest {
         assertEquals(value1.compareTo(value2), node1.compareTo(node2));
     }
 
+    /** Tests the ordering of children added to nodes. */
     @Test
     public void testChildOrdering() {
         Node<String> node = new Node<>("Animals");
@@ -65,6 +68,7 @@ public class NodeTest {
         assertEquals("dog", children.get(3).getNodeInfo());
     }
 
+    /** Tests the equality of two nodes parents. */
     @Test
     public void testParent() {
         Node<String> node = new Node<>("Parent");

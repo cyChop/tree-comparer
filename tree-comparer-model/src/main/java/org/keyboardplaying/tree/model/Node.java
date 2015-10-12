@@ -28,6 +28,9 @@ import java.util.List;
  * There is no difference of implementation between nodes and leaves. A leaf will simply be a childless node.
  *
  * @author Cyrille Chopelet (http://keyboardplaying.org)
+ *
+ * @param <T>
+ *            the type of node
  */
 public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
 
