@@ -27,7 +27,7 @@ import org.keyboardplaying.tree.file.filter.FilenameMaskFilter;
 import org.keyboardplaying.tree.file.model.FileSystemElementInfo;
 import org.keyboardplaying.tree.file.model.FileTree;
 import org.keyboardplaying.tree.model.Tree;
-import org.keyboardplaying.tree.model.Versions;
+import org.keyboardplaying.tree.model.Variations;
 import org.keyboardplaying.tree.reporter.HtmlReport;
 
 /**
@@ -54,7 +54,7 @@ public class Main {
 
         // Compare
         System.out.println(String.format("[%1$tY-%1$tm-%1$te %1$tH:%1$tM:%1$tS] Calculating diff", new Date()));
-        Tree<Versions<String>, Versions<FileSystemElementInfo>> result = new Comparer().compare(trees);
+        Tree<Variations<String>, Variations<FileSystemElementInfo>> result = new Comparer().compare(trees);
 
         // Generate the report
         System.out.println(String.format("[%1$tY-%1$tm-%1$te %1$tH:%1$tM:%1$tS] Generating report", new Date()));

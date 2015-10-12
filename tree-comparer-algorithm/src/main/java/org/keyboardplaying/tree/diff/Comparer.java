@@ -21,14 +21,14 @@ import java.util.List;
 
 import org.keyboardplaying.tree.model.Node;
 import org.keyboardplaying.tree.model.Tree;
-import org.keyboardplaying.tree.model.Versions;
+import org.keyboardplaying.tree.model.Variations;
 
 /**
  * Compares a variable number of trees and compiles the results in a single tree containing each diff as a node.
  * <p/>
  * The diff tree respects the hierarchical structure of the compared trees and stores the various versions of each node
- * in a {@link Versions} object. If a node is missing from a tree, it will be stored as {@code null} at that position in
- * the corresponding {@link Versions} instance.
+ * in a {@link Variations} object. If a node is missing from a tree, it will be stored as {@code null} at that position
+ * in the corresponding {@link Variations} instance.
  *
  * @author Cyrille Chopelet (http://keyboardplaying.org)
  */
@@ -43,7 +43,7 @@ public class Comparer {
      *            the trees to compare; at least two should be provided
      * @return a {@link Tree} containing all the versions of each node in each original {@link Tree}
      */
-    public <R extends Comparable<R>, T extends Comparable<T>> Tree<Versions<R>, Versions<T>> compare(
+    public <R extends Comparable<R>, T extends Comparable<T>> Tree<Variations<R>, Variations<T>> compare(
             @SuppressWarnings("unchecked") Tree<R, T>... trees) {
         int nbVersions = trees.length;
 
@@ -51,8 +51,8 @@ public class Comparer {
             throw new IllegalArgumentException("The comparator works if there are at least two trees to compare.");
         }
 
-        Versions<R> roots = new Versions<>(nbVersions);
-        Versions<T> rootVersions = new Versions<>(nbVersions);
+        Variations<R> roots = new Variations<>(nbVersions);
+        Variations<T> rootVersions = new Variations<>(nbVersions);
         @SuppressWarnings("unchecked")
         List<Node<T>>[] children = new List[nbVersions];
 
@@ -62,7 +62,7 @@ public class Comparer {
             children[i] = trees[i].getRoot().getChildren();
         }
 
-        Node<Versions<T>> rootNode = new Node<>(rootVersions);
+        Node<Variations<T>> rootNode = new Node<>(rootVersions);
         addChildrenVersions(rootNode, children);
 
         return new Tree<>(roots, rootNode);
@@ -80,7 +80,7 @@ public class Comparer {
      *
      * @see #addChildrenAtCurrentIndices(Node, List[], int, int[], int[])
      */
-    private <T extends Comparable<T>> void addChildrenVersions(Node<Versions<T>> rootNode, List<Node<T>>[] children) {
+    private <T extends Comparable<T>> void addChildrenVersions(Node<Variations<T>> rootNode, List<Node<T>>[] children) {
         int nbVersions = children.length;
 
         assert rootNode.getNodeInfo().getNbVersions() == nbVersions;
@@ -124,10 +124,10 @@ public class Comparer {
      *            the size of each children list; passing them as a parameter avoids counting the elements in the list
      *            on each iteration
      */
-    private <T extends Comparable<T>> void addChildrenAtCurrentIndices(Node<Versions<T>> rootNode,
+    private <T extends Comparable<T>> void addChildrenAtCurrentIndices(Node<Variations<T>> rootNode,
             List<Node<T>>[] children, int nbVersions, int[] indices, int[] maxIdcs) {
         T min = null;
-        Versions<T> versions = new Versions<>(nbVersions);
+        Variations<T> versions = new Variations<>(nbVersions);
         @SuppressWarnings("unchecked")
         List<Node<T>>[] nextChildren = new List[nbVersions];
         for (int i = 0; i < nbVersions; i++) {
@@ -171,7 +171,7 @@ public class Comparer {
             }
         }
         // Build and add node
-        Node<Versions<T>> versionsNode = new Node<>(versions);
+        Node<Variations<T>> versionsNode = new Node<>(versions);
         addChildrenVersions(versionsNode, nextChildren);
         rootNode.addChild(versionsNode);
     }

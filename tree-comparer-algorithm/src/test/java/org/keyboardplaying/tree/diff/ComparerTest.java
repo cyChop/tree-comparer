@@ -22,7 +22,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.keyboardplaying.tree.model.Node;
 import org.keyboardplaying.tree.model.Tree;
-import org.keyboardplaying.tree.model.Versions;
+import org.keyboardplaying.tree.model.Variations;
 
 /**
  * Tests the {@link Comparer}.
@@ -94,14 +94,14 @@ public class ComparerTest {
 
         // Now compare
         @SuppressWarnings("unchecked")
-        Tree<Versions<String>, Versions<String>> result = comparer.compare(new Tree[] { tree1, tree2, tree3 });
+        Tree<Variations<String>, Variations<String>> result = comparer.compare(new Tree[] { tree1, tree2, tree3 });
 
         // Ensure the result is as expected
-        Versions<String> versions = result.getId();
+        Variations<String> versions = result.getId();
         assertEquals("Tree1", versions.get(0));
         assertEquals("Tree2", versions.get(1));
-        Node<Versions<String>> nod = result.getRoot();
-        versions = new Versions<>(3);
+        Node<Variations<String>> nod = result.getRoot();
+        versions = new Variations<>(3);
         versions.set(0, "A1");
         versions.set(1, "A1");
         versions.set(2, "A1");

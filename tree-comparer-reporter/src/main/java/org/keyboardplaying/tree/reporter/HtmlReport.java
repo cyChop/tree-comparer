@@ -31,7 +31,7 @@ import org.keyboardplaying.diff.plaintext.PlaintextDiff;
 import org.keyboardplaying.tree.exception.PrintException;
 import org.keyboardplaying.tree.model.Node;
 import org.keyboardplaying.tree.model.Tree;
-import org.keyboardplaying.tree.model.Versions;
+import org.keyboardplaying.tree.model.Variations;
 
 /**
  * A tool to report a diffTree tree as an HTML page, based on Bootstrap style.
@@ -46,7 +46,7 @@ import org.keyboardplaying.tree.model.Versions;
 public class HtmlReport<T extends Comparable<T>, U extends Comparable<U>> {
 
     /** The result of a comparison to display as a report. */
-    private Tree<Versions<T>, Versions<U>> diffTree;
+    private Tree<Variations<T>, Variations<U>> diffTree;
     private NodePrinter<T, U> printer;
     /**
      * The width of each column in the report.
@@ -64,7 +64,7 @@ public class HtmlReport<T extends Comparable<T>, U extends Comparable<U>> {
      *            the printer for this report
      *
      */
-    public HtmlReport(Tree<Versions<T>, Versions<U>> diff, NodePrinter<T, U> printer) {
+    public HtmlReport(Tree<Variations<T>, Variations<U>> diff, NodePrinter<T, U> printer) {
         this.diffTree = diff;
         this.printer = printer;
         /* We use Bootstrap, which is a 12-column based grid system. */
@@ -135,7 +135,7 @@ public class HtmlReport<T extends Comparable<T>, U extends Comparable<U>> {
      * @throws PrintException
      *             if printing fails
      */
-    private void printHeader(Versions<T> ids, BufferedWriter writer) throws IOException, PrintException {
+    private void printHeader(Variations<T> ids, BufferedWriter writer) throws IOException, PrintException {
         IOUtils.write("<div class=\"row\">", writer);
         for (T id : ids) {
             openCellDiv(writer);
@@ -156,7 +156,7 @@ public class HtmlReport<T extends Comparable<T>, U extends Comparable<U>> {
      * @throws PrintException
      *             if printing fails
      */
-    private void print(Node<Versions<U>> node, Writer writer) throws IOException, PrintException {
+    private void print(Node<Variations<U>> node, Writer writer) throws IOException, PrintException {
         boolean constant = node.getNodeInfo().isConstant();
         if (constant) {
             IOUtils.write("<div class=\"row text-muted\">", writer);
@@ -174,13 +174,13 @@ public class HtmlReport<T extends Comparable<T>, U extends Comparable<U>> {
         if (!constant) {
             printDiff(writer, node.getNodeInfo());
         }
-        for (Node<Versions<U>> child : node.getChildren()) {
+        for (Node<Variations<U>> child : node.getChildren()) {
             print(child, writer);
         }
     }
 
     /**
-     * Prints the content of the files of this {@link Versions} instance.
+     * Prints the content of the files of this {@link Variations} instance.
      * <p/>
      * The first non-null version will be displayed as is for reference. Next versions will be displayed and differences
      * with reference file will be highlighted.
@@ -194,7 +194,7 @@ public class HtmlReport<T extends Comparable<T>, U extends Comparable<U>> {
      * @throws PrintException
      *             if printing fails
      */
-    private void printDiff(Writer writer, Versions<U> versions) throws IOException, PrintException {
+    private void printDiff(Writer writer, Variations<U> versions) throws IOException, PrintException {
         String ref = null;
         IOUtils.write("<div class=\"row\">", writer);
         for (U version : versions) {
