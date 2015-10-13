@@ -14,12 +14,6 @@
     <description>The module responsible for generating a diff tree from several trees.</description>
 
     <dependencies>
-        <dependency>
-            <groupId>org.keyboardplaying</groupId>
-            <artifactId>tree-comparer-model</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
         <!--<![CDATA[
              _____       _
             |_   _|__ __| |_
