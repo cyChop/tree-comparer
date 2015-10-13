@@ -44,9 +44,10 @@ public class NodeTest {
         assertEquals(value2.hashCode(), node2.hashCode());
 
         assertFalse(node1.equals(new Node<>(value1.toUpperCase())));
+        assertFalse(node1.equals(new Node<>(value2)));
         assertFalse(node1.equals(value2));
         assertTrue(node1.equals(new Node<>(value1)));
-        assertTrue(node1.equals(value1));
+        assertFalse(node1.equals(value1));
 
         assertEquals(value1.compareTo(value2), node1.compareTo(node2));
     }
@@ -62,10 +63,10 @@ public class NodeTest {
 
         List<Node<String>> children = node.getChildren();
         assertEquals(4, children.size());
-        assertEquals("bird", children.get(0).getNodeInfo());
-        assertEquals("cat", children.get(1).getNodeInfo());
-        assertEquals("cow", children.get(2).getNodeInfo());
-        assertEquals("dog", children.get(3).getNodeInfo());
+        assertEquals("bird", children.get(0).getContent());
+        assertEquals("cat", children.get(1).getContent());
+        assertEquals("cow", children.get(2).getContent());
+        assertEquals("dog", children.get(3).getContent());
     }
 
     /** Tests the equality of two nodes parents. */
@@ -80,5 +81,12 @@ public class NodeTest {
 
         assertTrue(node1.getParent() == node2.getParent());
         assertTrue(node1.getParent() == node);
+    }
+
+    /** Tests the output of {@link #toString()}. */
+    @Test
+    public void testToString() {
+        assertEquals("null", new Node<String>(null).toString());
+        assertEquals("hello", new Node<>("hello").toString());
     }
 }

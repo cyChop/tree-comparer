@@ -58,7 +58,7 @@ public class Comparer {
 
         for (int i = 0; i < nbVersions; i++) {
             roots.set(i, trees[i].getId());
-            rootVersions.set(i, trees[i].getRoot().getNodeInfo());
+            rootVersions.set(i, trees[i].getRoot().getContent());
             children[i] = trees[i].getRoot().getChildren();
         }
 
@@ -83,7 +83,7 @@ public class Comparer {
     private <T extends Comparable<T>> void addChildrenVersions(Node<Variations<T>> rootNode, List<Node<T>>[] children) {
         int nbVersions = children.length;
 
-        assert rootNode.getNodeInfo().getNbVersions() == nbVersions;
+        assert rootNode.getContent().getNbVersions() == nbVersions;
 
         /* Init indices. */
         boolean iterate = false;
@@ -134,7 +134,7 @@ public class Comparer {
             // build list
             if (indices[i] < maxIdcs[i]) {
                 Node<T> currentChildNode = children[i].get(indices[i]);
-                T currentChild = currentChildNode.getNodeInfo();
+                T currentChild = currentChildNode.getContent();
                 if (min == null) {
                     // first non null version found for this item
                     min = currentChild;

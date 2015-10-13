@@ -19,6 +19,7 @@ package org.keyboardplaying.tree.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Simple implementation for a tree node.
@@ -30,12 +31,12 @@ import java.util.List;
  * @author Cyrille Chopelet (http://keyboardplaying.org)
  *
  * @param <T>
- *            the type of node
+ *            the type of node content
  */
 public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
 
     /** This node's characteristics. */
-    private T nodeInfo;
+    private T content;
     /** A reference to this node's parent. */
     private Node<T> parent;
     /**
@@ -48,20 +49,20 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
     /**
      * Creates a new instance.
      *
-     * @param nodeInfo
+     * @param content
      *            this node's characteristics
      */
-    public Node(T nodeInfo) {
-        this.nodeInfo = nodeInfo;
+    public Node(T content) {
+        this.content = content;
     }
 
     /**
-     * Returns this node's characteristics.
+     * Returns this node's content.
      *
-     * @return this node's characteristics
+     * @return this node's content
      */
-    public T getNodeInfo() {
-        return nodeInfo;
+    public T getContent() {
+        return content;
     }
 
     /**
@@ -112,7 +113,7 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
      */
     @Override
     public int compareTo(Node<T> o) {
-        return getNodeInfo().compareTo(o.getNodeInfo());
+        return getContent().compareTo(o.getContent());
     }
 
     /*
@@ -122,7 +123,7 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
      */
     @Override
     public int hashCode() {
-        return getNodeInfo().hashCode();
+        return Objects.hashCode(getContent());
     }
 
     /*
@@ -132,7 +133,7 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
      */
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof Node && getNodeInfo().equals(((Node<?>) obj).getNodeInfo()) || getNodeInfo().equals(obj);
+        return obj instanceof Node && Objects.equals(getContent(), ((Node<?>) obj).getContent());
     }
 
     /*
@@ -142,6 +143,6 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
      */
     @Override
     public String toString() {
-        return nodeInfo.toString();
+        return String.valueOf(getContent());
     }
 }

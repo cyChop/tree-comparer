@@ -75,7 +75,7 @@ public class Tree<R extends Comparable<R>, T extends Comparable<T>> {
     public String toString() {
         // useful when debugging
         StringBuilder sb = new StringBuilder();
-        sb.append(String.valueOf(id)).append('\n');
+        sb.append(String.valueOf(id)).append(':');
         appendNode(root, sb, 0);
         return sb.toString();
     }
@@ -91,10 +91,11 @@ public class Tree<R extends Comparable<R>, T extends Comparable<T>> {
      *            the indent level of this node (or the number of parent level)
      */
     private void appendNode(Node<T> node, StringBuilder sb, int indent) {
+        sb.append('\n');
         for (int i = 0; i < indent; i++) {
             sb.append("  ");
         }
-        sb.append(String.valueOf(node)).append('\n');
+        sb.append(String.valueOf(node));
         for (Node<T> child : node.getChildren()) {
             appendNode(child, sb, indent + 1);
         }

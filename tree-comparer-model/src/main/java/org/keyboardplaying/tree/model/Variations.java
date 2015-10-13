@@ -150,7 +150,7 @@ public class Variations<T extends Comparable<T>> implements Comparable<Variation
      */
     @Override
     public Iterator<T> iterator() {
-        return new VersionIterator<>(array);
+        return new VariationsIterator<>(array);
     }
 
     /**
@@ -161,13 +161,12 @@ public class Variations<T extends Comparable<T>> implements Comparable<Variation
      * @param <T>
      *            the type of node
      */
-    // package visible only, the interface will do for anybody
-    static class VersionIterator<T> implements Iterator<T> {
+    static class VariationsIterator<T> implements Iterator<T> {
 
         private int i = 0;
         private T[] array;
 
-        public VersionIterator(T[] array) {
+        public VariationsIterator(T[] array) {
             this.array = array;
         }
 

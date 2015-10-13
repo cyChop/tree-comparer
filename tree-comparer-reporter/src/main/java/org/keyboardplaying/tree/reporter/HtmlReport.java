@@ -157,14 +157,14 @@ public class HtmlReport<T extends Comparable<T>, U extends Comparable<U>> {
      *             if printing fails
      */
     private void print(Node<Variations<U>> node, Writer writer) throws IOException, PrintException {
-        boolean constant = node.getNodeInfo().isConstant();
+        boolean constant = node.getContent().isConstant();
         if (constant) {
             IOUtils.write("<div class=\"row text-muted\">", writer);
         } else {
             IOUtils.write("<div class=\"row\">", writer);
         }
-        for (int v = 0; v < node.getNodeInfo().getNbVersions(); v++) {
-            U version = node.getNodeInfo().get(v);
+        for (int v = 0; v < node.getContent().getNbVersions(); v++) {
+            U version = node.getContent().get(v);
             T id = this.diffTree.getId().get(v);
             openCellDiv(writer);
             IOUtils.write(printer.printHeader(id, version), writer);
@@ -172,7 +172,7 @@ public class HtmlReport<T extends Comparable<T>, U extends Comparable<U>> {
         }
         IOUtils.write("</div>", writer);
         if (!constant) {
-            printDiff(writer, node.getNodeInfo());
+            printDiff(writer, node.getContent());
         }
         for (Node<Variations<U>> child : node.getChildren()) {
             print(child, writer);

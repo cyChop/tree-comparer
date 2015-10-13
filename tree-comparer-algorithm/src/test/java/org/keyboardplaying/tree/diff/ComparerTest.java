@@ -105,33 +105,33 @@ public class ComparerTest {
         versions.set(0, "A1");
         versions.set(1, "A1");
         versions.set(2, "A1");
-        assertEquals(versions, nod.getChildren().get(0).getNodeInfo());
+        assertEquals(versions, nod.getChildren().get(0).getContent());
         versions.set(0, "A11");
         versions.set(1, null);
         versions.set(2, "A11");
-        assertEquals(versions, nod.getChildren().get(0).getChildren().get(0).getNodeInfo());
+        assertEquals(versions, nod.getChildren().get(0).getChildren().get(0).getContent());
         versions.set(0, null);
         versions.set(1, "A13");
         versions.set(2, null);
-        assertEquals(versions, nod.getChildren().get(0).getChildren().get(2).getNodeInfo());
+        assertEquals(versions, nod.getChildren().get(0).getChildren().get(2).getContent());
         versions.set(0, "A12");
         versions.set(1, "A12");
         versions.set(2, "A12");
-        assertEquals(versions, nod.getChildren().get(0).getChildren().get(1).getNodeInfo());
+        assertEquals(versions, nod.getChildren().get(0).getChildren().get(1).getContent());
         versions.set(0, "A2");
         versions.set(1, null);
         versions.set(2, null);
-        assertEquals(versions, nod.getChildren().get(1).getNodeInfo());
+        assertEquals(versions, nod.getChildren().get(1).getContent());
         // make sure there is no null pointer exception
         versions.set(0, "A21");
-        assertEquals(versions, nod.getChildren().get(1).getChildren().get(0).getNodeInfo());
+        assertEquals(versions, nod.getChildren().get(1).getChildren().get(0).getContent());
         versions.set(0, null);
         versions.set(1, "A3");
         versions.set(2, "A3");
-        assertEquals(versions, nod.getChildren().get(2).getNodeInfo());
+        assertEquals(versions, nod.getChildren().get(2).getContent());
         versions.set(0, "A4");
         versions.set(1, "A4");
         versions.set(2, "A4");
-        assertEquals(versions, nod.getChildren().get(3).getNodeInfo());
+        assertEquals(versions, nod.getChildren().get(3).getContent());
     }
 }
