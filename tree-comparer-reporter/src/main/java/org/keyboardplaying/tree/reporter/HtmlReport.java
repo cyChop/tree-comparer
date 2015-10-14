@@ -74,12 +74,10 @@ public class HtmlReport<T extends Comparable<T>, U extends Comparable<U>> {
     /**
      * Generates the report as an HTML page.
      *
-     * @throws IOException
-     *             if an I/0 exception occurs
      * @throws PrintException
      *             if printing fails
      */
-    public void generate() throws IOException, PrintException {
+    public void generate() throws PrintException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("report.html"))) {
 
             IOUtils.write("<!DOCTYPE html><html>", writer);
@@ -94,6 +92,8 @@ public class HtmlReport<T extends Comparable<T>, U extends Comparable<U>> {
 
             // end HTML
             IOUtils.write("</html>", writer);
+        } catch (IOException e) {
+            throw new PrintException(e.getMessage(), e);
         }
     }
 

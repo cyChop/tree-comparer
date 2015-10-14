@@ -17,7 +17,6 @@
 package org.keyboardplaying.tree.file;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Date;
 
@@ -38,7 +37,10 @@ import org.keyboardplaying.tree.reporter.HtmlReport;
 // FIXME convert into a unit test and remove class
 public class Main {
 
-    public static void main(String[] args) throws FileNotFoundException, IOException, PrintException {
+    private Main() {
+    }
+
+    public static void main(String[] args) throws IOException, PrintException {
         System.out.println(String.format("[%1$tY-%1$tm-%1$te %1$tH:%1$tM:%1$tS] Starting", new Date()));
 
         File[] files = new File[2];
