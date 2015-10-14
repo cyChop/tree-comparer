@@ -59,7 +59,6 @@ public class TreeTest {
     public void testToString() {
         String str = "tree:" + "\nroot" + "\n  node1" + "\n  node2" + "\n    node21" + "\n    node22" + "\n    node23"
                 + "\n  node3";
-        System.out.println(tree.toString());
         assertEquals(str, tree.toString());
     }
 }
