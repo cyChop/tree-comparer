@@ -18,6 +18,7 @@ package org.keyboardplaying.tree.model;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
@@ -28,23 +29,50 @@ import java.util.NoSuchElementException;
  * @param <T>
  *            the type of node
  */
-public class Variations<T extends Comparable<T>> implements Comparable<Variations<T>>, Iterable<T> {
+public class Variations<T> implements Iterable<T> {
 
     private T[] array;
+    private int index = 0;
 
     /**
      * Creates a new instance.
      *
-     * @param nbVersions
-     *            the number of versions being compared
+     * @param size
+     *            the number of variations being compared
      */
     @SuppressWarnings("unchecked")
-    public Variations(int nbVersions) {
-        this.array = (T[]) new Comparable[nbVersions];
+    public Variations(int size) {
+        this.array = (T[]) new Comparable[size];
+    }
+
+    /**
+     * Creates a new instance.
+     *
+     * @param variations
+     *            the variations
+     */
+    @SuppressWarnings("unchecked")
+    public Variations(List<T> variations) {
+        this.array = (T[]) variations.toArray(new Object[variations.size()]);
+    }
+
+    /**
+     * Sets the next variation.
+     *
+     * @param variation
+     *            the variation to set
+     */
+    public void add(T variation) {
+        if (index == array.length) {
+            throw new IndexOutOfBoundsException("No new version could be added.");
+        }
+        this.set(index++, variation);
     }
 
     /**
      * Sets a variation.
+     * <p/>
+     * This does not move the index for {@link #add(Object)}.
      *
      * @param id
      *            the compared version number
@@ -66,21 +94,12 @@ public class Variations<T extends Comparable<T>> implements Comparable<Variation
         return array[id];
     }
 
-    protected T getFirstNonNullVersion() {
-        for (T e : array) {
-            if (e != null) {
-                return e;
-            }
-        }
-        return null;
-    }
-
     /**
      * Returns the number of versions being compared for this set of variations.
      *
      * @return the number of versions
      */
-    public int getNbVersions() {
+    public int size() {
         return array.length;
     }
 
@@ -99,28 +118,6 @@ public class Variations<T extends Comparable<T>> implements Comparable<Variation
             }
         }
         return constant;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Comparable#compareTo(java.lang.Object)
-     */
-    @Override
-    public int compareTo(Variations<T> o) {
-        T tnnv = getFirstNonNullVersion();
-        T onnv = o.getFirstNonNullVersion();
-
-        int result;
-        if (tnnv == null) {
-            result = onnv == null ? 0 : -1;
-        } else if (onnv == null) {
-            result = 1;
-        } else {
-            result = tnnv.compareTo(onnv);
-        }
-
-        return result;
     }
 
     /*
@@ -151,6 +148,16 @@ public class Variations<T extends Comparable<T>> implements Comparable<Variation
     @Override
     public Iterator<T> iterator() {
         return new VariationsIterator<>(array);
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "Variations" + Arrays.toString(array);
     }
 
     /**

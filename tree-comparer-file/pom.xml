@@ -22,6 +22,11 @@
                        |__/             ]]>-->
         <dependency>
             <groupId>org.keyboardplaying</groupId>
+            <artifactId>tree-comparer-model</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.keyboardplaying</groupId>
             <artifactId>tree-comparer-algorithm</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -29,22 +34,6 @@
             <groupId>org.keyboardplaying</groupId>
             <artifactId>tree-comparer-reporter</artifactId>
             <version>${project.version}</version>
-        </dependency>
-
-        <!--<![CDATA[
-                _      _            _
-             _ | |__ _| |____ _ _ _| |_ __ _
-            | || / _` | / / _` | '_|  _/ _` |
-             \__/\__,_|_\_\__,_|_|  \__\__,_| ]]>-->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>${commons.io.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-            <version>${commons.codec.version}</version>
         </dependency>
 
         <!--<![CDATA[

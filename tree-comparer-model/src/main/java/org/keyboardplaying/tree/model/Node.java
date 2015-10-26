@@ -22,98 +22,141 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Simple implementation for a tree node.
+ * Simple implementation for a tree.
  * <p/>
- * A node references its parent and children.
+ * The tree is a root node with children nodes the same type.
  * <p/>
  * There is no difference of implementation between nodes and leaves. A leaf will simply be a childless node.
  *
  * @author Cyrille Chopelet (http://keyboardplaying.org)
  *
  * @param <T>
- *            the type of node content
+ *            the type of nodes for this tree
  */
-public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
+public class Node<T> {
 
-    /** This node's characteristics. */
-    private T content;
+    /* === The content part === */
+    private final T content;
+
+    /* === The tree part === */
     /** A reference to this node's parent. */
     private Node<T> parent;
-    /**
-     * This node's children.
-     * <p/>
-     * This list should be kept sorted at all times.
-     */
+    /** This node's children. */
     private List<Node<T>> children = new ArrayList<>();
 
     /**
-     * Creates a new instance.
+     * Creates a new node.
      *
+     * @param parent
+     *            the node's parent
      * @param content
-     *            this node's characteristics
+     *            the node's contents
      */
-    public Node(T content) {
+    private Node(Node<T> parent, T content) {
+        Objects.requireNonNull(content, "A node content may not be null.");
+        this.parent = parent;
         this.content = content;
     }
 
     /**
-     * Returns this node's content.
+     * Creates a new node.
      *
-     * @return this node's content
+     * @param content
+     *            the node's content
+     */
+    public Node(T content) {
+        this(null, content);
+    }
+
+    /**
+     * Returns the node's content.
+     *
+     * @return the content the node's content
      */
     public T getContent() {
         return content;
     }
 
     /**
-     * Returns this node's parent, or {@code null} if this node is root.
+     * Returns the node's parent or {@code null} if this node is the tree's root.
      *
-     * @return this node's parent
+     * @return the parent the parent
      */
     public Node<T> getParent() {
         return parent;
     }
 
+    protected void setParent(Node<T> parent) {
+        this.parent = parent;
+    }
+
+    /**
+     * Returns {@code true} if this node is a tree root (i.e. if it has not parent).
+     *
+     * @return {@code true} if the node is a root, {@code false} otherwise
+     */
+    public boolean isTreeRoot() {
+        return parent == null;
+    }
+
     /**
      * Adds a child to this node.
-     * <p>
-     * The children are kept sorted at all times.
      *
      * @param child
      *            the child to add to this node
      */
-    public void addChild(Node<T> child) {
-        /*
-         * Keeping children sorted is a condition for the comparison algorithm to work as expected.
-         */
-        int i = 0;
-        int size = children.size();
-        while (i < size && child.compareTo(children.get(i)) > 0) {
-            i++;
+    public void addChild(T child) {
+        this.children.add(child != null ? new Node<>(this, child) : null);
+    }
+
+    /**
+     * Sets the children for this node.
+     *
+     * @param children
+     *            the children for this node
+     */
+    public void setChildren(List<? extends T> children) {
+        this.children.clear();
+        if (children != null) {
+            for (T child : children) {
+                addChild(child);
+            }
         }
-        children.add(i, child);
-        child.parent = this;
+    }
+
+    /**
+     * Adds a child to this node.
+     *
+     * @param child
+     *            the child to add to this node
+     */
+    public void addChildNode(Node<T> child) {
+        this.children.add(child);
+        child.setParent(this);
+    }
+
+    /**
+     * Sets the children for this node.
+     *
+     * @param children
+     *            the children for this node
+     */
+    public void setChildNodes(List<Node<T>> children) {
+        this.children.clear();
+        if (children != null) {
+            for (Node<T> child : children) {
+                addChildNode(child);
+            }
+        }
     }
 
     /**
      * Returns this node's children.
-     * <p/>
-     * The list is sorted and unmodifiable.
      *
-     * @return this node's children
+     * @return the children
      */
     public List<Node<T>> getChildren() {
         return Collections.unmodifiableList(children);
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Comparable#compareTo(java.lang.Object)
-     */
-    @Override
-    public int compareTo(Node<T> o) {
-        return getContent().compareTo(o.getContent());
     }
 
     /*
@@ -123,7 +166,7 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
      */
     @Override
     public int hashCode() {
-        return Objects.hashCode(getContent());
+        return getContent().hashCode();
     }
 
     /*
@@ -131,18 +174,9 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
      *
      * @see java.lang.Object#equals(java.lang.Object)
      */
+    @SuppressWarnings("unchecked")
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof Node && Objects.equals(getContent(), ((Node<?>) obj).getContent());
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return String.valueOf(getContent());
+        return obj instanceof Node && ((Node<T>) obj).getContent().equals(getContent());
     }
 }

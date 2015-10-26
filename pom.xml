@@ -22,9 +22,10 @@
     <modules>
         <module>tree-comparer-model</module>
         <module>tree-comparer-algorithm</module>
-        <module>tree-comparer-file</module>
-        <module>plaintext-diff</module>
         <module>tree-comparer-reporter</module>
+        <module>tree-comparer-file</module>
+        <!-- This may be removed in the end -->
+        <module>plaintext-diff</module>
     </modules>
 
     <properties>
@@ -38,10 +39,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <!-- Version management - Jakarta -->
-        <commons.lang.version>3.3.2</commons.lang.version>
-        <commons.io.version>2.4</commons.io.version>
-        <commons.codec.version>1.10</commons.codec.version>
+        <freemarker.version>2.3.23</freemarker.version>
         <!-- Version management - test -->
         <junit.version>4.12</junit.version>
         <jdepend.version>2.9.1</jdepend.version>
