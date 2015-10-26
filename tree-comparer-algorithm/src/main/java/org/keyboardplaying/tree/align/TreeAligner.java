@@ -79,7 +79,6 @@ public class TreeAligner<T> {
         List<List<Node<T>>> childrenVariations = new ArrayList<>(nbTrees);
 
         for (Node<T> tree : trees) {
-            System.out.println(tree.getContent());
             root.add(tree.getContent());
             childrenVariations.add(tree.getChildren());
         }
