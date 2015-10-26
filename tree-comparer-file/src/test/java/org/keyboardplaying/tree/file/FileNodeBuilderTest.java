@@ -21,11 +21,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.io.IOException;
 import java.util.Iterator;
 
 import org.junit.Test;
+import org.keyboardplaying.tree.file.filter.DirectoryFilter;
+import org.keyboardplaying.tree.file.filter.HiddenFileFilter;
 import org.keyboardplaying.tree.file.model.FileSystemElement;
 import org.keyboardplaying.tree.file.model.FileSystemElementType;
 import org.keyboardplaying.tree.model.Node;
@@ -94,22 +95,7 @@ public class FileNodeBuilderTest {
     public void testTreeBuildingWithFilter() throws IOException {
         /* Prepare */
         File file = new File("src/test/resources/version1");
-        FileFilter fileFilter = new FileFilter() {
-
-            @Override
-            public boolean accept(File pathname) {
-                // remove directories
-                return !pathname.isDirectory();
-            }
-        };
-        FileFilter hiddenFileRemover = new FileFilter() {
-
-            @Override
-            public boolean accept(File pathname) {
-                return !pathname.getName().matches("^\\..+$");
-            }
-        };
-        builder.setFileFilters(fileFilter, hiddenFileRemover);
+        builder.setFileFilters(new DirectoryFilter(), new HiddenFileFilter());
 
         /* Execute */
         Node<FileSystemElement> tree = builder.buildTree(file);
