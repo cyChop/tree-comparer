@@ -25,11 +25,13 @@ import java.io.IOException;
 import java.util.Iterator;
 
 import org.junit.Test;
+import org.keyboardplaying.tree.file.comparator.FileSystemElementComparator;
 import org.keyboardplaying.tree.file.filter.DirectoryFilter;
 import org.keyboardplaying.tree.file.filter.HiddenFileFilter;
 import org.keyboardplaying.tree.file.model.FileSystemElement;
 import org.keyboardplaying.tree.file.model.FileSystemElementType;
 import org.keyboardplaying.tree.model.Node;
+import org.keyboardplaying.tree.sort.NodeSorter;
 
 /**
  * Test class for {@link FileNodeBuilder}.
@@ -38,7 +40,9 @@ import org.keyboardplaying.tree.model.Node;
  */
 public class FileNodeBuilderTest {
 
-    private static FileNodeBuilder builder = new FileNodeBuilder();
+    private FileNodeBuilder builder = new FileNodeBuilder();
+    private NodeSorter<FileSystemElement> sorter = new NodeSorter<>(
+            new FileSystemElementComparator());
 
     /** Tests the tree building. */
     @SuppressWarnings("javadoc")
@@ -49,10 +53,12 @@ public class FileNodeBuilderTest {
 
         /* Execute */
         Node<FileSystemElement> tree = builder.buildTree(file);
+        sorter.sort(tree);
 
         /* Assert */
         // Root
-        assertEquals(new FileSystemElement(new File(file, "."), FileSystemElementType.DIRECTORY, null),
+        assertEquals(
+                new FileSystemElement(new File(file, "."), FileSystemElementType.DIRECTORY, null),
                 tree.getContent());
         assertEquals(".", tree.getContent().getName());
         assertEquals(FileSystemElementType.DIRECTORY, tree.getContent().getType());
@@ -63,15 +69,15 @@ public class FileNodeBuilderTest {
 
         // 1st child
         child = iter.next();
-        assertEquals(".htaccess", child.getContent().getName());
-        assertEquals(FileSystemElementType.TEXT, child.getContent().getType());
-        assertEquals("0576fea54f83abd3fb459336e1dcf278", child.getContent().getChecksum());
-
-        // 2nf child
-        child = iter.next();
         assertEquals("directory", child.getContent().getName());
         assertEquals(FileSystemElementType.DIRECTORY, child.getContent().getType());
         assertNull(child.getContent().getChecksum());
+
+        // 2nf child
+        child = iter.next();
+        assertEquals(".htaccess", child.getContent().getName());
+        assertEquals(FileSystemElementType.TEXT, child.getContent().getType());
+        assertEquals("0576fea54f83abd3fb459336e1dcf278", child.getContent().getChecksum());
 
         // 3rd child
         child = iter.next();
@@ -99,10 +105,12 @@ public class FileNodeBuilderTest {
 
         /* Execute */
         Node<FileSystemElement> tree = builder.buildTree(file);
+        sorter.sort(tree);
 
         /* Assert */
         // Root
-        assertEquals(new FileSystemElement(new File(file, "."), FileSystemElementType.DIRECTORY, null),
+        assertEquals(
+                new FileSystemElement(new File(file, "."), FileSystemElementType.DIRECTORY, null),
                 tree.getContent());
         assertEquals(".", tree.getContent().getName());
         assertEquals(FileSystemElementType.DIRECTORY, tree.getContent().getType());
