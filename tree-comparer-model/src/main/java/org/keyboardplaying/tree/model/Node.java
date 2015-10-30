@@ -26,7 +26,8 @@ import java.util.Objects;
  * <p/>
  * The tree is a root node with children nodes the same type.
  * <p/>
- * There is no difference of implementation between nodes and leaves. A leaf will simply be a childless node.
+ * There is no difference of implementation between nodes and leaves. A leaf will simply be a
+ * childless node.
  *
  * @author Cyrille Chopelet (http://keyboardplaying.org)
  *
@@ -40,23 +41,9 @@ public class Node<T> {
 
     /* === The tree part === */
     /** A reference to this node's parent. */
-    private Node<T> parent;
+    private Node<T> parent = null;
     /** This node's children. */
-    private List<Node<T>> children = new ArrayList<>();
-
-    /**
-     * Creates a new node.
-     *
-     * @param parent
-     *            the node's parent
-     * @param content
-     *            the node's contents
-     */
-    private Node(Node<T> parent, T content) {
-        Objects.requireNonNull(content, "A node content may not be null.");
-        this.parent = parent;
-        this.content = content;
-    }
+    private final List<Node<T>> children = new ArrayList<>();
 
     /**
      * Creates a new node.
@@ -65,7 +52,8 @@ public class Node<T> {
      *            the node's content
      */
     public Node(T content) {
-        this(null, content);
+        Objects.requireNonNull(content, "A node content may not be null.");
+        this.content = content;
     }
 
     /**
@@ -105,32 +93,8 @@ public class Node<T> {
      * @param child
      *            the child to add to this node
      */
-    public void addChild(T child) {
-        this.children.add(child != null ? new Node<>(this, child) : null);
-    }
-
-    /**
-     * Sets the children for this node.
-     *
-     * @param children
-     *            the children for this node
-     */
-    public void setChildren(List<? extends T> children) {
-        this.children.clear();
-        if (children != null) {
-            for (T child : children) {
-                addChild(child);
-            }
-        }
-    }
-
-    /**
-     * Adds a child to this node.
-     *
-     * @param child
-     *            the child to add to this node
-     */
-    public void addChildNode(Node<T> child) {
+    public void addChild(Node<T> child) {
+        Objects.requireNonNull(child, "The node cannot have null children");
         this.children.add(child);
         child.setParent(this);
     }
@@ -141,11 +105,11 @@ public class Node<T> {
      * @param children
      *            the children for this node
      */
-    public void setChildNodes(List<Node<T>> children) {
+    public void setChildren(List<Node<T>> children) {
         this.children.clear();
         if (children != null) {
             for (Node<T> child : children) {
-                addChildNode(child);
+                addChild(child);
             }
         }
     }

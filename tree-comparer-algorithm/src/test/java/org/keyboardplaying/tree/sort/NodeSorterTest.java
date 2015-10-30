@@ -22,6 +22,7 @@ import java.util.Arrays;
 
 import org.junit.Test;
 import org.keyboardplaying.tree.model.Node;
+import org.keyboardplaying.tree.util.NodeTestUtil;
 
 /**
  * Test class for {@link NodeSorter}.
@@ -63,12 +64,12 @@ public class NodeSorterTest {
         Node<String> living = new Node<>("Phylogeny");
 
         Node<String> vertebrates = new Node<>("Vertebrates");
-        vertebrates.setChildren(Arrays.asList("Wolf", "Cat", "Human", "Dog"));
+        vertebrates.setChildren(NodeTestUtil.asNodes("Wolf", "Cat", "Human", "Dog"));
 
         Node<String> invertebrates = new Node<>("Invertebrates");
-        invertebrates.addChild("Ant");
+        invertebrates.addChild(new Node<>("Ant"));
 
-        living.setChildNodes(Arrays.asList(vertebrates, invertebrates));
+        living.setChildren(Arrays.asList(vertebrates, invertebrates));
 
         return living;
     }
@@ -77,12 +78,12 @@ public class NodeSorterTest {
         Node<String> living = new Node<>("Phylogeny");
 
         Node<String> invertebrates = new Node<>("Invertebrates");
-        invertebrates.addChild("Ant");
+        invertebrates.addChild(new Node<>("Ant"));
 
         Node<String> vertebrates = new Node<>("Vertebrates");
-        vertebrates.setChildren(Arrays.asList("Cat", "Dog", "Human", "Wolf"));
+        vertebrates.setChildren(NodeTestUtil.asNodes("Cat", "Dog", "Human", "Wolf"));
 
-        living.setChildNodes(Arrays.asList(invertebrates, vertebrates));
+        living.setChildren(Arrays.asList(invertebrates, vertebrates));
 
         return living;
     }

@@ -109,7 +109,7 @@ public class FileNodeBuilder {
             File[] childFiles = file.listFiles(filter);
             if (childFiles != null) {
                 for (File childFile : childFiles) {
-                    node.addChildNode(buildNode(childFile));
+                    node.addChild(buildNode(childFile));
                 }
             }
 

@@ -28,6 +28,7 @@ import org.junit.Test;
 import org.keyboardplaying.tree.model.Node;
 import org.keyboardplaying.tree.model.Variations;
 import org.keyboardplaying.tree.sort.NodeContentComparator;
+import org.keyboardplaying.tree.util.NodeTestUtil;
 
 /**
  * Test class for {@link TreeAligner}.
@@ -68,28 +69,28 @@ public class TreeAlignerTest {
         // Tree 1
         Node<String> tree1 = new Node<>("A");
         node = new Node<>("A1");
-        node.setChildren(Arrays.asList("A11", "A12", "A14"));
-        tree1.addChildNode(node);
+        node.setChildren(NodeTestUtil.asNodes("A11", "A12", "A14"));
+        tree1.addChild(node);
         node = new Node<>("A2");
-        node.addChild("A21");
-        tree1.addChildNode(node);
-        tree1.addChildNode(new Node<>("A4"));
+        node.addChild(new Node<>("A21"));
+        tree1.addChild(node);
+        tree1.addChild(new Node<>("A4"));
 
         // Tree 2
         Node<String> tree2 = new Node<>("A'");
         node = new Node<>("A1");
-        node.setChildren(Arrays.asList("A12", "A13"));
-        tree2.addChildNode(node);
-        tree2.addChildNode(new Node<>("A3"));
-        tree2.addChildNode(new Node<>("A4"));
+        node.setChildren(NodeTestUtil.asNodes("A12", "A13"));
+        tree2.addChild(node);
+        tree2.addChild(new Node<>("A3"));
+        tree2.addChild(new Node<>("A4"));
 
         // Tree 3
         Node<String> tree3 = new Node<>("A''");
         node = new Node<>("A1");
-        node.setChildren(Arrays.asList("A11", "A12", "A14"));
-        tree3.addChildNode(node);
-        tree3.addChildNode(new Node<>("A3"));
-        tree3.addChildNode(new Node<>("A4"));
+        node.setChildren(NodeTestUtil.asNodes("A11", "A12", "A14"));
+        tree3.addChild(node);
+        tree3.addChild(new Node<>("A3"));
+        tree3.addChild(new Node<>("A4"));
 
         // Now compare
         Node<Variations<String>> aligned = aligner.alignTrees(tree1, tree2, tree3);
@@ -100,13 +101,17 @@ public class TreeAlignerTest {
 
         Node<Variations<String>> alignedA1 = aligned.getChildren().get(0);
         assertEquals(new Variations<>(Arrays.asList("A1", "A1", "A1")), alignedA1.getContent());
-        assertEquals(new Variations<>(Arrays.asList("A11", null, "A11")), alignedA1.getChildren().get(0).getContent());
-        assertEquals(new Variations<>(Arrays.asList("A12", "A12", "A12")), alignedA1.getChildren().get(1).getContent());
-        assertEquals(new Variations<>(Arrays.asList(null, "A13", null)), alignedA1.getChildren().get(2).getContent());
+        assertEquals(new Variations<>(Arrays.asList("A11", null, "A11")),
+                alignedA1.getChildren().get(0).getContent());
+        assertEquals(new Variations<>(Arrays.asList("A12", "A12", "A12")),
+                alignedA1.getChildren().get(1).getContent());
+        assertEquals(new Variations<>(Arrays.asList(null, "A13", null)),
+                alignedA1.getChildren().get(2).getContent());
 
         Node<Variations<String>> alignedA2 = aligned.getChildren().get(1);
         assertEquals(new Variations<>(Arrays.asList("A2", null, null)), alignedA2.getContent());
-        assertEquals(new Variations<>(Arrays.asList("A21", null, null)), alignedA2.getChildren().get(0).getContent());
+        assertEquals(new Variations<>(Arrays.asList("A21", null, null)),
+                alignedA2.getChildren().get(0).getContent());
 
         Node<Variations<String>> alignedA3 = aligned.getChildren().get(2);
         assertEquals(new Variations<>(Arrays.asList(null, "A3", "A3")), alignedA3.getContent());

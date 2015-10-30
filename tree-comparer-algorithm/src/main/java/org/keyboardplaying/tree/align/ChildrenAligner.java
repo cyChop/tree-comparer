@@ -92,7 +92,7 @@ class ChildrenAligner<T> {
 
         Variations<T> content = new Variations<>(line);
         Node<Variations<T>> node = new Node<>(content);
-        node.setChildNodes(new ChildrenAligner<>(comparator, nbTrees, lineChildren).alignChildren());
+        node.setChildren(new ChildrenAligner<>(comparator, nbTrees, lineChildren).alignChildren());
         return node;
     }
 

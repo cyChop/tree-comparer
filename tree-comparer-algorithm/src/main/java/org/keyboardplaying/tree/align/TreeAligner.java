@@ -84,7 +84,7 @@ public class TreeAligner<T> {
         }
 
         Node<Variations<T>> result = new Node<>(root);
-        result.setChildNodes(new ChildrenAligner<>(comparator, nbTrees, childrenVariations).alignChildren());
+        result.setChildren(new ChildrenAligner<>(comparator, nbTrees, childrenVariations).alignChildren());
         return result;
     }
 

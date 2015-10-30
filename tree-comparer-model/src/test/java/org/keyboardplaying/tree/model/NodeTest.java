@@ -59,9 +59,9 @@ public class NodeTest {
         Node<String> child11 = new Node<>("child11");
         Node<String> child12 = new Node<>("child12");
 
-        child1.setChildNodes(Arrays.asList(child11, child12));
-        root.addChildNode(child1);
-        root.addChildNode(child2);
+        child1.setChildren(Arrays.asList(child11, child12));
+        root.addChild(child1);
+        root.addChild(child2);
 
         assertTrue(root.isTreeRoot());
         assertFalse(child1.isTreeRoot());
@@ -72,12 +72,16 @@ public class NodeTest {
         // setChildren removes previous additions
         root.setChildren(null);
         assertEquals(0, root.getChildren().size());
-        root.setChildren(Arrays.asList("child1"));
+        root.setChildren(Arrays.asList(new Node<>("child1")));
         assertEquals(1, root.getChildren().size());
-        root.addChild("child2");
+        root.addChild(new Node<>("child2"));
         assertEquals(2, root.getChildren().size());
-        root.addChild(null);
-        assertEquals(3, root.getChildren().size());
+    }
+
+    /** Ensures adding a null child fails. */
+    @Test(expected = NullPointerException.class)
+    public void testAddNullChild() {
+        new Node<>("root").addChild(null);
     }
 
     /** Tests {@link Node#equals(Object)} and {@link Node#hashCode()}. */

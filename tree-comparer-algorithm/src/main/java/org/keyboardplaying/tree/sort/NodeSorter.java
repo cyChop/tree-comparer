@@ -62,7 +62,7 @@ public class NodeSorter<T> {
 
         List<Node<T>> children = new ArrayList<>(node.getChildren());
         Collections.sort(children, comparator);
-        node.setChildNodes(children);
+        node.setChildren(children);
 
         for (Node<T> child : children) {
             sort(child);
