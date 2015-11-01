@@ -40,7 +40,6 @@ public class FileSystemElementBuilderTest {
     public void testBuildDirectoryElement() {
         /* Prepare */
         File file = new File("src/test/resources/version1");
-        assert file.isDirectory();
 
         /* Execute */
         FileSystemElement fse = builder.buildDirectoryElement(file);
@@ -55,15 +54,14 @@ public class FileSystemElementBuilderTest {
     @Test
     public void testBuildTextFileElement() throws IOException {
         /* Prepare */
-        File file = new File("src/test/resources/version1/directory/something-in-here.txt");
-        assert file.isFile();
+        File file = new File("src/test/resources/version1/hello.properties");
 
         /* Execute */
         FileSystemElement fse = builder.buildFileElement(file);
 
         /* Assert */
         assertEquals(FileSystemElementType.TEXT, fse.getType());
-        assertEquals("0cc175b9c0f1b6a831c399e269772661", fse.getChecksum());
+        assertEquals("9e60e9c13569a9ece7ae20fd5798e0cd", fse.getChecksum());
     }
 
     /** Tests {@link FileSystemElementBuilder#buildFileElement(File)} with a binary file. */
@@ -72,7 +70,6 @@ public class FileSystemElementBuilderTest {
     public void testBuildBinaryFileElement() throws IOException {
         /* Prepare */
         File file = new File("src/test/resources/version1/directory/clouded-lava.jpg");
-        assert file.isFile();
 
         /* Execute */
         FileSystemElement fse = builder.buildFileElement(file);
@@ -88,7 +85,6 @@ public class FileSystemElementBuilderTest {
     public void testBuildEmptyFileElement() throws IOException {
         /* Prepare */
         File file = new File("src/test/resources/version1/empty.log");
-        assert file.isFile();
 
         /* Execute */
         FileSystemElement fse = builder.buildFileElement(file);
