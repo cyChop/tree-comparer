@@ -41,8 +41,7 @@ import org.keyboardplaying.tree.sort.NodeSorter;
 public class FileNodeBuilderTest {
 
     private FileNodeBuilder builder = new FileNodeBuilder();
-    private NodeSorter<FileSystemElement> sorter = new NodeSorter<>(
-            new FileSystemElementComparator());
+    private NodeSorter<FileSystemElement> sorter = new NodeSorter<>(new FileSystemElementComparator());
 
     /** Tests the tree building. */
     @SuppressWarnings("javadoc")
@@ -57,8 +56,7 @@ public class FileNodeBuilderTest {
 
         /* Assert */
         // Root
-        assertEquals(
-                new FileSystemElement(new File(file, "."), FileSystemElementType.DIRECTORY, null),
+        assertEquals(new FileSystemElement(new File(file, "."), FileSystemElementType.DIRECTORY, null),
                 tree.getContent());
         assertEquals(".", tree.getContent().getName());
         assertEquals(FileSystemElementType.DIRECTORY, tree.getContent().getType());
@@ -89,7 +87,7 @@ public class FileNodeBuilderTest {
         child = iter.next();
         assertEquals("hello.properties", child.getContent().getName());
         assertEquals(FileSystemElementType.TEXT, child.getContent().getType());
-        assertEquals("0571f792f6c7d1848e3ae008695bccf7", child.getContent().getChecksum());
+        assertEquals("9e60e9c13569a9ece7ae20fd5798e0cd", child.getContent().getChecksum());
 
         // no more
         assertFalse(iter.hasNext());
@@ -109,8 +107,7 @@ public class FileNodeBuilderTest {
 
         /* Assert */
         // Root
-        assertEquals(
-                new FileSystemElement(new File(file, "."), FileSystemElementType.DIRECTORY, null),
+        assertEquals(new FileSystemElement(new File(file, "."), FileSystemElementType.DIRECTORY, null),
                 tree.getContent());
         assertEquals(".", tree.getContent().getName());
         assertEquals(FileSystemElementType.DIRECTORY, tree.getContent().getType());
