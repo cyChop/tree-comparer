@@ -21,6 +21,7 @@ import static org.junit.Assert.assertNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 import org.junit.Test;
 import org.keyboardplaying.tree.file.model.FileSystemElement;
@@ -92,5 +93,43 @@ public class FileSystemElementBuilderTest {
         /* Assert */
         assertEquals(FileSystemElementType.TEXT, fse.getType());
         assertEquals("d41d8cd98f00b204e9800998ecf8427e", fse.getChecksum());
+    }
+
+    /** Tests {@link FileSystemElementBuilder#buildFileElement(File)} with SHA-1 as checksum algorithm. */
+    @SuppressWarnings("javadoc")
+    @Test
+    public void testSha1Algorithm() throws IOException, NoSuchAlgorithmException {
+        /* Prepare */
+        File file = new File("src/test/resources/version1/hello.properties");
+
+        /* Execute */
+        builder.setChecksumAlgorithm(FileSystemElementBuilder.CHECKSUM_ALGORITHM_SHA1);
+        FileSystemElement fse = builder.buildFileElement(file);
+
+        /* Assert */
+        assertEquals("140b3e00577c52dfc94c728da93fbd3ba1e0ee1e", fse.getChecksum());
+    }
+
+    /** Tests {@link FileSystemElementBuilder#buildFileElement(File)} with SHA-256 as checksum algorithm. */
+    @SuppressWarnings("javadoc")
+    @Test
+    public void testSha256Algorithm() throws IOException, NoSuchAlgorithmException {
+        /* Prepare */
+        File file = new File("src/test/resources/version1/hello.properties");
+
+        /* Execute */
+        builder.setChecksumAlgorithm(FileSystemElementBuilder.CHECKSUM_ALGORITHM_SHA256);
+        FileSystemElement fse = builder.buildFileElement(file);
+
+        /* Assert */
+        assertEquals("03a414fafc012133e3ed48953590ae76feb50a6e4143decc3dc086ed9e0fe71c", fse.getChecksum());
+    }
+
+    /** Tests {@link FileSystemElementBuilder#buildFileElement(File)} with an unknown checksum algorithm. */
+    @SuppressWarnings("javadoc")
+    @Test(expected = NoSuchAlgorithmException.class)
+    public void testUnknownAlgorithm() throws NoSuchAlgorithmException {
+        /* Execute */
+        builder.setChecksumAlgorithm("theBestAlgorithmEver");
     }
 }

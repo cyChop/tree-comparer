@@ -37,9 +37,38 @@ import org.keyboardplaying.tree.file.model.FileSystemElementType;
  */
 public class FileSystemElementBuilder {
 
-    private static final String CHECKSUM_ALGORITHM = "MD5";
+    /** The key for MD5. */
+    public static final String CHECKSUM_ALGORITHM_MD5 = "MD5";
+    /** The key for SHA-1. */
+    public static final String CHECKSUM_ALGORITHM_SHA1 = "SHA-1";
+    /** The key for SHA-256. */
+    public static final String CHECKSUM_ALGORITHM_SHA256 = "SHA-256";
+
     private static final int CHUNK_SIZE = 1024;
     private static final float TXT_ASCII_DENSITY = 0.95F;
+
+    private MessageDigest md;
+
+    /**
+     * Sets the algorithm to use when building an element.
+     *
+     * @param algorithm
+     *            the algorithm to use for checksum
+     * @throws NoSuchAlgorithmException
+     *             if the supplied algorithm does not exist.
+     */
+    public void setChecksumAlgorithm(String algorithm) throws NoSuchAlgorithmException {
+        md = MessageDigest.getInstance(algorithm);
+    }
+
+    private void initDefaultAlgorithm() throws UnexpectedException {
+        try {
+            setChecksumAlgorithm(CHECKSUM_ALGORITHM_MD5);
+        } catch (NoSuchAlgorithmException e) {
+            // this cannot happen
+            throw new UnexpectedException("The default algorithm " + CHECKSUM_ALGORITHM_MD5 + " does not exist.", e);
+        }
+    }
 
     /**
      * Builds a {@link FileSystemElement} for a directory.
@@ -63,16 +92,13 @@ public class FileSystemElementBuilder {
      * @throws IOException
      */
     public FileSystemElement buildFileElement(File file) throws IOException {
-        try {
-            return doBuildFileElement(file);
-        } catch (NoSuchAlgorithmException e) {
-            // will not happen
-            throw new UnexpectedException(e.getMessage(), e);
-        }
+        return doBuildFileElement(file);
     }
 
-    private FileSystemElement doBuildFileElement(File file) throws NoSuchAlgorithmException, IOException {
-        MessageDigest md = MessageDigest.getInstance(CHECKSUM_ALGORITHM);
+    private FileSystemElement doBuildFileElement(File file) throws IOException {
+        if (md == null) {
+            initDefaultAlgorithm();
+        }
 
         FileSystemElementType type;
         try (InputStream is = new FileInputStream(file); DigestInputStream dis = new DigestInputStream(is, md)) {
