@@ -24,7 +24,6 @@ import java.net.URISyntaxException;
 import org.keyboardplaying.tree.model.Node;
 import org.keyboardplaying.tree.model.Variations;
 
-import freemarker.core.ParseException;
 import freemarker.template.Configuration;
 import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.Template;
@@ -75,16 +74,14 @@ public class FreemarkerReporter {
      *             if the template cannot be found.
      * @throws MalformedTemplateNameException
      *             if the template name is incorrect.
-     * @throws ParseException
      * @throws IOException
-     *             if an I/O exception occurs during writing to the writer.
+     *             if an I/O exception occurs during the report generation.
      * @throws TemplateException
      *             if an exception occurs during template processing.
      */
     // FIXME finish implementing, add node wrapper to display content
     public <T> void generateReport(String template, Node<Variations<T>> aligned, Writer writer)
-            throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, TemplateException,
-            IOException {
+            throws IOException, TemplateException {
         Template tpl = getConfiguration().getTemplate(template);
         tpl.process(aligned, writer);
     }
