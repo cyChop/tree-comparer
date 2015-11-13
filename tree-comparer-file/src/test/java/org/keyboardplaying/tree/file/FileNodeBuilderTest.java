@@ -19,8 +19,10 @@ package org.keyboardplaying.tree.file;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Iterator;
 
@@ -71,7 +73,7 @@ public class FileNodeBuilderTest {
         assertEquals(FileSystemElementType.DIRECTORY, child.getContent().getType());
         assertNull(child.getContent().getChecksum());
 
-        // 2nf child
+        // 2nd child
         child = iter.next();
         assertEquals(".htaccess", child.getContent().getName());
         assertEquals(FileSystemElementType.TEXT, child.getContent().getType());
@@ -117,5 +119,36 @@ public class FileNodeBuilderTest {
         assertEquals("empty.log", iter.next().getContent().getName());
         assertEquals("hello.properties", iter.next().getContent().getName());
         assertFalse(iter.hasNext());
+    }
+
+    /** Tests the tree building when the supplied file is not a directory. */
+    @SuppressWarnings("javadoc")
+    @Test
+    public void testTreeBuildingForFile() throws IOException {
+        /* Prepare */
+        File file = new File("src/test/resources/version1/empty.log");
+
+        /* Execute */
+        Node<FileSystemElement> tree = builder.buildTree(file);
+        sorter.sort(tree);
+
+        /* Assert */
+        // Root
+        assertEquals("empty.log", tree.getContent().getName());
+        assertEquals(FileSystemElementType.TEXT, tree.getContent().getType());
+        assertEquals("d41d8cd98f00b204e9800998ecf8427e", tree.getContent().getChecksum());
+
+        assertTrue(tree.getChildren().isEmpty());
+    }
+
+    /** Tests the tree building when the supplied file does not exist. */
+    @SuppressWarnings("javadoc")
+    @Test(expected = FileNotFoundException.class)
+    public void testTreeBuildingForNotExistingElement() throws IOException {
+        /* Prepare */
+        File file = new File("src/test/resources/harry-potter/invisibility-cloak.cache");
+
+        /* Execute */
+        builder.buildTree(file);
     }
 }
