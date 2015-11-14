@@ -1,0 +1,13 @@
+= Diff Match Patch
+Cyrille Chopelet<cyrille.chopelet@mines-nancy.org>
+
+:DMP: https://code.google.com/p/google-diff-match-patch/
+:ASF: https://www.apache.org/licenses/LICENSE-2.0
+:DMP-Java: https://code.google.com/p/google-diff-match-patch/source/browse/#svn%2Ftrunk%2Fjava%2Fname%2Ffraser%2Fneil%2Fplaintext
+
+This module contains methods extracted from the {DMP}[Google Diff Match Patch project], licensed under the {ASF}[Apache license, version 2].
+
+Only the diff methods were conserved, many renamings were performed in order to match the Java
+standards.
+
+For original sources, see the {DMP}[project page] and {DMP-Java}[hosted SVN].

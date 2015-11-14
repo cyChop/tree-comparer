@@ -21,10 +21,28 @@ image:{url-shields}badge/license-{license-shield}-blue.svg[License: {license-nam
 
 // Now, the main documentation.
 
-== Goal
+== What's this?
 
-This algorithm was designed to provide a way to easily compare several trees.
+This project is an algorithm I designed to compare two or more trees.
+The algorithm is designed so that it can be applied to any kind of tree (understand: a node with children nodes, with children nodes, ...).
 
-The provided implementation was more specifically designed to compare file trees, and was to be used to compare the configurations of several environments (such as development, test, production) for a professional project.
+The most immediate application is obviously the comparison of directories.
+This is why the project already contains an implementation for files.
+It was proofed by (accurately) comparing the configuration of several environments (local, development, quality & acceptance, production).
 
-http://winmerge.org/[WinMerge] can compare two directories and http://kdiff3.sourceforge.net/[KDiff3] can do the same for up to three. This algorithm can do it for a virtually unlimited number (virtually only, because you still need the memory to store it).
+== What's in this?
+
+- `tree-comparer-model`: the objects needed for the use of the algorithm.
+- `tree-comparer-algorithm`: the comparison algorithm properly.
+- `tree-comparer-reporter`: a tool to generate a report from a compared tree.
+- `tree-comparer-file`: the implementation of the models and utilities for directory comparison.
+- `plaintext-diff`: a plaintext comparison utility, extracted from the https://www.apache.org/licenses/LICENSE-2.0[ASF 2.0 licensed] https://code.google.com/p/google-diff-match-patch/[Diff Match Patch project]; used mainly for reporting.
+
+== The concurrence
+
+Some products already exist and are easier to use, with an interactive user interface.
+
+- http://winmerge.org/[WinMerge] can compare two directories and enables interactive browsing of the differences.
+- http://kdiff3.sourceforge.net/[KDiff3] can compare up to three directories.
+
+This algorithm however can compare a virtually unlimited number of trees.
