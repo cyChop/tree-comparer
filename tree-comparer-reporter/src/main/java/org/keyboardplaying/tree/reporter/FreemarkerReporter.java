@@ -20,6 +20,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Writer;
 import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.keyboardplaying.tree.model.Node;
 import org.keyboardplaying.tree.model.Variations;
@@ -83,6 +85,10 @@ public class FreemarkerReporter {
     public <T> void generateReport(String template, Node<Variations<T>> aligned, Writer writer)
             throws IOException, TemplateException {
         Template tpl = getConfiguration().getTemplate(template);
-        tpl.process(aligned, writer);
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("tree", aligned);
+
+        tpl.process(model, writer);
     }
 }

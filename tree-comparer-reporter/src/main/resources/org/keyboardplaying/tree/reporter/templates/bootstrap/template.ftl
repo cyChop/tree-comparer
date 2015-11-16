@@ -8,10 +8,10 @@
 	</style>
 </head>
 <body style="padding: 10px;">
-	<#assign span = (12 / content?size)?int>
+	<#assign span = (12 / tree.content.size())?int>
 	<div class="container-fluid">
 		<div class="row">
-			<#list content.iterator() as node>
+			<#list tree.content.iterator() as node>
 			<div class="col-xs-${span}"><h4>${node}</h4></div>
 			</#list>
 		</div>
