@@ -48,7 +48,7 @@ public class FreemarkerReporterTest {
 
         FreemarkerReporter reporter = new FreemarkerReporter();
         StringWriter writer = new StringWriter();
-        reporter.generateReport(FreemarkerReporter.TPL_HTML_BOOTSTRAP, node, writer);
+        reporter.generateReport(FreemarkerReporter.TPL_HTML_BOOTSTRAP, node, v, writer);
         System.out.println(writer.toString());
     }
 }

@@ -22,6 +22,7 @@ import java.io.Writer;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import org.keyboardplaying.tree.model.Node;
 import org.keyboardplaying.tree.model.Variations;
@@ -67,8 +68,10 @@ public class FreemarkerReporter {
      *
      * @param template
      *            the template to use
-     * @param aligned
+     * @param variations
      *            the tree of aligned nodes
+     * @param headers
+     *            the headers for each tree in the report
      * @param writer
      *            the writer to write the report to
      *
@@ -82,12 +85,19 @@ public class FreemarkerReporter {
      *             if an exception occurs during template processing.
      */
     // FIXME finish implementing, add node wrapper to display content
-    public <T> void generateReport(String template, Node<Variations<T>> aligned, Writer writer)
-            throws IOException, TemplateException {
+    public <T> void generateReport(String template, Node<Variations<T>> variations, Variations<String> headers,
+            Writer writer) throws IOException, TemplateException {
+        Objects.requireNonNull(variations, "A tree must be supplied for the reporting.");
+        if (headers != null && headers.size() != variations.getContent().size()) {
+            throw new IllegalArgumentException(
+                    "If headers are provided, they should be as numerous as the compared trees.");
+        }
+
         Template tpl = getConfiguration().getTemplate(template);
 
         Map<String, Object> model = new HashMap<>();
-        model.put("tree", aligned);
+        model.put("headers", headers);
+        model.put("tree", variations);
 
         tpl.process(model, writer);
     }
