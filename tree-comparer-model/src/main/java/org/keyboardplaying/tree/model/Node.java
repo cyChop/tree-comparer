@@ -26,8 +26,7 @@ import java.util.Objects;
  * <p/>
  * The tree is a root node with children nodes the same type.
  * <p/>
- * There is no difference of implementation between nodes and leaves. A leaf will simply be a
- * childless node.
+ * There is no difference of implementation between nodes and leaves. A leaf will simply be a childless node.
  *
  * @author Cyrille Chopelet (http://keyboardplaying.org)
  *
@@ -40,8 +39,6 @@ public class Node<T> {
     private final T content;
 
     /* === The tree part === */
-    /** A reference to this node's parent. */
-    private Node<T> parent = null;
     /** This node's children. */
     private final List<Node<T>> children = new ArrayList<>();
 
@@ -66,28 +63,6 @@ public class Node<T> {
     }
 
     /**
-     * Returns the node's parent or {@code null} if this node is the tree's root.
-     *
-     * @return the parent the parent
-     */
-    public Node<T> getParent() {
-        return parent;
-    }
-
-    protected void setParent(Node<T> parent) {
-        this.parent = parent;
-    }
-
-    /**
-     * Returns {@code true} if this node is a tree root (i.e. if it has not parent).
-     *
-     * @return {@code true} if the node is a root, {@code false} otherwise
-     */
-    public boolean isTreeRoot() {
-        return parent == null;
-    }
-
-    /**
      * Adds a child to this node.
      *
      * @param child
@@ -96,7 +71,6 @@ public class Node<T> {
     public void addChild(Node<T> child) {
         Objects.requireNonNull(child, "The node cannot have null children");
         this.children.add(child);
-        child.setParent(this);
     }
 
     /**

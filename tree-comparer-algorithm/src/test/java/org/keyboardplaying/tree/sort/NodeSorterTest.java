@@ -51,7 +51,6 @@ public class NodeSorterTest {
 
     private void assertOrder(Node<String> expected, Node<String> actual) {
         assertEquals(expected, actual);
-        assertEquals(expected.getParent(), actual.getParent());
 
         int size = expected.getChildren().size();
         assertEquals(size, actual.getChildren().size());

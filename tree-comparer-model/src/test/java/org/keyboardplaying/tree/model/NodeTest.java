@@ -18,7 +18,6 @@ package org.keyboardplaying.tree.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
@@ -38,16 +37,14 @@ public class NodeTest {
     public void testConstructor() {
         Node<String> node = new Node<>("hello");
         assertEquals("hello", node.getContent());
-        assertNull(node.getParent());
-        assertTrue(node.isTreeRoot());
         assertTrue(node.getChildren().isEmpty());
     }
 
     /** Tests the class constructor when the content is null. */
     @Test(expected = NullPointerException.class)
+    @SuppressWarnings("unused")
     public void testConstructorWithNullContent() {
-        @SuppressWarnings("unused")
-        Node<String> node = new Node<>(null);
+        new Node<>(null);
     }
 
     /** Tests the behavior when adding children. */
@@ -63,9 +60,6 @@ public class NodeTest {
         root.addChild(child1);
         root.addChild(child2);
 
-        assertTrue(root.isTreeRoot());
-        assertFalse(child1.isTreeRoot());
-        assertSame(root, child1.getParent());
         assertEquals(2, root.getChildren().size());
         assertSame(child1, root.getChildren().get(0));
 
