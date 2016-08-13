@@ -14,5 +14,5 @@ script:
 after_success: |
   if [ $TRAVIS_PULL_REQUEST == false -a $TRAVIS_BRANCH == 'quality' ]; then
     wget https://raw.githubusercontent.com/cyChop/dev-resources/master/gulp/sonar/sonar.settings.xml
-    mvn -Psonar sonar:sonar --settings settings.xml
+    mvn -Psonar sonar:sonar --settings sonar.settings.xml
   fi
