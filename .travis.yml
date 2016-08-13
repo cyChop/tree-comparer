@@ -2,10 +2,6 @@ language: java
 
 sudo: false
 
-env:
-  global:
-    - JACOCO_VERSION=0.7.4.201502262128
-
 jdk:
   - oraclejdk7
 
@@ -13,8 +9,10 @@ before_script:
   - "mvn clean install -Dmaven.test.skip=true"
 
 script:
-  - "mvn org.jacoco:jacoco-maven-plugin:$JACOCO_VERSION:prepare-agent install"
+  - "mvn org.jacoco:jacoco-maven-plugin:prepare-agent install"
 
-after_success:
-  - wget https://raw.githubusercontent.com/cyChop/dev-resources/master/maven/sonar/settings.xml
-  - "[[ $TRAVIS_PULL_REQUEST == false ]] && [[ $TRAVIS_BRANCH == quality ]] && mvn -Psonar sonar:sonar --settings settings.xml"
+after_success: |
+  if [ $TRAVIS_PULL_REQUEST == false -a $TRAVIS_BRANCH == 'quality' ]; then
+    wget https://raw.githubusercontent.com/cyChop/dev-resources/master/gulp/sonar/sonar.settings.xml
+    mvn -Psonar sonar:sonar --settings settings.xml
+  fi
