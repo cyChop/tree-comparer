@@ -23,12 +23,18 @@ package org.keyboardplaying.tree.file.model;
  */
 public enum FileSystemElementType {
 
-    /** Folders. */
+    /**
+     * Folders.
+     */
     DIRECTORY,
 
-    /** Binary files. */
+    /**
+     * Binary files.
+     */
     BINARY,
 
-    /** Text files. */
-    TEXT;
+    /**
+     * Text files.
+     */
+    TEXT
 }

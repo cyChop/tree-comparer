@@ -16,19 +16,15 @@
  */
 package org.keyboardplaying.tree;
 
-import java.io.IOException;
-import java.io.StringWriter;
-import java.util.Arrays;
-
+import freemarker.template.TemplateException;
 import org.junit.Test;
 import org.keyboardplaying.tree.model.Node;
 import org.keyboardplaying.tree.model.Variations;
 import org.keyboardplaying.tree.reporter.FreemarkerReporter;
 
-import freemarker.core.ParseException;
-import freemarker.template.MalformedTemplateNameException;
-import freemarker.template.TemplateException;
-import freemarker.template.TemplateNotFoundException;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.util.Arrays;
 
 /**
  * Test class for {@link FreemarkerReporter}.
@@ -38,10 +34,12 @@ import freemarker.template.TemplateNotFoundException;
 // TODO make some more relevant tests
 public class FreemarkerReporterTest {
 
-    /** Ensures the reporter loads correctly. */
+    /**
+     * Ensures the reporter loads correctly.
+     */
     @Test
     @SuppressWarnings("javadoc")
-    public void testInit() throws TemplateNotFoundException, MalformedTemplateNameException, ParseException,
+    public void testInit() throws
             TemplateException, IOException {
         Variations<String> v = new Variations<>(Arrays.asList("hello", "world"));
         Node<Variations<String>> node = new Node<>(v);

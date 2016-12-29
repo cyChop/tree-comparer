@@ -23,10 +23,8 @@ import org.keyboardplaying.tree.model.Node;
 /**
  * A simple comparator for nodes using {@link Comparable} content types.
  *
+ * @param <T> the type of content for the node
  * @author Cyrille Chopelet (http://keyboardplaying.org)
- *
- * @param <T>
- *            the type of content for the node
  */
 public class NodeContentComparator<T extends Comparable<T>> implements Comparator<Node<T>> {
 

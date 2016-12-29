@@ -28,10 +28,8 @@ import java.util.Objects;
  * <p/>
  * There is no difference of implementation between nodes and leaves. A leaf will simply be a childless node.
  *
+ * @param <T> the type of nodes for this tree
  * @author Cyrille Chopelet (http://keyboardplaying.org)
- *
- * @param <T>
- *            the type of nodes for this tree
  */
 public class Node<T> {
 
@@ -39,14 +37,15 @@ public class Node<T> {
     private final T content;
 
     /* === The tree part === */
-    /** This node's children. */
+    /**
+     * This node's children.
+     */
     private final List<Node<T>> children = new ArrayList<>();
 
     /**
      * Creates a new node.
      *
-     * @param content
-     *            the node's content
+     * @param content the node's content
      */
     public Node(T content) {
         Objects.requireNonNull(content, "A node content may not be null.");
@@ -65,8 +64,7 @@ public class Node<T> {
     /**
      * Adds a child to this node.
      *
-     * @param child
-     *            the child to add to this node
+     * @param child the child to add to this node
      */
     public void addChild(Node<T> child) {
         Objects.requireNonNull(child, "The node cannot have null children");
@@ -76,8 +74,7 @@ public class Node<T> {
     /**
      * Sets the children for this node.
      *
-     * @param children
-     *            the children for this node
+     * @param children the children for this node
      */
     public void setChildren(List<Node<T>> children) {
         this.children.clear();

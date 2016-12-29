@@ -41,7 +41,9 @@ import freemarker.template.TemplateNotFoundException;
  */
 public class FreemarkerReporter {
 
-    /** The template for an HTML */
+    /**
+     * The template for an HTML
+     */
     public static final String TPL_HTML_BOOTSTRAP = "bootstrap/template.ftl";
 
     private static final String ENCODING_UTF8 = "UTF-8";
@@ -66,27 +68,18 @@ public class FreemarkerReporter {
     /**
      * Generates a report from a template and an aligned tree.
      *
-     * @param template
-     *            the template to use
-     * @param variations
-     *            the tree of aligned nodes
-     * @param headers
-     *            the headers for each tree in the report
-     * @param writer
-     *            the writer to write the report to
-     *
-     * @throws TemplateNotFoundException
-     *             if the template cannot be found.
-     * @throws MalformedTemplateNameException
-     *             if the template name is incorrect.
-     * @throws IOException
-     *             if an I/O exception occurs during the report generation.
-     * @throws TemplateException
-     *             if an exception occurs during template processing.
+     * @param template   the template to use
+     * @param variations the tree of aligned nodes
+     * @param headers    the headers for each tree in the report
+     * @param writer     the writer to write the report to
+     * @throws TemplateNotFoundException      if the template cannot be found.
+     * @throws MalformedTemplateNameException if the template name is incorrect.
+     * @throws IOException                    if an I/O exception occurs during the report generation.
+     * @throws TemplateException              if an exception occurs during template processing.
      */
     // FIXME finish implementing, add node wrapper to display content
     public <T> void generateReport(String template, Node<Variations<T>> variations, Variations<String> headers,
-            Writer writer) throws IOException, TemplateException {
+                                   Writer writer) throws IOException, TemplateException {
         Objects.requireNonNull(variations, "A tree must be supplied for the reporting.");
         if (headers != null && headers.size() != variations.getContent().size()) {
             throw new IllegalArgumentException(

@@ -16,22 +16,20 @@
  */
 package org.keyboardplaying.tree.align;
 
+import org.keyboardplaying.tree.model.Node;
+import org.keyboardplaying.tree.model.Variations;
+import org.keyboardplaying.tree.sort.NodeSorter;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-import org.keyboardplaying.tree.model.Node;
-import org.keyboardplaying.tree.model.Variations;
-import org.keyboardplaying.tree.sort.NodeSorter;
-
 /**
  * A class to produce a tree allowing for easy comparison of several trees.
  *
+ * @param <T> the type of node content for the trees being aligned
  * @author Cyrille Chopelet (http://keyboardplaying.org)
- *
- * @param <T>
- *            the type of node content for the trees being aligned
  */
 public class TreeAligner<T> {
 
@@ -40,8 +38,7 @@ public class TreeAligner<T> {
     /**
      * Creates a new instance.
      *
-     * @param comparator
-     *            the comparator to use when aligning the trees
+     * @param comparator the comparator to use when aligning the trees
      */
     public TreeAligner(Comparator<Node<T>> comparator) {
         this.comparator = comparator;
@@ -50,8 +47,7 @@ public class TreeAligner<T> {
     /**
      * Creates a tree allowing to visualize the differences between several trees by aligning equivalent between trees.
      *
-     * @param trees
-     *            the trees to align
+     * @param trees the trees to align
      * @return the single tree showing the aligned children
      */
     @SafeVarargs
@@ -62,8 +58,7 @@ public class TreeAligner<T> {
     /**
      * Creates a tree allowing to visualize the differences between several trees by aligning equivalent between trees.
      *
-     * @param trees
-     *            the trees to align
+     * @param trees the trees to align
      * @return the single tree showing the aligned children
      */
     public Node<Variations<T>> alignTrees(List<Node<T>> trees) {
@@ -91,8 +86,7 @@ public class TreeAligner<T> {
     /**
      * Orders all trees using the same sorter.
      *
-     * @param trees
-     *            the trees to sort
+     * @param trees the trees to sort
      */
     private void sortAllTrees(List<Node<T>> trees) {
         NodeSorter<T> sorter = new NodeSorter<>(comparator);

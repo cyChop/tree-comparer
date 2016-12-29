@@ -106,7 +106,7 @@ public class FileSystemElementBuilder {
         }
         String digest = digestToHexString(md.digest());
 
-        return new FileSystemElement(file, type, new String(digest));
+        return new FileSystemElement(file, type, digest);
     }
 
     private boolean isAsciiFile(InputStream is) throws IOException {

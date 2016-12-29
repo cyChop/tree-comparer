@@ -24,10 +24,8 @@ import java.util.NoSuchElementException;
 /**
  * An object containing the different versions for a given node in the compared versions.
  *
+ * @param <T> the type of node
  * @author Cyrille Chopelet (http://keyboardplaying.org)
- *
- * @param <T>
- *            the type of node
  */
 public class Variations<T> implements Iterable<T> {
 
@@ -37,8 +35,7 @@ public class Variations<T> implements Iterable<T> {
     /**
      * Creates a new instance.
      *
-     * @param size
-     *            the number of variations being compared
+     * @param size the number of variations being compared
      */
     @SuppressWarnings("unchecked")
     public Variations(int size) {
@@ -48,8 +45,7 @@ public class Variations<T> implements Iterable<T> {
     /**
      * Creates a new instance.
      *
-     * @param variations
-     *            the variations
+     * @param variations the variations
      */
     @SuppressWarnings("unchecked")
     public Variations(List<T> variations) {
@@ -59,8 +55,7 @@ public class Variations<T> implements Iterable<T> {
     /**
      * Sets the next variation.
      *
-     * @param variation
-     *            the variation to set
+     * @param variation the variation to set
      */
     public void add(T variation) {
         if (index == array.length) {
@@ -74,10 +69,8 @@ public class Variations<T> implements Iterable<T> {
      * <p/>
      * This does not move the index for {@link #add(Object)}.
      *
-     * @param id
-     *            the compared version number
-     * @param variation
-     *            the corresponding variation
+     * @param id        the compared version number
+     * @param variation the corresponding variation
      */
     public void set(int id, T variation) {
         array[id] = variation;
@@ -86,8 +79,7 @@ public class Variations<T> implements Iterable<T> {
     /**
      * Returns a variation.
      *
-     * @param id
-     *            the compared version number
+     * @param id the compared version number
      * @return the corresponding variation
      */
     public T get(int id) {
@@ -163,10 +155,8 @@ public class Variations<T> implements Iterable<T> {
     /**
      * An {@link Iterator} implementation for {@link Variations}.
      *
+     * @param <T> the type of node
      * @author Cyrille Chopelet (http://keyboardplaying.org)
-     *
-     * @param <T>
-     *            the type of node
      */
     static class VariationsIterator<T> implements Iterator<T> {
 

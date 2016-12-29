@@ -31,14 +31,18 @@ import org.keyboardplaying.tree.util.NodeTestUtil;
  */
 public class NodeSorterTest {
 
-    /** Tests the sorting without specifying a comparator. */
+    /**
+     * Tests the sorting without specifying a comparator.
+     */
     @Test(expected = NullPointerException.class)
     public void testConstructorWithNull() {
         @SuppressWarnings("unused")
         NodeSorter<String> sorter = new NodeSorter<>(null);
     }
 
-    /** Tests a sorting with a custom comparator. */
+    /**
+     * Tests a sorting with a custom comparator.
+     */
     @Test
     public void testSort() {
         Node<String> living = buildTree();

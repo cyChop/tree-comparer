@@ -44,8 +44,7 @@ public class FileNodeBuilder {
     /**
      * Sets the {@link FileFilter} to use to determine which files should or should not be included in the tree.
      *
-     * @param filter
-     *            the filter to use
+     * @param filter the filter to use
      */
     public void setFileFilter(FileFilter filter) {
         this.filter = filter;
@@ -54,8 +53,7 @@ public class FileNodeBuilder {
     /**
      * Sets the {@link FileFilter} to use to determine which files should or should not be included in the tree.
      *
-     * @param filters
-     *            the filters to use
+     * @param filters the filters to use
      */
     public void setFileFilters(FileFilter... filters) {
         setFileFilters(Arrays.asList(filters));
@@ -64,8 +62,7 @@ public class FileNodeBuilder {
     /**
      * Sets the {@link FileFilter} to use to determine which files should or should not be included in the tree.
      *
-     * @param filters
-     *            the filters to use
+     * @param filters the filters to use
      */
     public void setFileFilters(Collection<FileFilter> filters) {
         setFileFilter(new CompositeFileFilter(filters));
@@ -74,11 +71,9 @@ public class FileNodeBuilder {
     /**
      * Builds a {@link Node} for the supplied file or directory and all children files and directories.
      *
-     * @param root
-     *            the root file or directory for the tree to build
+     * @param root the root file or directory for the tree to build
      * @return a {@link Node} representing the file information as {@link FileSystemElement}
-     * @throws IOException
-     *             if a file cannot be read
+     * @throws IOException if a file cannot be read
      */
     public Node<FileSystemElement> buildTree(File root) throws IOException {
         // File is required to exist.
@@ -94,11 +89,9 @@ public class FileNodeBuilder {
     /**
      * Recursively builds a node with its children.
      *
-     * @param file
-     *            the file or directory to build a node for
+     * @param file the file or directory to build a node for
      * @return the node for the supplied {@link File} with all children
-     * @throws IOException
-     *             if a file cannot be read
+     * @throws IOException if a file cannot be read
      */
     private Node<FileSystemElement> buildNode(File file) throws IOException {
         Node<FileSystemElement> node;

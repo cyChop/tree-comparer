@@ -45,7 +45,9 @@ public class FileNodeBuilderTest {
     private FileNodeBuilder builder = new FileNodeBuilder();
     private NodeSorter<FileSystemElement> sorter = new NodeSorter<>(new FileSystemElementComparator());
 
-    /** Tests the tree building. */
+    /**
+     * Tests the tree building.
+     */
     @SuppressWarnings("javadoc")
     @Test
     public void testTreeBuilding() throws IOException {
@@ -95,7 +97,9 @@ public class FileNodeBuilderTest {
         assertFalse(iter.hasNext());
     }
 
-    /** Tests the tree building with a filter. */
+    /**
+     * Tests the tree building with a filter.
+     */
     @SuppressWarnings("javadoc")
     @Test
     public void testTreeBuildingWithFilter() throws IOException {
@@ -121,7 +125,9 @@ public class FileNodeBuilderTest {
         assertFalse(iter.hasNext());
     }
 
-    /** Tests the tree building when the supplied file is not a directory. */
+    /**
+     * Tests the tree building when the supplied file is not a directory.
+     */
     @SuppressWarnings("javadoc")
     @Test
     public void testTreeBuildingForFile() throws IOException {
@@ -141,7 +147,9 @@ public class FileNodeBuilderTest {
         assertTrue(tree.getChildren().isEmpty());
     }
 
-    /** Tests the tree building when the supplied file does not exist. */
+    /**
+     * Tests the tree building when the supplied file does not exist.
+     */
     @SuppressWarnings("javadoc")
     @Test(expected = FileNotFoundException.class)
     public void testTreeBuildingForNotExistingElement() throws IOException {

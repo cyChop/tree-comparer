@@ -36,7 +36,9 @@ public class FileSystemElementBuilderTest {
 
     private FileSystemElementBuilder builder = new FileSystemElementBuilder();
 
-    /** Tests {@link FileSystemElementBuilder#buildDirectoryElement(File)}. */
+    /**
+     * Tests {@link FileSystemElementBuilder#buildDirectoryElement(File)}.
+     */
     @Test
     public void testBuildDirectoryElement() {
         /* Prepare */
@@ -50,7 +52,9 @@ public class FileSystemElementBuilderTest {
         assertNull(fse.getChecksum());
     }
 
-    /** Tests {@link FileSystemElementBuilder#buildFileElement(File)} with a text file. */
+    /**
+     * Tests {@link FileSystemElementBuilder#buildFileElement(File)} with a text file.
+     */
     @SuppressWarnings("javadoc")
     @Test
     public void testBuildTextFileElement() throws IOException {
@@ -65,7 +69,9 @@ public class FileSystemElementBuilderTest {
         assertEquals("9e60e9c13569a9ece7ae20fd5798e0cd", fse.getChecksum());
     }
 
-    /** Tests {@link FileSystemElementBuilder#buildFileElement(File)} with a binary file. */
+    /**
+     * Tests {@link FileSystemElementBuilder#buildFileElement(File)} with a binary file.
+     */
     @SuppressWarnings("javadoc")
     @Test
     public void testBuildBinaryFileElement() throws IOException {
@@ -80,7 +86,9 @@ public class FileSystemElementBuilderTest {
         assertEquals("454a02dcd0e797bd93737b92cad0652d", fse.getChecksum());
     }
 
-    /** Tests {@link FileSystemElementBuilder#buildFileElement(File)} with an empty file. */
+    /**
+     * Tests {@link FileSystemElementBuilder#buildFileElement(File)} with an empty file.
+     */
     @SuppressWarnings("javadoc")
     @Test
     public void testBuildEmptyFileElement() throws IOException {
@@ -95,7 +103,9 @@ public class FileSystemElementBuilderTest {
         assertEquals("d41d8cd98f00b204e9800998ecf8427e", fse.getChecksum());
     }
 
-    /** Tests {@link FileSystemElementBuilder#buildFileElement(File)} with SHA-1 as checksum algorithm. */
+    /**
+     * Tests {@link FileSystemElementBuilder#buildFileElement(File)} with SHA-1 as checksum algorithm.
+     */
     @SuppressWarnings("javadoc")
     @Test
     public void testSha1Algorithm() throws IOException, NoSuchAlgorithmException {
@@ -110,7 +120,9 @@ public class FileSystemElementBuilderTest {
         assertEquals("140b3e00577c52dfc94c728da93fbd3ba1e0ee1e", fse.getChecksum());
     }
 
-    /** Tests {@link FileSystemElementBuilder#buildFileElement(File)} with SHA-256 as checksum algorithm. */
+    /**
+     * Tests {@link FileSystemElementBuilder#buildFileElement(File)} with SHA-256 as checksum algorithm.
+     */
     @SuppressWarnings("javadoc")
     @Test
     public void testSha256Algorithm() throws IOException, NoSuchAlgorithmException {
@@ -125,7 +137,9 @@ public class FileSystemElementBuilderTest {
         assertEquals("03a414fafc012133e3ed48953590ae76feb50a6e4143decc3dc086ed9e0fe71c", fse.getChecksum());
     }
 
-    /** Tests {@link FileSystemElementBuilder#buildFileElement(File)} with an unknown checksum algorithm. */
+    /**
+     * Tests {@link FileSystemElementBuilder#buildFileElement(File)} with an unknown checksum algorithm.
+     */
     @SuppressWarnings("javadoc")
     @Test(expected = NoSuchAlgorithmException.class)
     public void testUnknownAlgorithm() throws NoSuchAlgorithmException {

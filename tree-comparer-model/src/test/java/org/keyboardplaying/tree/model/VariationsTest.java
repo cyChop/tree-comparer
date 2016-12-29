@@ -36,7 +36,9 @@ import org.keyboardplaying.tree.model.Variations.VariationsIterator;
  */
 public class VariationsTest {
 
-    /** Tests {@link Variations#size()}, {@link Variations#get(int)} and {@link Variations#set(int, Object)}. */
+    /**
+     * Tests {@link Variations#size()}, {@link Variations#get(int)} and {@link Variations#set(int, Object)}.
+     */
     @Test
     public void testGetSet() {
         Variations<String> v = new Variations<>(2);
@@ -57,7 +59,9 @@ public class VariationsTest {
         }
     }
 
-    /** Tests {@link Variations#Variations(java.util.List)}. */
+    /**
+     * Tests {@link Variations#Variations(java.util.List)}.
+     */
     @Test
     public void testListConstructor() {
         Variations<String> v = new Variations<>(Arrays.asList("hello", "world"));
@@ -75,7 +79,9 @@ public class VariationsTest {
         assertNull(v.get(1));
     }
 
-    /** Tests {@link Variations#add(Object)}. */
+    /**
+     * Tests {@link Variations#add(Object)}.
+     */
     @Test
     public void testAdd() {
         Variations<String> v = new Variations<>(3);
@@ -95,7 +101,9 @@ public class VariationsTest {
         }
     }
 
-    /** Tests {@link Variations#isConstant()}. */
+    /**
+     * Tests {@link Variations#isConstant()}.
+     */
     @Test
     public void testIsConstant() {
         Variations<String> v = new Variations<>(2);
@@ -114,7 +122,9 @@ public class VariationsTest {
         assertTrue(v.isConstant());
     }
 
-    /** Tests {@link Variations#equals(Object)} and {@link Variations#hashCode()}. */
+    /**
+     * Tests {@link Variations#equals(Object)} and {@link Variations#hashCode()}.
+     */
     @Test
     public void testEqualsAndHashCode() {
         Variations<String> v1 = new Variations<>(2);
@@ -153,7 +163,9 @@ public class VariationsTest {
         assertTrue(v1.hashCode() == v2.hashCode());
     }
 
-    /** Tests {@link Variations#iterator()}. */
+    /**
+     * Tests {@link Variations#iterator()}.
+     */
     @Test
     public void testIterator() {
         assertTrue(new Variations<String>(2).iterator() instanceof VariationsIterator);

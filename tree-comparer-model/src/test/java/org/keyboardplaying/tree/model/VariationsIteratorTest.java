@@ -36,14 +36,18 @@ public class VariationsIteratorTest {
 
     private Iterator<String> iter;
 
-    /** Prepares the iterator for testing. */
+    /**
+     * Prepares the iterator for testing.
+     */
     @Before
     public void init() {
-        String[] array = { "hello", "world" };
+        String[] array = {"hello", "world"};
         iter = new VariationsIterator<>(array);
     }
 
-    /** Tests the {@link Iterator#next()} and {@link Iterator#hasNext()} methods. */
+    /**
+     * Tests the {@link Iterator#next()} and {@link Iterator#hasNext()} methods.
+     */
     @Test(expected = NoSuchElementException.class)
     public void testNextAndHasNext() {
         assertTrue(iter.hasNext());
@@ -57,7 +61,9 @@ public class VariationsIteratorTest {
         iter.next();
     }
 
-    /** Tests the {@link Iterator#remove()} method. */
+    /**
+     * Tests the {@link Iterator#remove()} method.
+     */
     @Test(expected = UnsupportedOperationException.class)
     public void testRemove() {
         iter.next();

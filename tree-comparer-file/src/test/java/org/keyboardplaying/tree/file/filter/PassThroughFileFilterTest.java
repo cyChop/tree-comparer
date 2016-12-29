@@ -32,7 +32,9 @@ public class PassThroughFileFilterTest {
 
     private FileFilter filter = new PassThroughFileFilter();
 
-    /** Tests file rejection from first filter. */
+    /**
+     * Tests file rejection from first filter.
+     */
     @Test
     public void testDirectoryFiltering() {
         /* Prepare */
@@ -42,7 +44,9 @@ public class PassThroughFileFilterTest {
         assertTrue(filter.accept(file));
     }
 
-    /** Tests file rejection from non-first filter. */
+    /**
+     * Tests file rejection from non-first filter.
+     */
     @Test
     public void testHiddenFileFiltering() {
         /* Prepare */
@@ -52,7 +56,9 @@ public class PassThroughFileFilterTest {
         assertTrue(filter.accept(file));
     }
 
-    /** Tests file acceptance from all filters. */
+    /**
+     * Tests file acceptance from all filters.
+     */
     @Test
     public void testNormalFileFiltering() {
         /* Prepare */

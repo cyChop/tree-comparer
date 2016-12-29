@@ -39,13 +39,17 @@ public class TreeAlignerTest {
 
     private TreeAligner<String> aligner;
 
-    /** Initializes the aligner. */
+    /**
+     * Initializes the aligner.
+     */
     @Before
     public void init() {
         aligner = new TreeAligner<>(new NodeContentComparator<String>());
     }
 
-    /** Makes sure the aligner doesn't crash when no tree is provided. */
+    /**
+     * Makes sure the aligner doesn't crash when no tree is provided.
+     */
     @Test
     public void testEmptyAlignment() {
         Node<Variations<String>> aligned = aligner.alignTrees();
@@ -53,14 +57,18 @@ public class TreeAlignerTest {
         assertEquals(0, aligned.getContent().size());
     }
 
-    /** Makes sure the aligner returns null when passed a null list. */
+    /**
+     * Makes sure the aligner returns null when passed a null list.
+     */
     @Test
     public void testNullAlignment() {
         Node<Variations<String>> aligned = aligner.alignTrees((List<Node<String>>) null);
         assertNull(aligned);
     }
 
-    /** Tests the alignment. */
+    /**
+     * Tests the alignment.
+     */
     @Test
     public void testAlignment() {
         /* Build test trees */

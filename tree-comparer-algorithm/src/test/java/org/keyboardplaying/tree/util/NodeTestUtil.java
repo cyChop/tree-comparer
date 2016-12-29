@@ -31,8 +31,7 @@ public class NodeTestUtil {
     /**
      * Creates a list of {@link Node} instances from a set of content.
      *
-     * @param children
-     *            the contents
+     * @param children the contents
      * @return the contents in nodes
      */
     @SafeVarargs

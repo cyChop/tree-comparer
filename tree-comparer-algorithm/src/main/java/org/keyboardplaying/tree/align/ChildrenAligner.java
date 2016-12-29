@@ -32,10 +32,8 @@ import org.keyboardplaying.tree.model.Variations;
  * This class recursively calls itself rather than calling recursively a method. This makes reading the scope and
  * maintaining the code easier.
  *
+ * @param <T> the type of node content for the trees being aligned
  * @author Cyrille Chopelet (http://keyboardplaying.org)
- *
- * @param <T>
- *            the type of node content for the trees being aligned
  * @see TreeAligner
  */
 // Package visible only
@@ -48,12 +46,9 @@ class ChildrenAligner<T> {
     /**
      * Creates a new instance.
      *
-     * @param comparator
-     *            the comparator to use when aligning the trees
-     * @param nbTrees
-     *            the number of trees being aligned (avoid recounting)
-     * @param variations
-     *            the lists of children to align
+     * @param comparator the comparator to use when aligning the trees
+     * @param nbTrees    the number of trees being aligned (avoid recounting)
+     * @param variations the lists of children to align
      */
     public ChildrenAligner(Comparator<Node<T>> comparator, int nbTrees, List<List<Node<T>>> variations) {
         this.comparator = comparator;
@@ -97,7 +92,7 @@ class ChildrenAligner<T> {
     }
 
     private Node<T> alignChild(Node<T> min, ListIterator<Node<T>> iter, List<T> line,
-            List<List<Node<T>>> lineChildren) {
+                               List<List<Node<T>>> lineChildren) {
         Node<T> minimum = min;
         Node<T> current = null;
 
@@ -129,12 +124,9 @@ class ChildrenAligner<T> {
     /**
      * Replaces all children already added to this line with {@code null} and moves all iterators one step back.
      *
-     * @param line
-     *            the current line
-     * @param lineChildren
-     *            the children to be aligned for the nodes of the current line
-     * @param iter
-     *            the iterator of the new minimum for the line
+     * @param line         the current line
+     * @param lineChildren the children to be aligned for the nodes of the current line
+     * @param iter         the iterator of the new minimum for the line
      */
     private void resetCurrentLine(List<T> line, List<List<Node<T>>> lineChildren, ListIterator<Node<T>> iter) {
         line.clear();

@@ -98,7 +98,9 @@ public class FileSystemElementTest {
         assertEquals(md5, elm.getChecksum());
     }
 
-    /** Tests {@link FileSystemElement#equals(Object)} and {@link FileSystemElement#hashCode()}. */
+    /**
+     * Tests {@link FileSystemElement#equals(Object)} and {@link FileSystemElement#hashCode()}.
+     */
     @Test
     public void testEqualsAndHashCode() {
         /* Prepare */

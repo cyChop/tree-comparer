@@ -27,10 +27,8 @@ import org.keyboardplaying.tree.model.Node;
 /**
  * This class recursively sorts all children from a tree using a provided {@link Comparator}.
  *
+ * @param <T> the type of content for the nodes being processed here
  * @author Cyrille Chopelet (http://keyboardplaying.org)
- *
- * @param <T>
- *            the type of content for the nodes being processed here
  */
 public class NodeSorter<T> {
 
@@ -39,8 +37,7 @@ public class NodeSorter<T> {
     /**
      * Creates a new instance.
      *
-     * @param comparator
-     *            the comparator
+     * @param comparator the comparator
      */
     public NodeSorter(Comparator<Node<T>> comparator) {
         Objects.requireNonNull(comparator, "Comparator cannot be null");
@@ -50,8 +47,7 @@ public class NodeSorter<T> {
     /**
      * Recursively sorts the children of this tree using the instance's comparator.
      *
-     * @param node
-     *            the tree which should be sorted
+     * @param node the tree which should be sorted
      */
     public void sort(Node<T> node) {
         Objects.requireNonNull(comparator, "No comparator has been set, sorting cannot be performed.");

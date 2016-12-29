@@ -22,6 +22,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import org.junit.Test;
 
@@ -32,7 +33,9 @@ import org.junit.Test;
  */
 public class NodeTest {
 
-    /** Tests the class constructor. */
+    /**
+     * Tests the class constructor.
+     */
     @Test
     public void testConstructor() {
         Node<String> node = new Node<>("hello");
@@ -40,14 +43,18 @@ public class NodeTest {
         assertTrue(node.getChildren().isEmpty());
     }
 
-    /** Tests the class constructor when the content is null. */
+    /**
+     * Tests the class constructor when the content is null.
+     */
     @Test(expected = NullPointerException.class)
     @SuppressWarnings("unused")
     public void testConstructorWithNullContent() {
         new Node<>(null);
     }
 
-    /** Tests the behavior when adding children. */
+    /**
+     * Tests the behavior when adding children.
+     */
     @Test
     public void testTreeStructure() {
         Node<String> root = new Node<>("root");
@@ -66,19 +73,23 @@ public class NodeTest {
         // setChildren removes previous additions
         root.setChildren(null);
         assertEquals(0, root.getChildren().size());
-        root.setChildren(Arrays.asList(new Node<>("child1")));
+        root.setChildren(Collections.singletonList(new Node<>("child1")));
         assertEquals(1, root.getChildren().size());
         root.addChild(new Node<>("child2"));
         assertEquals(2, root.getChildren().size());
     }
 
-    /** Ensures adding a null child fails. */
+    /**
+     * Ensures adding a null child fails.
+     */
     @Test(expected = NullPointerException.class)
     public void testAddNullChild() {
         new Node<>("root").addChild(null);
     }
 
-    /** Tests {@link Node#equals(Object)} and {@link Node#hashCode()}. */
+    /**
+     * Tests {@link Node#equals(Object)} and {@link Node#hashCode()}.
+     */
     @Test
     public void testEqualsAndHashcode() {
         Node<String> node1 = new Node<>("hello");

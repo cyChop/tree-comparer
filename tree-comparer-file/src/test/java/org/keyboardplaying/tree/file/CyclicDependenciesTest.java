@@ -29,20 +29,20 @@ import jdepend.framework.JavaPackage;
 /**
  * Ensures that there is no package dependency cycle.
  *
- * @see <a href="http://blog.mafr.de/2010/10/02/java-finding-package-cycles/">The inspirational blog post</a>
- *
  * @author Cyrille Chopelet (http://keyboardplaying.org)
+ * @see <a href="http://blog.mafr.de/2010/10/02/java-finding-package-cycles/">The inspirational blog post</a>
  */
 public class CyclicDependenciesTest {
 
-    /** The {@link JDepend} instance used to run tests. */
+    /**
+     * The {@link JDepend} instance used to run tests.
+     */
     private JDepend jdepend;
 
     /**
      * Initializes {@link JDepend}.
      *
-     * @throws IOException
-     *             when initialization fails
+     * @throws IOException when initialization fails
      */
     @Before
     public void initJdepend() throws IOException {
@@ -52,7 +52,9 @@ public class CyclicDependenciesTest {
         jdepend.analyze();
     }
 
-    /** Ensure there is no package cycle. */
+    /**
+     * Ensure there is no package cycle.
+     */
     @Test
     public void testCycles() {
         if (jdepend.containsCycles()) {
