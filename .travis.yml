@@ -1,18 +1,15 @@
 language: java
 
-sudo: false
+addons:
+  sonarqube:
+    token: $SONARQUBE_TOKEN
 
 jdk:
-  - oraclejdk7
+  - oraclejdk8
 
 before_script:
   - "mvn clean install -Dmaven.test.skip=true"
 
 script:
-  - "mvn org.jacoco:jacoco-maven-plugin:prepare-agent install"
-
-after_success: |
-  if [ $TRAVIS_PULL_REQUEST == false -a $TRAVIS_BRANCH == 'quality' ]; then
-    wget https://raw.githubusercontent.com/cyChop/dev-resources/master/sonar/sonar.settings.xml
-    mvn -Psonar sonar:sonar --settings sonar.settings.xml
-  fi
+  # the following command line builds the project, runs the tests with coverage and then execute the SonarQube analysis
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
