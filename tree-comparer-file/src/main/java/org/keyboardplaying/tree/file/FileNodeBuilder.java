@@ -31,7 +31,7 @@ import org.keyboardplaying.tree.model.Node;
 /**
  * This class contains the algorithm to build a node from a root.
  *
- * @author Cyrille Chopelet (http://keyboardplaying.org)
+ * @author Cyrille Chopelet (https://keyboardplaying.org)
  */
 public class FileNodeBuilder {
 

@@ -16,20 +16,19 @@
  */
 package org.keyboardplaying.tree;
 
-import freemarker.template.TemplateException;
 import org.junit.Test;
 import org.keyboardplaying.tree.model.Node;
 import org.keyboardplaying.tree.model.Variations;
 import org.keyboardplaying.tree.reporter.FreemarkerReporter;
+import org.keyboardplaying.tree.reporter.ReporterException;
 
-import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Arrays;
 
 /**
  * Test class for {@link FreemarkerReporter}.
  *
- * @author Cyrille Chopelet (http://keyboardplaying.org)
+ * @author Cyrille Chopelet (https://keyboardplaying.org)
  */
 // TODO make some more relevant tests
 public class FreemarkerReporterTest {
@@ -39,8 +38,7 @@ public class FreemarkerReporterTest {
      */
     @Test
     @SuppressWarnings("javadoc")
-    public void testInit() throws
-            TemplateException, IOException {
+    public void testInit() throws ReporterException {
         Variations<String> v = new Variations<>(Arrays.asList("hello", "world"));
         Node<Variations<String>> node = new Node<>(v);
 

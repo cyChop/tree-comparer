@@ -28,7 +28,7 @@ import org.keyboardplaying.tree.model.Node;
  * This class recursively sorts all children from a tree using a provided {@link Comparator}.
  *
  * @param <T> the type of content for the nodes being processed here
- * @author Cyrille Chopelet (http://keyboardplaying.org)
+ * @author Cyrille Chopelet (https://keyboardplaying.org)
  */
 public class NodeSorter<T> {
 

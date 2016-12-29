@@ -22,7 +22,7 @@ import java.io.FileFilter;
 /**
  * Leaves directories out of the selection.
  *
- * @author Cyrille Chopelet (http://keyboardplaying.org)
+ * @author Cyrille Chopelet (https://keyboardplaying.org)
  */
 public class DirectoryFilter implements FileFilter {
 

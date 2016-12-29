@@ -22,7 +22,7 @@ import java.util.Objects;
 /**
  * A representation of a file system element for comparison.
  *
- * @author Cyrille Chopelet (http://keyboardplaying.org)
+ * @author Cyrille Chopelet (https://keyboardplaying.org)
  */
 public class FileSystemElement {
 

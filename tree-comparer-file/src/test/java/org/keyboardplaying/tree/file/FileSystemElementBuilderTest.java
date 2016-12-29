@@ -30,7 +30,7 @@ import org.keyboardplaying.tree.file.model.FileSystemElementType;
 /**
  * Test class for {@link FileSystemElementBuilder}.
  *
- * @author Cyrille Chopelet (http://keyboardplaying.org)
+ * @author Cyrille Chopelet (https://keyboardplaying.org)
  */
 public class FileSystemElementBuilderTest {
 

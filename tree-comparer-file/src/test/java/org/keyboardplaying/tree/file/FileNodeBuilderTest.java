@@ -38,7 +38,7 @@ import org.keyboardplaying.tree.sort.NodeSorter;
 /**
  * Test class for {@link FileNodeBuilder}.
  *
- * @author Cyrille Chopelet (http://keyboardplaying.org)
+ * @author Cyrille Chopelet (https://keyboardplaying.org)
  */
 public class FileNodeBuilderTest {
 

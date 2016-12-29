@@ -33,7 +33,7 @@ import org.keyboardplaying.tree.model.Variations;
  * maintaining the code easier.
  *
  * @param <T> the type of node content for the trees being aligned
- * @author Cyrille Chopelet (http://keyboardplaying.org)
+ * @author Cyrille Chopelet (https://keyboardplaying.org)
  * @see TreeAligner
  */
 // Package visible only

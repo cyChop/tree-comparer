@@ -16,6 +16,13 @@
  */
 package org.keyboardplaying.tree.reporter;
 
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+import freemarker.template.TemplateExceptionHandler;
+import org.keyboardplaying.tree.model.Node;
+import org.keyboardplaying.tree.model.Variations;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.Writer;
@@ -24,25 +31,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import org.keyboardplaying.tree.model.Node;
-import org.keyboardplaying.tree.model.Variations;
-
-import freemarker.template.Configuration;
-import freemarker.template.MalformedTemplateNameException;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
-import freemarker.template.TemplateExceptionHandler;
-import freemarker.template.TemplateNotFoundException;
-
 /**
  * A utility class to print an aligned tree to a report using a Freemarker template.
  *
- * @author Cyrille Chopelet (http://keyboardplaying.org)
+ * @author Cyrille Chopelet (https://keyboardplaying.org)
  */
 public class FreemarkerReporter {
 
     /**
-     * The template for an HTML
+     * The template for an HTML report
      */
     public static final String TPL_HTML_BOOTSTRAP = "bootstrap/template.ftl";
 
@@ -56,8 +53,7 @@ public class FreemarkerReporter {
             try {
                 cfg.setDirectoryForTemplateLoading(new File(FreemarkerReporter.class.getResource("templates").toURI()));
             } catch (URISyntaxException | IOException e) {
-                // should never happen
-                // TODO log
+                throw new IllegalStateException(e.getMessage(), e);
             }
             cfg.setDefaultEncoding(ENCODING_UTF8);
             cfg.setTemplateExceptionHandler(TemplateExceptionHandler.DEBUG_HANDLER);
@@ -72,26 +68,29 @@ public class FreemarkerReporter {
      * @param variations the tree of aligned nodes
      * @param headers    the headers for each tree in the report
      * @param writer     the writer to write the report to
-     * @throws TemplateNotFoundException      if the template cannot be found.
-     * @throws MalformedTemplateNameException if the template name is incorrect.
-     * @throws IOException                    if an I/O exception occurs during the report generation.
-     * @throws TemplateException              if an exception occurs during template processing.
+     * @throws ReporterException if an error occurs while generating the report
      */
     // FIXME finish implementing, add node wrapper to display content
     public <T> void generateReport(String template, Node<Variations<T>> variations, Variations<String> headers,
-                                   Writer writer) throws IOException, TemplateException {
+                                   Writer writer) throws ReporterException {
         Objects.requireNonNull(variations, "A tree must be supplied for the reporting.");
         if (headers != null && headers.size() != variations.getContent().size()) {
             throw new IllegalArgumentException(
                     "If headers are provided, they should be as numerous as the compared trees.");
         }
 
-        Template tpl = getConfiguration().getTemplate(template);
+        try {
 
-        Map<String, Object> model = new HashMap<>();
-        model.put("headers", headers);
-        model.put("tree", variations);
+            Template tpl = getConfiguration().getTemplate(template);
 
-        tpl.process(model, writer);
+            Map<String, Object> model = new HashMap<>();
+            model.put("headers", headers);
+            model.put("tree", variations);
+
+            tpl.process(model, writer);
+
+        } catch (IOException | TemplateException e) {
+            throw new ReporterException(e.getMessage(), e);
+        }
     }
 }

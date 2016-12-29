@@ -24,7 +24,7 @@ import org.keyboardplaying.tree.model.Node;
 /**
  * A utility class for testing.
  *
- * @author Cyrille Chopelet (http://keyboardplaying.org)
+ * @author Cyrille Chopelet (https://keyboardplaying.org)
  */
 public class NodeTestUtil {
 

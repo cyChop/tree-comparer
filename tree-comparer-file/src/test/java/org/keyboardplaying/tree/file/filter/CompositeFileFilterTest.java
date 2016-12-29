@@ -29,7 +29,7 @@ import org.junit.Test;
 /**
  * Test class for {@link CompositeFileFilter}.
  *
- * @author Cyrille Chopelet (http://keyboardplaying.org)
+ * @author Cyrille Chopelet (https://keyboardplaying.org)
  */
 public class CompositeFileFilterTest {
 

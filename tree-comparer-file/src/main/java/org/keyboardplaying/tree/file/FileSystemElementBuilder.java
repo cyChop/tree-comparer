@@ -33,15 +33,21 @@ import org.keyboardplaying.tree.file.model.FileSystemElementType;
 /**
  * A utility to create {@link FileSystemElement} representations of {@link File} instances.
  *
- * @author Cyrille Chopelet (http://keyboardplaying.org)
+ * @author Cyrille Chopelet (https://keyboardplaying.org)
  */
 public class FileSystemElementBuilder {
 
-    /** The key for MD5. */
+    /**
+     * The key for MD5.
+     */
     public static final String CHECKSUM_ALGORITHM_MD5 = "MD5";
-    /** The key for SHA-1. */
+    /**
+     * The key for SHA-1.
+     */
     public static final String CHECKSUM_ALGORITHM_SHA1 = "SHA-1";
-    /** The key for SHA-256. */
+    /**
+     * The key for SHA-256.
+     */
     public static final String CHECKSUM_ALGORITHM_SHA256 = "SHA-256";
 
     private static final int CHUNK_SIZE = 1024;
@@ -52,29 +58,26 @@ public class FileSystemElementBuilder {
     /**
      * Sets the algorithm to use when building an element.
      *
-     * @param algorithm
-     *            the algorithm to use for checksum
-     * @throws NoSuchAlgorithmException
-     *             if the supplied algorithm does not exist.
+     * @param algorithm the algorithm to use for checksum
+     * @throws NoSuchAlgorithmException if the supplied algorithm does not exist.
      */
     public void setChecksumAlgorithm(String algorithm) throws NoSuchAlgorithmException {
         md = MessageDigest.getInstance(algorithm);
     }
 
-    private void initDefaultAlgorithm() throws UnexpectedException {
+    private void initDefaultAlgorithm() {
         try {
             setChecksumAlgorithm(CHECKSUM_ALGORITHM_MD5);
         } catch (NoSuchAlgorithmException e) {
             // this cannot happen
-            throw new UnexpectedException("The default algorithm " + CHECKSUM_ALGORITHM_MD5 + " does not exist.", e);
+            throw new IllegalStateException("The default algorithm <" + CHECKSUM_ALGORITHM_MD5 + "> could not be found.", e);
         }
     }
 
     /**
      * Builds a {@link FileSystemElement} for a directory.
      *
-     * @param directory
-     *            the {@link File} representation of the directory
+     * @param directory the {@link File} representation of the directory
      * @return the {@link FileSystemElement} representation of the directory
      */
     public FileSystemElement buildDirectoryElement(File directory) {
@@ -86,8 +89,7 @@ public class FileSystemElementBuilder {
      * <p/>
      * This includes binary vs. text detection and MD5 checksum computation.
      *
-     * @param file
-     *            the {@link File} representation of the file
+     * @param file the {@link File} representation of the file
      * @return the {@link FileSystemElement} representation of the directory
      * @throws IOException
      */
@@ -112,31 +114,25 @@ public class FileSystemElementBuilder {
     private boolean isAsciiFile(InputStream is) throws IOException {
         long asciiChars = 0;
         long otherChars = 0;
-        int size;
 
-        do {
-            /* How many bytes we read for this chunk. */
-            size = is.available();
-            if (size > CHUNK_SIZE) {
-                size = CHUNK_SIZE;
-            }
-
-            /* Do read. */
-            byte[] data = new byte[size];
-            is.read(data);
-
-            /* Count ASCII/binary characters. */
-            for (byte b : data) {
-                if (Character.isWhitespace((char) b) || b >= 0x20 && b <= 0x7E) {
+        byte[] buffer = new byte[CHUNK_SIZE];
+        int read;
+        while (0 < (read = is.read(buffer))) {
+            for (int i = 0; i < read; ++i) {
+                if (isAsciiCharacter(buffer[i])) {
                     asciiChars++;
                 } else {
                     otherChars++;
                 }
             }
-        } while (size == CHUNK_SIZE);
+        }
 
-        /* Text if the density of ASCII characters is over the threshold. */
+        // Text if the density of ASCII characters is over the threshold.
         return otherChars == 0 || (float) asciiChars / (otherChars + asciiChars) > TXT_ASCII_DENSITY;
+    }
+
+    private boolean isAsciiCharacter(byte b) {
+        return Character.isWhitespace((char) b) || b >= 0x20 && b <= 0x7E;
     }
 
     private String digestToHexString(byte[] digest) {

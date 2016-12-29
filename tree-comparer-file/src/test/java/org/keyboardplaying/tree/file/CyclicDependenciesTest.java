@@ -29,7 +29,7 @@ import jdepend.framework.JavaPackage;
 /**
  * Ensures that there is no package dependency cycle.
  *
- * @author Cyrille Chopelet (http://keyboardplaying.org)
+ * @author Cyrille Chopelet (https://keyboardplaying.org)
  * @see <a href="http://blog.mafr.de/2010/10/02/java-finding-package-cycles/">The inspirational blog post</a>
  */
 public class CyclicDependenciesTest {

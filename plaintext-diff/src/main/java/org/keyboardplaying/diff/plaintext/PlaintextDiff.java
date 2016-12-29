@@ -42,7 +42,7 @@ import java.util.regex.Pattern;
  * Class containing the diff, match and patch methods. Also contains the behaviour settings.
  *
  * @author fraser@google.com (Neil Fraser)
- * @author Cyrille Chopelet (http://keyboardplaying.org)
+ * @author Cyrille Chopelet (https://keyboardplaying.org)
  */
 public class PlaintextDiff {
 

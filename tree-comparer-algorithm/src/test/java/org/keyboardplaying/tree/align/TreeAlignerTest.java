@@ -33,7 +33,7 @@ import org.keyboardplaying.tree.util.NodeTestUtil;
 /**
  * Test class for {@link TreeAligner}.
  *
- * @author Cyrille Chopelet (http://keyboardplaying.org)
+ * @author Cyrille Chopelet (https://keyboardplaying.org)
  */
 public class TreeAlignerTest {
 

@@ -19,7 +19,7 @@ package org.keyboardplaying.tree.file.model;
 /**
  * An enum to qualify the type of a file system element.
  *
- * @author Cyrille Chopelet (http://keyboardplaying.org)
+ * @author Cyrille Chopelet (https://keyboardplaying.org)
  */
 public enum FileSystemElementType {
 

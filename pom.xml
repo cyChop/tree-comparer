@@ -85,7 +85,7 @@
   </ciManagement>
   <organization>
     <name>Keyboard Playing</name>
-    <url>http://keyboardplaying.org</url>
+    <url>https://keyboardplaying.org</url>
   </organization>
   <developers>
     <developer>
@@ -96,7 +96,7 @@
         <role>developer</role>
       </roles>
       <timezone>+1</timezone>
-      <url>http://keyboardplaying.org</url>
+      <url>https://keyboardplaying.org</url>
     </developer>
   </developers>
 </project>

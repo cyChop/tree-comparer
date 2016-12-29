@@ -25,7 +25,7 @@ import java.util.NoSuchElementException;
  * An object containing the different versions for a given node in the compared versions.
  *
  * @param <T> the type of node
- * @author Cyrille Chopelet (http://keyboardplaying.org)
+ * @author Cyrille Chopelet (https://keyboardplaying.org)
  */
 public class Variations<T> implements Iterable<T> {
 
@@ -156,7 +156,7 @@ public class Variations<T> implements Iterable<T> {
      * An {@link Iterator} implementation for {@link Variations}.
      *
      * @param <T> the type of node
-     * @author Cyrille Chopelet (http://keyboardplaying.org)
+     * @author Cyrille Chopelet (https://keyboardplaying.org)
      */
     static class VariationsIterator<T> implements Iterator<T> {
 

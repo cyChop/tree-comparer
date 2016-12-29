@@ -32,7 +32,7 @@ import org.keyboardplaying.tree.model.Variations.VariationsIterator;
 /**
  * Test class for {@link Variations}.
  *
- * @author Cyrille Chopelet (http://keyboardplaying.org)
+ * @author Cyrille Chopelet (https://keyboardplaying.org)
  */
 public class VariationsTest {
 

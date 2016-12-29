@@ -29,7 +29,7 @@ import java.util.List;
  * A class to produce a tree allowing for easy comparison of several trees.
  *
  * @param <T> the type of node content for the trees being aligned
- * @author Cyrille Chopelet (http://keyboardplaying.org)
+ * @author Cyrille Chopelet (https://keyboardplaying.org)
  */
 public class TreeAligner<T> {
 

@@ -26,7 +26,7 @@ import java.util.Collections;
  * <p/>
  * It will refuse a file as soon as one of the members of the composite refuses it, and accept any other.
  *
- * @author Cyrille Chopelet (http://keyboardplaying.org)
+ * @author Cyrille Chopelet (https://keyboardplaying.org)
  */
 public class CompositeFileFilter implements FileFilter {
 

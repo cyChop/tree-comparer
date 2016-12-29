@@ -29,7 +29,7 @@ import java.util.Objects;
  * There is no difference of implementation between nodes and leaves. A leaf will simply be a childless node.
  *
  * @param <T> the type of nodes for this tree
- * @author Cyrille Chopelet (http://keyboardplaying.org)
+ * @author Cyrille Chopelet (https://keyboardplaying.org)
  */
 public class Node<T> {
 

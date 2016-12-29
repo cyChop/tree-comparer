@@ -22,7 +22,7 @@ import java.io.FileFilter;
 /**
  * A {@link FileFilter} that accepts all files.
  *
- * @author Cyrille Chopelet (http://keyboardplaying.org)
+ * @author Cyrille Chopelet (https://keyboardplaying.org)
  */
 public class PassThroughFileFilter implements FileFilter {
 

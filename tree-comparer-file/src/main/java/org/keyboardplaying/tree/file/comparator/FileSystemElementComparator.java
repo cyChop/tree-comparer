@@ -25,13 +25,13 @@ import org.keyboardplaying.tree.model.Node;
 /**
  * A comparator for {@link FileSystemElement} nodes.
  *
- * @author Cyrille Chopelet (http://keyboardplaying.org)
+ * @author Cyrille Chopelet (https://keyboardplaying.org)
  */
 public class FileSystemElementComparator implements Comparator<Node<FileSystemElement>> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
      */
     @Override
