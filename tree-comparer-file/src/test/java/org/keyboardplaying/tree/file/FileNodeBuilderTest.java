@@ -79,7 +79,7 @@ public class FileNodeBuilderTest {
         child = iter.next();
         assertEquals(".htaccess", child.getContent().getName());
         assertEquals(FileSystemElementType.TEXT, child.getContent().getType());
-        assertEquals("0576fea54f83abd3fb459336e1dcf278", child.getContent().getChecksum());
+        assertEquals("692d1c94b50b9076398f67bd24e2f0f3", child.getContent().getChecksum());
 
         // 3rd child
         child = iter.next();
