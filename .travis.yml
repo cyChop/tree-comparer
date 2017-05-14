@@ -3,12 +3,11 @@ language: java
 addons:
   sonarqube:
     token: $SONARQUBE_TOKEN
+  branches:
+    - master
 
 jdk:
   - oraclejdk8
-
-before_script:
-  - "mvn clean install -Dmaven.test.skip=true"
 
 script:
   # the following command line builds the project, runs the tests with coverage and then execute the SonarQube analysis
