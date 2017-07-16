@@ -80,6 +80,6 @@ public class CompositeFileFilterTest {
         File file = new File("src/test/resources/version1/empty.log");
 
         /* Execute and assert */
-        assertTrue(new CompositeFileFilter(new ArrayList<FileFilter>()).accept(file));
+        assertTrue(new CompositeFileFilter(new ArrayList<>()).accept(file));
     }
 }

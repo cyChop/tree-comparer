@@ -1,7 +1,5 @@
 package org.keyboardplaying.tree.reporter;
 
-import com.sun.org.apache.regexp.internal.REProgram;
-
 /**
  * An exception the reporter may trigger.
  *

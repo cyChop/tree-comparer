@@ -137,7 +137,7 @@ class ChildrenAligner<T> {
             }
             // The child is null for this one
             line.add(null);
-            lineChildren.add(new ArrayList<Node<T>>());
+            lineChildren.add(new ArrayList<>());
             // Revert the iterator one step
             it.previous();
         }
@@ -149,7 +149,7 @@ class ChildrenAligner<T> {
             lineChildren.add(current.getChildren());
         } else {
             line.add(null);
-            lineChildren.add(new ArrayList<Node<T>>());
+            lineChildren.add(new ArrayList<>());
         }
     }
 

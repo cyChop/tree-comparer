@@ -17,7 +17,6 @@
 package org.keyboardplaying.tree.sort;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -57,7 +56,7 @@ public class NodeSorter<T> {
         }
 
         List<Node<T>> children = new ArrayList<>(node.getChildren());
-        Collections.sort(children, comparator);
+        children.sort(comparator);
         node.setChildren(children);
 
         for (Node<T> child : children) {

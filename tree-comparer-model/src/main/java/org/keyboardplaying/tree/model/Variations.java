@@ -49,7 +49,7 @@ public class Variations<T> implements Iterable<T> {
      */
     @SuppressWarnings("unchecked")
     public Variations(List<T> variations) {
-        this.array = (T[]) variations.toArray(new Object[variations.size()]);
+        this.array = (T[]) variations.toArray();
     }
 
     /**

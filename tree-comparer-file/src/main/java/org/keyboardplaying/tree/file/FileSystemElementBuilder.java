@@ -20,7 +20,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.rmi.UnexpectedException;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -91,7 +90,6 @@ public class FileSystemElementBuilder {
      *
      * @param file the {@link File} representation of the file
      * @return the {@link FileSystemElement} representation of the directory
-     * @throws IOException
      */
     public FileSystemElement buildFileElement(File file) throws IOException {
         return doBuildFileElement(file);
